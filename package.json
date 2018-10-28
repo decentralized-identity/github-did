@@ -1,0 +1,25 @@
+{
+  "name": "@transmute/github-did",
+  "version": "1.0.0",
+  "description": "``` mkdir vault chmod 700 ./vault ```",
+  "main": "index.js",
+  "scripts": {
+    "did:create": "node ./scripts/did/create.js",
+    "did:verify": "node ./scripts/did/verify.js",
+    "did:check": "node ./scripts/did/checkDIDs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transmute-industries/github-did.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/transmute-industries/github-did/issues"
+  },
+  "homepage": "https://github.com/transmute-industries/github-did#readme",
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "openpgp": "^2.6.2"
+  }
+}
