@@ -1,6 +1,6 @@
 # Github DID
 
-| This is experimental, not endorsed by Github, and under development.
+> This is experimental, not endorsed by Github, and under development.
 
 [![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did)
 
@@ -79,4 +79,11 @@ Using OpenPGP.js
 
 ```
 npm run did:verify ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.json ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.sig
+```
+
+#### Resolver
+
+```
+npm run did:resolver
+curl http://localhost:7000/1.0/identifiers/github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9
 ```

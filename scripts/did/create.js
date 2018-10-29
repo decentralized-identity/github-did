@@ -3,6 +3,8 @@
 const fs = require("fs-extra");
 const path = require("path");
 
+const { didMethod } = require("../../src/utils");
+
 const gpgPubKeyPath = path.resolve(process.cwd(), process.argv[2]);
 const gpgPubKey = fs
   .readFileSync(gpgPubKeyPath)
@@ -24,7 +26,6 @@ const formattedGPGFingerprint = gpgFingerprint
   .trim()
   .replace(/\s/g, "");
 
-const didMethod = `github.com:transmute-industries:github-did`;
 // console.log(formattedGPGFingerprint);
 const did = `${didMethod}:${formattedGPGFingerprint}`;
 

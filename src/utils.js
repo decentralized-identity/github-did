@@ -1,6 +1,9 @@
 const fs = require("fs");
 const openpgp = require("openpgp");
 
+const didMethod = `github.com:transmute-industries:github-did`;
+
+
 const verifyDIDDocumentWasSignedByID = async (
   didDocumentPath,
   didDocumentSignaturePath
@@ -39,5 +42,6 @@ const verifyDIDDocumentWasSignedByID = async (
 };
 
 module.exports = {
+  didMethod,
   verifyDIDDocumentWasSignedByID
 };
