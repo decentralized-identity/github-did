@@ -59,17 +59,17 @@ git push origin master
 
 ## Conclusion
 
-### The Goods
+### Positive
 
 - Free! No cost in USD or crypto to store DIDs.
 - Fast! Easy to resolve and update DID Documents.
 - Easy! Simple construction, using legacy crypto systems.
 - Ownable! Users can own their own DID repo.
 
-### The Bad
+### Negative
 
-- Censorable! Github or Network Adversaries can censor the resolver. 
-- Not Scalable! Keeping a copy with Git is probably not scalable.
+- Censorable! Github or network adversaries can censor the resolver. 
+- Not Scalable! Keeping a copy with git is probably not scalable.
 - Forkable! Leading to lots of duplication, confusion or stale documents...
 
 ### Further Reading
