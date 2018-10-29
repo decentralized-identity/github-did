@@ -18,6 +18,7 @@ http
       const did = req.url.split("/1.0/identifiers/")[1];
       const urlEncondedDID = encodeURIComponent(did);
       let docUrl = `https://raw.githubusercontent.com${repo}/master/dids/${urlEncondedDID}/didDocument.json`;
+      // should check sig here...
       request.get(docUrl).pipe(resp);
     }
   })

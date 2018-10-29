@@ -4,100 +4,78 @@
 
 [![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did)
 
-### Vault Directory
+## Getting Started
 
 ```
+git clone git@github.com:transmute-industries/github-did.git
+cd github-did
+npm i
 mkdir vault
 chmod 700 ./vault
 ```
 
-### GPG
-
-[Github Instructions](https://help.github.com/articles/generating-a-new-gpg-key/)
-
-#### Create a new key
-
-Be sure not to store PII here, DID Documents should not contain PII or keys which contain PII.
-
-Github integration may require you to violate this policy :(
+## Create your DID Keys
 
 ```
 gpg --full-generate-key
-```
-
-#### Export both public and private keys to vault directory
-
-```
 gpg --export -a "Alice" > ./vault/gpg.public.key
 gpg --export-secret-key -a "Alice" > ./vault/gpg.private.key
 gpg --fingerprint alice@example.com > ./vault/fingerprint
+
+ssh-keygen -t rsa -b 4096 -N "12345" -C "alice@example.com" -f ./vault/ssh
 ```
 
-### SSH
-
-[Github Instructions](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
-
-#### Create a new key
-
-```
-ssh-keygen -t rsa -b 4096 -C "alice@example.com" -
-```
-
-Select the vault directory: `./vault`
-
-### DID
-
-#### Create a new DID
-
-[W3C Spec](https://w3c-ccg.github.io/did-spec/)
+## Create your DID Document
 
 ```
 npm run did:create_document ./vault/gpg.public.key ./vault/ssh.pub ./vault/fingerprint
 ```
 
-#### Sign DID Document
+## Sign your DID Document
 
 ```
-gpg \
---detach-sig \
---armor \
--u 36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9 \
---output ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.sig \
---sign ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.json
+./scripts/shell/sign_did_document.sh $DID
 ```
 
-#### Verify DID Document Signature
+## Verify your DID Document
 
 ```
-gpg \
---verify ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.sig \
-./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.json
+./scripts/shell/verify_did_document.sh
 ```
 
-Using OpenPGP.js
+## Verify all DID Documents
 
 ```
-npm run did:verify ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.json ./dids/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9/didDocument.sig
+npm run did:check
 ```
 
-#### Resolver
+## Add your DID Document to git
 
 ```
-npm run did:resolver
-curl http://localhost:7000/1.0/identifiers/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9
+git add ./dids/
+git commit -m "adding my did documents"
+git push origin master
 ```
 
-#### Encrypt for DID
+## Conclusion
 
-```
-gpg -e \
--u 36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9 \
--r B36013F37EF1FDE335CBC6C63A200D73AB4F4AFA \
-README.md
-```
+### The Goods
 
-#### Decrypt for DID
+- Free! No cost in USD or crypto to store DIDs.
+- Fast! Easy to resolve and update DID Documents.
+- Easy! Simple construction, using legacy crypto systems.
+- Ownable! Users can own their own DID repo.
 
-```
-gpg -d README.md.gpg
-```
+### The Bad
+
+- Censorable! Github or Network Adversaries can censor the resolver. 
+- Not Scalable! Keeping a copy with Git is probably not scalable.
+- Forkable! Leading to lots of duplication, confusion or stale documents...
+
+### Further Reading
+
+[Generating a GPG Key for Github](https://help.github.com/articles/generating-a-new-gpg-key/)
+
+[Generating an SSH Key for Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+
+[Learn more about the W3C DID Spec](https://w3c-ccg.github.io/did-spec/)
