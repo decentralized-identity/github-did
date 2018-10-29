@@ -1,0 +1,4 @@
+{
+  "resource": "http://localhost:7000",
+  "actions": ["READ", "WRITE"]
+}
