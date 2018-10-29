@@ -27,7 +27,7 @@ const formattedGPGFingerprint = gpgFingerprint
   .replace(/\s/g, "");
 
 // console.log(formattedGPGFingerprint);
-const did = `${didMethod}:${formattedGPGFingerprint}`;
+const did = `did:${didMethod}:${formattedGPGFingerprint}`;
 
 const didDocument = `
 {
@@ -62,7 +62,7 @@ const didDocument = `
 
 const didDocumentPath = path.resolve(
   process.cwd(),
-  `./dids/did:${did}/didDocument.json`
+  `./dids/${did}/didDocument.json`
 );
 
 fs.outputFileSync(didDocumentPath, didDocument);

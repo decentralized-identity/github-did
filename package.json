@@ -4,10 +4,12 @@
   "description": "``` mkdir vault chmod 700 ./vault ```",
   "main": "index.js",
   "scripts": {
-    "did:create": "node ./scripts/did/create.js",
+    "did:create_document": "node ./scripts/did/create_document.js",
+    "did:sign": "node ./scripts/did/verify.js",
     "did:verify": "node ./scripts/did/verify.js",
     "did:check": "node ./scripts/did/checkDIDs.js",
-    "did:resolver": "node ./scripts/did/resolver.js"
+    "did:resolver": "node ./scripts/did/resolver.js",
+    "did:resolver:local": "node ./scripts/did/localResolver.js"
   },
   "repository": {
     "type": "git",

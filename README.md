@@ -28,9 +28,9 @@ gpg --full-generate-key
 #### Export both public and private keys to vault directory
 
 ```
-gpg --export -a "Tim Tim" > ./vault/gpg.public.key
-gpg --export-secret-key -a "Tim Tim" > ./vault/gpg.private.key
-gpg --fingerprint tim@example.com > ./vault/fingerprint
+gpg --export -a "Alice" > ./vault/gpg.public.key
+gpg --export-secret-key -a "Alice" > ./vault/gpg.private.key
+gpg --fingerprint alice@example.com > ./vault/fingerprint
 ```
 
 ### SSH
@@ -40,7 +40,7 @@ gpg --fingerprint tim@example.com > ./vault/fingerprint
 #### Create a new key
 
 ```
-ssh-keygen -t rsa -b 4096 -C "tim@example.com"
+ssh-keygen -t rsa -b 4096 -C "alice@example.com" -
 ```
 
 Select the vault directory: `./vault`
@@ -52,9 +52,8 @@ Select the vault directory: `./vault`
 [W3C Spec](https://w3c-ccg.github.io/did-spec/)
 
 ```
-npm run did:create ./vault/gpg.public.key ./vault/ssh.pub ./vault/fingerprint
+npm run did:create_document ./vault/gpg.public.key ./vault/ssh.pub ./vault/fingerprint
 ```
-
 
 #### Sign DID Document
 
@@ -85,5 +84,20 @@ npm run did:verify ./dids/did:github.com:transmute-industries:github-did:36BF2C3
 
 ```
 npm run did:resolver
-curl http://localhost:7000/1.0/identifiers/github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9
+curl http://localhost:7000/1.0/identifiers/did:github.com:transmute-industries:github-did:36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9
+```
+
+#### Encrypt for DID
+
+```
+gpg -e \
+-u 36BF2C3C2BED46B69EACA5840B9B6849A9DE4BE9 \
+-r B36013F37EF1FDE335CBC6C63A200D73AB4F4AFA \
+README.md
+```
+
+#### Decrypt for DID
+
+```
+gpg -d README.md.gpg
 ```

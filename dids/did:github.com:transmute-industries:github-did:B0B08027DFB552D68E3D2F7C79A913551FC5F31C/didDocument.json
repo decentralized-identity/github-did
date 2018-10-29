@@ -1,0 +1,29 @@
+
+{
+    "@context": "https://w3id.org/did/v1",
+    "id": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C",
+    "publicKey": [
+        {
+            "id": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C#keys-1",
+            "type": "RsaVerificationKey2018",
+            "owner": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C",
+            "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nComment: GPGTools - https://gpgtools.org\n\nmQENBFvWfb8BCAC9vvMR1HeGR9ygxCESfeSGb7sU6al/Y5qe9xSS/8oTi+J2FY+x\neo3xY3wa0Bb1P2oNxsai6EmE5h7y++7gR/OZgvs1MAJMWjoC47OXiDTqhtxeD1Gk\nrrTrSxoJ8Dgc7b4V8fcwQ7zcWlBOBkVLEYVUgbXUeT97ZBuTu9NfAInnnkI2R3Ez\na9l75OxKD79SF65vz0BJ80oNSMz6eRs2gQDAowp8qlRUBC3VWN5UYilUbcP8jQp9\nfB5KbCm/aZ0b57m/GDieHcZU6pDMNafHJZGPsvaUNeT+jhT5htcIwDJze4sHApgA\nbVHYbvVt3e2WjR7m68xU6aO1VnklwVM03ghNABEBAAG0GUFsaWNlIDxhbGljZUBl\neGFtcGxlLmNvbT6JAU4EEwEKADgWIQSwsIAn37VS1o49L3x5qRNVH8XzHAUCW9Z9\nvwIbAwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgAAKCRB5qRNVH8XzHGWfCACODYfS\nVQsaLz+eewnnym728rFyZYsXssv6sueV/vZ6CKuSrWGrlKM/H9pWiPFRb13JHtAm\nkWSvjv8/WqvHv/rkLWb6lURZtX4RIf8dc18Vs7yLBzSqK7poyv0alwXqEoEAddwc\nJFgEQVEuZxKCGzi1p3cOu8IqdWkxSvecXvqX1/so8EB4AkuwLUZggYlDp3Bm/E50\na2GDcY/esL6zjdq9Cj3js5PX5Y3XVr7PWg2US0bYfycgXh2a3MjbudBz3Z0qhpGY\nKl5qHjNFktijQsUJWN1MmzM6JWS7+YGGqswRGKUHXJfNh1UcSxRLW6/vvNsyViBC\n7QnzZJa/o4R8BbwLuQENBFvWfb8BCADJ/Hs8fWVV0/M4bS62nEuLP7q/ZJAbKacA\nu57IEuBJamZ9/kdnPalmSz3jCifn/Ly0fRf7ku+wEBDkeyarHoqNPZahyhtLoQRY\nnfK6rNMUZmLbEOv/YPFNRcD15UNHkDaQtTix9hb13aygpyMGz+6lczY3+EILHmbc\npyACQ9ljOBBeWDmxB0tzesgsAnIshbJHfkhFMusTY5BITCUR3WPbrVeHWHAVYdua\nC7dmDVdrrioiagsy3r7kiAHGx0Eswo+/0fz9jIbhJNdj9g1h1Mj+yTf2Hd2JJ3uU\nWQlKVIKeAqNfs3qOvrQAgYSPiSwi6MuSlNfk+WznW8KozHeJGPhXABEBAAGJATYE\nGAEKACAWIQSwsIAn37VS1o49L3x5qRNVH8XzHAUCW9Z9vwIbDAAKCRB5qRNVH8Xz\nHD5nB/9GJQ+qV5Kz0SqZiIeugT0B0Rc0pupc1+LAXFz5/1dfBoOi2Lqu3fwhf7I9\nmX1sF4jduXW4VKqP5wKpMaII+ioowsrSBmpsc5wpL/eJ0Cc6NCPIS6umTduG6Ioe\nWt2i131hI2lMnJhS7Qd+JVXOg3O8RM0ERBfiN5eM19EMKjTFHlahMzcvAgzCLyGQ\nqQL8SBRlSuzPEKb66OxwGk9Uu78DZ6RJozKOb0/+LXhNlCK2LNmmsv8qLNQGbau+\nCfAZgHGbSANg2JZ/j7BJ91joEXPjiQdJmjGWql6YBh6HdEdqOZBpFWSWv4CgVfES\nYof3olwBs6D3OgvD1xhZ0Wt5BRRz\n=pw3j\n-----END PGP PUBLIC KEY BLOCK-----"
+        },
+        {
+            "id": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C#keys-2",
+            "type": "RsaVerificationKey2018",
+            "owner": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C",
+            "publicKeyPem": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCmU0iepLIhCxOAXhRo+/mjw2tkMSKn09JjQM/JAdT47JYb9x8uxFxn+pUDaz0hEAiNI0YegqqbvE4oPQOAm7AUY3g9eA93xxu4Yagh4Ly7TUd/GM+iiLsNRfSHJQrNeA69BGZLv4NZw4w8oMT/SJMJ/+zNzGZDQ4FCptk3YL1Fu+zqrMbf7ldp8hlp2SHyPMoKNy9kdwQQEJi4QMDkJ4KW71xjs0zVBHSWS4UKxy1M7Xr1wxwThuO4AZwPfM6ovkIplGfKDH4auGgGjOs634wGJfm9sycBXo/ch/RdPTAKgMVCqcstvUgylmXJSQpdoCwBPWlJuP6B8lp+tLl32TIVrUnZuQ3fG63nVBWvDwf90uSWmHIljJnpkYCAweN5a/g2n+cynIajNbi0qPITh5wdC45FZkubwJHzMVYz0f9oXt5vXElzdeDcN8UlhxiaAZfSStyswNIYYCFd/VB2qoWxu9zpn2++CP4rdrPTWUjipKdUXxnpDuhoRNvecrXhhhoT5Hv6GBsRnQjLv27Q688QIDY9MAusDDephM2KhsHyLcdyH+zN8QJAB11jdLr00YGgnqP+bYglR9CzbI3VL3/yaYT1acNE0/nN3y4lqkPPXPVsesnjS+/h2ni0NeTZA/L4NHXJ4YRDA1rN1HKIcFdZI74JBrB2gkiQOY7xxbXucw== alice@example.com"
+        }
+    ],
+    "authentication": [
+        {
+            "type": "RsaSignatureAuthentication2018",
+            "publicKey": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C#keys-1"
+        },
+        {
+            "type": "RsaSignatureAuthentication2018",
+            "publicKey": "did:github.com:transmute-industries:github-did:B0B08027DFB552D68E3D2F7C79A913551FC5F31C#keys-2"
+        }
+    ]
+  }
