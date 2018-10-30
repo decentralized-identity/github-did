@@ -1,4 +1,16 @@
 {
-  "resource": "http://localhost:7000",
-  "actions": ["READ", "WRITE"]
+  "@context": ["https://example.org/ocap/v1", "https://autopower.example/"],
+  "id": "https://whatacar.example/a-fancy-car/proc/7a397d7b",
+
+  "parentCapability": "https://whatacar.example/a-fancy-car",
+
+  "invoker": "https://social.example/alyssa/#key-for-car",
+
+  "proof": {
+    "type": "RsaSignature2016",
+    "proofPurpose": "capabilityDelegation",
+    "created": "2016-02-08T16:02:20Z",
+    "creator": "https://whatacar.example/a-fancy-car#key-1",
+    "signatureValue": "IOmA4R7TfhkYTYW8...CBMq2/gi25s="
+  }
 }
