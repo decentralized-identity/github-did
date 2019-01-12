@@ -3,7 +3,6 @@ const openpgp = require("openpgp");
 
 const didMethod = `github.com:transmute-industries:github-did`;
 
-
 const verifyDIDDocumentWasSignedByID = async (
   didDocumentPath,
   didDocumentSignaturePath

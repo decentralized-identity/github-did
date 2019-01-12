@@ -1,9 +1,14 @@
 {
   "name": "@transmute/github-did",
-  "version": "1.0.0",
-  "description": "``` mkdir vault chmod 700 ./vault ```",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Github DID",
+  "bin": {
+    "ghdid": "./src/index.js"
+  },
   "scripts": {
+    "start": "npm run ghdid",
+    "ghdid": "node ./src/index.js",
+    "test": "jest ./src --coverage",
     "did:create_document": "node ./scripts/did/create_document.js",
     "did:sign": "node ./scripts/did/verify.js",
     "did:verify": "node ./scripts/did/verify.js",
@@ -22,8 +27,26 @@
   },
   "homepage": "https://github.com/transmute-industries/github-did#readme",
   "dependencies": {
+    "@transmute/openpgpsignature2019": "^0.1.0",
+    "@transmute/transmute-did": "^1.0.2-0",
+    "base64url": "^3.0.0",
     "fs-extra": "^7.0.0",
-    "openpgp": "^2.6.2",
-    "request": "^2.88.0"
+    "openpgp": "^4.4.3",
+    "request": "^2.88.0",
+    "vorpal": "^1.12.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "./setupJest.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js}"
+    ],
+    "testPathIgnorePatterns": [
+      "__fixtures__"
+    ]
   }
 }
