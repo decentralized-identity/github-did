@@ -39,7 +39,7 @@ vorpal
       });
     } else {
       const cwd = process.cwd();
-      const repoUrl = `git@github.com:${user}/${repo}.git`
+      const repoUrl = `git@github.com:${user}/${repo}.git`;
       const repoPath = path.resolve(os.homedir(), ".github-did", repo);
       const cmd = `
     if cd ${repoPath}; then git pull; else git clone ${repoUrl} ${repoPath}; fi
@@ -127,6 +127,24 @@ vorpal
     }
     return vorpal.wait(1);
   });
+
+vorpal.command("resolve <did>", "resolve a ghdid").action(async ({ did }) => {
+  const didDocument = await ghdid.resolver.resolve(did);
+  console.log(JSON.stringify(didDocument, null, 2));
+  await vorpal.logger.log({
+    level: "info",
+    message: `did resolved ${did}`
+  });
+  const verified = await ghdid.verify({
+    data: didDocument
+  });
+
+  await vorpal.logger.log({
+    level: "info",
+    message: `did verification ${verified} ${did}`
+  });
+  return vorpal.wait(1);
+});
 
 vorpal.command("version", "display github-did version").action(async args => {
   await vorpal.logger.log({
