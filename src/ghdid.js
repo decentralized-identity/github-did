@@ -7,7 +7,7 @@ const {
 } = require("@transmute/transmute-did");
 
 const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
-const openpgp = require("@transmute/openpgpsignature2019/node_modules/openpgp");
+const openpgp = require("openpgp");
 
 const getJson = async url => {
   const data = await (await fetch(url, {

@@ -1,7 +1,7 @@
 const ghdid = require("../ghdid");
 
 const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
-const openpgp = require("@transmute/openpgpsignature2019/node_modules/openpgp");
+const openpgp = require("openpgp");
 
 const fixtures = require("./__fixtures__");
 const kid = Object.keys(fixtures.wallet.data.keystore)[0];
