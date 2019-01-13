@@ -1,6 +1,6 @@
 {
   "name": "@transmute/github-did",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Github DID",
   "bin": {
     "ghdid": "./src/index.js"
