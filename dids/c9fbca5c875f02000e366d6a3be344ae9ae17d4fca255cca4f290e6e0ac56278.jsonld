@@ -1,0 +1,26 @@
+{
+  "@context": "https://w3id.org/did/v1",
+  "id": "did:ghdid:transmute-industries~github-did~c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278",
+  "publicKey": [
+    {
+      "id": "did:ghdid:transmute-industries~github-did~c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278#kid=c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278",
+      "type": "OpenPgpSignature2019",
+      "owner": "did:ghdid:transmute-industries~github-did~c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278",
+      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXDqPVxMFK4EEAAoCAwQ22JuKLOw0REjgH3KPldvpQLyPbevO6nd/vs/h\r\nUyBgRDFhB66eam0Kg0K/bFspd7EqBQf5sg4MjtW2g+UlMNuAzRMiYWRtaW5A\r\nZXhhbXBsZS5jb20iwncEEBMIAB8FAlw6j1cGCwkHCAMCBBUICgIDFgIBAhkB\r\nAhsDAh4BAAoJEAKAEURTnsoMRkwA/iVOAAKI3nJaAFvCc/ZUH5O2f4a398GC\r\nmnINzkeoxjZ2AP99+1gQrkNc2iv80C+V1XkU9JIqRC83DnZV8t7CpQpfNc5T\r\nBFw6j1cSBSuBBAAKAgMENtibiizsNERI4B9yj5Xb6UC8j23rzup3f77P4VMg\r\nYEQxYQeunmptCoNCv2xbKXexKgUH+bIODI7VtoPlJTDbgAMBCAfCYQQYEwgA\r\nCQUCXDqPVwIbDAAKCRACgBFEU57KDBDXAQCThJg8Bgn5FRnVVcQUFPN8va9Q\r\n55kND0r6NMGfMYravgEA03PRh5VACrXnLCxqIC3ApoShEcsasNxTjNcKkvoq\r\nUZE=\r\n=PfHV\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n"
+    }
+  ],
+  "authentication": [
+    {
+      "publicKey": "did:ghdid:transmute-industries~github-did~c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278#kid=c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278",
+      "type": "OpenPgpSignature2019"
+    }
+  ],
+  "proof": {
+    "type": "OpenPgpSignature2019",
+    "creator": "did:ghdid:transmute-industries~github-did~c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278#kid=c9fbca5c875f02000e366d6a3be344ae9ae17d4fca255cca4f290e6e0ac56278",
+    "domain": "github-did",
+    "nonce": "ad4310cc304539858b9224cbd95109ab",
+    "created": "2019-01-13T01:07:36.545Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlw6j1kACgkQAoARRFOeygztFwD/UD7d2yuixy/5Lzl9syYk\r\nPnLRioPG9RcJ/nZh5UZXZFgBAL8xf8ujBXGbruwk0ex29C1hBsxO+m9HMIDp\r\nHWu0iiHt\r\n=43tF\r\n-----END PGP SIGNATURE-----\r\n"
+  }
+}

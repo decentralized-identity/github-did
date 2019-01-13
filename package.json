@@ -29,12 +29,11 @@
   "dependencies": {
     "@transmute/openpgpsignature2019": "^0.1.1",
     "@transmute/transmute-did": "^1.0.2-0",
-    "base64url": "^3.0.0",
     "fs-extra": "^7.0.1",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",
-    "request": "^2.88.0",
     "shelljs": "^0.8.3",
+    "uuid": "^3.3.2",
     "vorpal": "^1.12.0",
     "winston": "^3.1.0"
   },

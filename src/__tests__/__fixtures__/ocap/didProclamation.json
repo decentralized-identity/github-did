@@ -1,0 +1,7 @@
+{
+  "@context": ["https://w3id.org/did/v0.11", "http://schema.org"],
+  "id": "did:ocap:server-authorize-alice",
+  "parentCapability": "did:server",
+  "invoker": "did:alice#key0",
+  "caveat": []
+}

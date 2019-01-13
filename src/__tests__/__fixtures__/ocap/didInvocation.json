@@ -1,0 +1,10 @@
+{
+  "@context": ["https://w3id.org/did/v0.11", "http://schema.org"],
+  "id": "did:test:dummyUploadsFileWithInvocationOfCapability",
+  "type": "Invocation",
+  "proclamation": "did:test:aliceCanTransportBiohazard",
+  "invocationTarget": "server",
+  "method": "UploadFile",
+  "usingKey": "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e#kid=8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e",
+  "file": "encoded...."
+}

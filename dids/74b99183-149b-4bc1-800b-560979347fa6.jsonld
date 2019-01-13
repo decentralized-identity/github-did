@@ -1,0 +1,14 @@
+{
+  "@context": ["https://w3id.org/did/v0.11", "http://schema.org"],
+  "id": "did:ghdid:transmute-industries~github-did~74b99183-149b-4bc1-800b-560979347fa6",
+  "action": "upload",
+  "proof": {
+    "type": "OpenPgpSignature2019",
+    "creator": "did:ghdid:transmute-industries~github-did~f3b3f869f844ff1bc18b59b41d9064a792cc699d5512d8f98d75d5ece623b28c#kid=f3b3f869f844ff1bc18b59b41d9064a792cc699d5512d8f98d75d5ece623b28c",
+    "domain": "github-did",
+    "nonce": "36fb7dd384d9dec943642530b0d694af",
+    "created": "2019-01-13T02:12:41.225Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlw6npoACgkQnWPBTMCVBq6z1QD9HTxtU2/SdZ/x1z/VM8jw\r\ns5yWxPlTd9lYWQDiNGER2oYA/38eEbSboCIKlxnoXw6OBWhEOHV0fVXDuKSm\r\nA3uv9eMm\r\n=szl8\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "capability": "did:ghdid:transmute-industries~github-did~6cea3a32-f817-4116-a844-fa2371285ba2"
+}
