@@ -45,11 +45,10 @@
       "./setupJest.js"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js}"
+      "src/ghdid.js"
     ],
     "testPathIgnorePatterns": [
-      "__fixtures__",
-      "attic"
+      "__fixtures__"
     ]
   }
 }

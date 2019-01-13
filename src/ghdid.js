@@ -101,10 +101,42 @@ const getUnlockedPrivateKey = async (armoredPrivateKey, passphrase) => {
     await privateKey.decrypt(passphrase);
     return privateKey;
   } catch (e) {
-    if (e.message === "Key packet is already decrypted.") {
-      return privateKey;
-    }
+    return privateKey;
   }
+};
+
+const verifyCapability = async ({ did, capabilityResolver }) => {
+  // console.log("verifying: ", did);
+
+  if (!capabilityResolver) {
+    capabilityResolver = resolver;
+  }
+
+  const data = await capabilityResolver.resolve(did);
+
+  const verified = await verify({
+    data
+  });
+
+  if (!verified) {
+    return false;
+  }
+  // console.log("verified: ", verified);
+  if (data.capability) {
+    return verifyCapability({
+      did: data.capability,
+      capabilityResolver
+    });
+  }
+  if (data.parentCapability) {
+    return verifyCapability({
+      did: data.parentCapability,
+      capabilityResolver
+    });
+  }
+  // we ended on a did document
+
+  return data.publicKey.length !== undefined;
 };
 
 module.exports = {
@@ -112,8 +144,10 @@ module.exports = {
   getUnlockedPrivateKey,
   createDID,
   didToDIDDocumentURL,
+  getJson,
   createDIDWallet,
   sign,
   verify,
+  verifyCapability,
   resolver
 };

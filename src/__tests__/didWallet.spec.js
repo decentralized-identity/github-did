@@ -12,14 +12,6 @@ const {
 } = require("@transmute/transmute-did");
 
 describe("ghdid", () => {
-  let privateKey;
-  beforeAll(async () => {
-    privateKey = (await openpgp.key.readArmored(
-      fixtures.wallet.data.keystore[kid].data.privateKey
-    )).keys[0];
-    await privateKey.decrypt(fixtures.passphrase);
-  });
-
   it("can create a wallet", async () => {
     const newWallet = await ghdid.createDIDWallet({
       email: fixtures.email,
@@ -31,14 +23,36 @@ describe("ghdid", () => {
   it("can sign and verify DID Document", async () => {
     const signed = await ghdid.sign({
       data: fixtures.didDocument,
-      creator: constructDIDPublicKeyID(fixtures.didDocument.id, kid),
-      privateKey
+      creator: fixtures.ocap.dids.alice.didDocument.publicKey[0].id,
+      privateKey: await ghdid.getUnlockedPrivateKey(
+        fixtures.ocap.dids.alice.wallet.data.keystore[
+          fixtures.ocap.dids.alice.didDocument.publicKey[0].id.split("#kid=")[1]
+        ].data.privateKey,
+        "password"
+      )
     });
     const verified = await ghdid.verify({
       data: signed
     });
     expect(signed.proof.domain).toBe("github-did");
     expect(verified).toBe(true);
+  });
+
+  it("can handle unlocked private keys without error", async () => {
+    const privateKey = (await openpgp.key.readArmored(
+      fixtures.wallet.data.keystore[kid].data.privateKey
+    )).keys[0];
+    await privateKey.decrypt(fixtures.passphrase);
+
+    const signed = await ghdid.sign({
+      data: fixtures.didDocument,
+      creator: fixtures.ocap.dids.alice.didDocument.publicKey[0].id,
+      privateKey: await ghdid.getUnlockedPrivateKey(
+        privateKey.armor(),
+        fixtures.passphrase
+      )
+    });
+    expect(signed.toBeDefined);
   });
 
   it("can verify with wallet resolver", async () => {

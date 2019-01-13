@@ -2,9 +2,9 @@ const uuidv4 = require("uuid/v4");
 const fse = require("fs-extra");
 const path = require("path");
 
-const ghdid = require("../ghdid");
+const ghdid = require("../../ghdid");
 
-const fixtures = require("./__fixtures__");
+const fixtures = require("../__fixtures__");
 
 describe("ghdid", () => {
   it("create capability", async () => {
@@ -90,4 +90,5 @@ describe("ghdid", () => {
     //   JSON.stringify(signed, null, 2)
     // );
   });
+
 });

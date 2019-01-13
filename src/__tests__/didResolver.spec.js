@@ -1,17 +1,18 @@
 const ghdid = require("../ghdid");
-const fixtures = require("./__fixtures__");
+
+const did =
+  "did:ghdid:transmute-industries~github-did~4d606898-7505-4bfd-a6da-e40d02795b41";
 
 describe("ghdid", () => {
   it("can resolve a did", async () => {
-    const resolvedDocumet = await ghdid.resolver.resolve(
-      fixtures.didDocument.id
-    );
-    expect(resolvedDocumet).toEqual(fixtures.didDocumentWithProof);
+    const resolvedDocumet = await ghdid.resolver.resolve(did);
+    expect(resolvedDocumet.id).toEqual(did);
   });
 
   it("can verify with resolver", async () => {
+    const resolvedDocumet = await ghdid.resolver.resolve(did);
     const verified = await ghdid.verify({
-      data: fixtures.didDocumentWithProof
+      data: resolvedDocumet
     });
     expect(verified).toBe(true);
   });
