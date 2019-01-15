@@ -21,19 +21,15 @@ npm i @transmute/github-did --save
 
 ## Motivation
 
-The `ghdid` method is meant to make working with DIDs very simple at the cost of trusting github for assisting in resolving DID Documents.
+The `ghdid` method is meant to make working with DIDs very simple at the cost of trusting Github.com for assisting in resolving DID Documents.
 
 Many developers are familar with Github, and its 2 supported public key cryptosystems, GPG and SSH.
 
-Linked Data Signatures are difficult to work with when operating a server or running a local node of some distributed system is a requirement.
+Linked Data Signatures are difficult to work with when operating a server or running a local node of some distributed system / blockchain is a requirement.
 
-The objective of Github DID is to encourage contribution to the [DID Spec](https://w3c-ccg.github.io/did-spec/) and [Linked Data Signatures](https://w3c-dvcg.github.io/ld-signatures).
+The objective of Github DID is to encourage contribution to the [DID Spec](https://w3c-ccg.github.io/did-spec/) and [Linked Data Signatures](https://w3c-dvcg.github.io/ld-signatures), and allow rapid development of extensions to these without requiring the use of slow, or complicated more trustless infrastructure, such as blockchains or other distributed systems.
 
-## Help Wanted
-
-The DID Spec is long, and this project does not fully support a DID implementation. If you would like to contribute, or have questions about DIDs, please feel free to open an issue.
-
-#### Getting Started
+## Getting Started
 
 ```
 ghdid init alice@example.com yolo
@@ -165,6 +161,10 @@ The Linked Data Signature Spec is still evolving, and you may find cases where a
 
 If you would like to develop a new signature suite, like the ones we propose such as `OpenPgpSignature2019` and  `EcdsaKoblitzSignature2019`, make sure to make it clear that it is a `PROPOSAL`, and get it registered once its clearly documented, has test coverage, and supports at least the fields described in [terminology](https://w3c-dvcg.github.io/ld-signatures/#terminology).
 
+
+#### Help Wanted
+
+The DID Spec is long, and this project does not fully support a DID implementation. If you would like to contribute, or have questions about DIDs, please feel free to open an issue or a PR.
 
 ### Development
 
