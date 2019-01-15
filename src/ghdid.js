@@ -24,11 +24,17 @@ const createDID = (method, user, repo, kid) => {
 };
 
 const didToDIDDocumentURL = did => {
-  const parts = did.split(":");
-  const idParts = parts[2].split("~");
+  const [_, method, identifier] = did.split(":");
+  if (_ !== "did") {
+    throw new Error("Invalid DID");
+  }
+  if (method !== "ghdid") {
+    throw new Error("Invalid ghdid");
+  }
+  const [username, repo, kid] = identifier.split("~");
   const base = "https://raw.githubusercontent.com/";
   const didRepoDir = "/master/dids";
-  return `${base}${idParts[0]}/${idParts[1]}${didRepoDir}/${idParts[2]}.jsonld`;
+  return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
 };
 
 const createDIDWallet = async ({ email, passphrase }) => {
@@ -135,7 +141,6 @@ const verifyCapability = async ({ did, capabilityResolver }) => {
     });
   }
   // we ended on a did document
-
   return data.publicKey.length !== undefined;
 };
 
