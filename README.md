@@ -139,21 +139,21 @@ For example:
 
 ### How do Linked Data Signatures work?
 
-They provide authentication for JSON-LD Documents, prooving that a DID has signed the document, by attachign a signature which can be verified by resolving the DID Document. Linked Data Signatures are currently being developed and standardized, here's how they typically work.
+They provide authentication for JSON-LD Documents, prooving that a DID has signed the document, by attaching a signature which can be verified by resolving the DID Document. Linked Data Signatures are currently being developed and standardized, here's how they typically work:
 
-When a user wants to sign a json-ld document, they ensure that the public key corrosponding to their private key is listed in their did document. In the document above, the public key is in `publicKeyPem` format and as an `id` which will become the `creator` attribute on the signed linked data.
+When a user wants to sign a json-ld document, they ensure that the public key corrosponding to their private key is listed in their did document. In the document above, the public key is in `publicKeyPem` format and has an `id` which will become the `creator` attribute on the signed linked data. In other systems, such as `ActivityPub` used by Mastodon, DIDs are URLs, but the principle of retrieving cryptographic material from a downloaded json document is the same. 
 
-Next a string that will be signed is created from the document and the signatureOptions, which can include properties like `nonce`, `domain`, `type`, `creator`, etc... This step is called [createVerifyData](https://w3c-dvcg.github.io/ld-signatures/#create-verify-hash-algorithm).
+Next a string that will be signed is created from the document and the `signatureOptions`, which can include properties like `nonce`, `domain`, `type`, `creator`, etc... This step is called [createVerifyData](https://w3c-dvcg.github.io/ld-signatures/#create-verify-hash-algorithm).
 
-This step ensures that a json document can be converted to the same hash regardless of the language (python, haskell, go, javascript, etc...). The most common cannonization algorithm is [URDNA2015](https://json-ld.github.io/normalization/spec/index.html).
+Create Verify Data ensures that a json document can be converted to the same hash regardless of the language (python, haskell, go, javascript, etc...). The most common cannonization algorithm is [URDNA2015](https://json-ld.github.io/normalization/spec/index.html).
 
 You can see how it is used in [Mastodon](https://github.com/tootsuite/mastodon/blob/cabdbb7f9c1df8007749d07a2e186bb3ad35f62b/app/lib/activitypub/linked_data_signature.rb#L19).
 
 Here is the method used in the [OpenPgpSignature2019](https://github.com/transmute-industries/PROPOSAL-OpenPgpSignature2019/blob/master/src/common.js) Proposal. 
 
-The final string to be signed is of the following format: `${optionsHash}${documentHash}`.
+The final string to be signed is of the following format: `${optionsHash}${documentHash}`. Sometimes a signature algorithm will hash this again, be careful to ensure your implementation can verify and generate signatures that are compatible with existing implementations.
 
-When verifying a linked data signature, first the signing key is retrieved from the `creator` attribute, if the its a url, this is done over http, if its a keyId in a DID, a DID Resolver is used. Once the key is available the signatureValue in the `proof` or `signature` can be verified. Often some encoding transforms are required before the signature can be verified, for example `RsaSignature2017` and `EcdsaKoblitzSignature2016` use `base64` encoding of the result of the signature algorithm. 
+When verifying a linked data signature, first the signing key is retrieved from the `creator` attribute, either over https or using a DID Resolver. Once the key is available the signatureValue in the `proof` or `signature` can be verified. Often some encoding transforms are required before the signature can be verified, for example `RsaSignature2017` and `EcdsaKoblitzSignature2016` use `base64` encoding of the result of the signature algorithm. Beware that [`base64` != `base64url`](http://websecurityinfo.blogspot.com/2017/06/base64-encoding-vs-base64url-encoding.html), which is commonly used with JWTs.
 
 ### Danger / Fun
 

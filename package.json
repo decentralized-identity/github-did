@@ -9,19 +9,13 @@
   "scripts": {
     "start": "npm run ghdid",
     "ghdid": "node ./src/index.js",
-    "test": "jest --coverage -- ",
-    "did:create_document": "node ./scripts/did/create_document.js",
-    "did:sign": "node ./scripts/did/verify.js",
-    "did:verify": "node ./scripts/did/verify.js",
-    "did:check": "node ./scripts/did/checkDIDs.js",
-    "did:resolver": "node ./scripts/did/resolver.js",
-    "did:resolver:local": "node ./scripts/did/localResolver.js"
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/transmute-industries/github-did.git"
   },
-  "author": "",
+  "author": "Orie Steele",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/transmute-industries/github-did/issues"
@@ -39,6 +33,7 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
+    "codecov": "^3.1.0",
     "jest": "^23.6.0"
   },
   "jest": {
