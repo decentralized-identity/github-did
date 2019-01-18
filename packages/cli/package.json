@@ -1,7 +1,9 @@
 {
   "name": "@github-did/cli",
-  "version": "0.1.4",
+  "version": "0.0.0",
   "description": "Github DID",
+  "author": "Orie Steele",
+  "license": "Apache-2.0",
   "bin": {
     "ghdid": "./src/index.js"
   },
@@ -15,8 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/transmute-industries/github-did.git"
   },
-  "author": "Orie Steele",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/transmute-industries/github-did/issues"
   },
@@ -24,7 +24,7 @@
   "dependencies": {
     "@transmute/openpgpsignature2019": "^0.1.1",
     "@transmute/transmute-did": "^1.0.2-0",
-    "@github-did/lib": "0.1.0",
+    "@github-did/lib": "0.0.0",
     "fs-extra": "^7.0.1",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",

@@ -1,6 +1,6 @@
 {
-  "name": "did-box",
-  "license": "MIT",
+  "name": "github-did",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "deploy": "firebase deploy",

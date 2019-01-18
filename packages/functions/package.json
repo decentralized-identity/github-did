@@ -2,6 +2,8 @@
   "name": "@github-did/functions",
   "version": "0.1.0",
   "description": "Cloud Functions for Github DID",
+  "author": "Orie Steele",
+  "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint ./src",
     "test": "jest --coverage",
@@ -12,7 +14,7 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "@github-did/lib": "^0.1.0",
+    "@github-did/lib": "^0.0.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "firebase": "^5.7.3",

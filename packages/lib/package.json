@@ -1,6 +1,6 @@
 {
   "name": "@github-did/lib",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Github DID Library",
   "main": "./src/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/transmute-industries/github-did.git"
   },
   "author": "Orie Steele",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/transmute-industries/github-did/issues"
   },
