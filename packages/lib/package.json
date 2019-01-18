@@ -1,0 +1,40 @@
+{
+  "name": "@github-did/lib",
+  "version": "0.1.0",
+  "description": "Github DID Library",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transmute-industries/github-did.git"
+  },
+  "author": "Orie Steele",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/transmute-industries/github-did/issues"
+  },
+  "homepage": "https://github.com/transmute-industries/github-did#readme",
+  "dependencies": {
+    "@transmute/openpgpsignature2019": "^0.1.1",
+    "@transmute/transmute-did": "^1.0.2-0",
+    "node-fetch": "^2.3.0",
+    "openpgp": "^4.4.3",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "./setupJest.js"
+    ],
+    "collectCoverageFrom": [
+      "src/index.js"
+    ],
+    "testPathIgnorePatterns": [
+      "__fixtures__"
+    ]
+  }
+}
