@@ -15,6 +15,14 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
+        "source": "/.well-known/**",
+        "function": "main"
+      },
+      {
+        "source": "/api/**",
+        "function": "main"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did) [![codecov](https://codecov.io/gh/transmute-industries/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/transmute-industries/github-did) [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/transmute-industries/github-did/blob/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/transmute-industries/github-did.svg?style=social&label=Fork&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did#fork-destination-box) [![GitHub stars](https://img.shields.io/github/stars/transmute-industries/github-did.svg?style=social&label=Star&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did/stargazers)
 
 - ### [Website](https://github-did.com)
-- ### [Swagger](https://us-central1-github-did.cloudfunctions.net/API/docs)
+- ### [Swagger](https://github-did.com/api/docs)
 
-##### This is experimental, not endorsed by Github, and under development.
+### 🚧 This is experimental, not endorsed by Github, and under development. 🚧
 
 > Decentralized Identifiers (DIDs) are a new type of identifier for verifiable, "self-sovereign" digital identity. DIDs are fully under the control of the DID subject, independent from any centralized registry, identity provider, or certificate authority. DIDs are URLs that relate a DID subject to means for trustable interactions with that subject. DIDs resolve to DID Documents — simple documents that describe how to use that specific DID. Each DID Document contains at least three things: cryptographic material, authentication suites, and service endpoints. Cryptographic material combined with authentication suites provide a set of mechanisms to authenticate as the DID subject (e.g., public keys, pseudonymous biometric protocols, etc.). Service endpoints enable trusted interactions with the DID subject.
 
@@ -177,7 +177,7 @@ npm run lint
 npm run test
 ```
 
-##### [Local API Docs](http://localhost:5000/github-did/us-central1/API/docs)
+##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/api/docs)
 
 ## Setup Steps
 

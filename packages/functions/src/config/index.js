@@ -16,14 +16,13 @@ const getBaseConfig = () => {
     config = require(localConfig);
   }
 
-  return config.did_box || exampleConfig.did_box;
+  return config.github_did || exampleConfig.github_did;
 };
 
 const getBaseHost = () => {
   switch (getBaseConfig().env) {
-    case 'staging':
-      return 'us-central1-did-box.cloudfunctions.net';
-    case 'local':
+    case 'production':
+      return 'github-did.com';
     default:
       return 'localhost:5000';
   }
@@ -32,10 +31,9 @@ const getBaseHost = () => {
 const getBasePath = () => {
   switch (getBaseConfig().env) {
     case 'production':
-      return '/v1/';
-    case 'local':
+      return '/api/v1';
     default:
-      return `/${process.env.GCLOUD_PROJECT}/us-central1/${process.env.FUNCTION_NAME}/v1/`;
+      return `/${process.env.GCLOUD_PROJECT}/us-central1/${process.env.FUNCTION_NAME}/api/v1`;
   }
 };
 
