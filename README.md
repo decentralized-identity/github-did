@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did) [![codecov](https://codecov.io/gh/transmute-industries/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/transmute-industries/github-did) [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/transmute-industries/github-did/blob/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/transmute-industries/github-did.svg?style=social&label=Fork&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did#fork-destination-box) [![GitHub stars](https://img.shields.io/github/stars/transmute-industries/github-did.svg?style=social&label=Star&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did/stargazers)
 
-- ### [Website](https://github-did.com)
-- ### [Swagger](https://github-did.com/api/docs)
+### [Website](https://github-did.com) &middot; [Swagger](https://github-did.com/api/docs)
 
 ### 🚧 This is experimental, not endorsed by Github, and under development. 🚧
 
