@@ -1,15 +1,18 @@
 # Github DID
 
-[![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did) [![codecov](https://codecov.io/gh/transmute-industries/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/transmute-industries/github-did)
+[![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did) [![codecov](https://codecov.io/gh/transmute-industries/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/transmute-industries/github-did) [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/transmute-industries/github-did/blob/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/transmute-industries/github-did.svg?style=social&label=Fork&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did#fork-destination-box) [![GitHub stars](https://img.shields.io/github/stars/transmute-industries/github-did.svg?style=social&label=Star&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did/stargazers)
 
-##### This is experimental, not endorsed by Github, and under development.
+- ### [Website](https://github-did.com)
+- ### [Swagger](https://github-did.com/api/docs)
+
+### 🚧 This is experimental, not endorsed by Github, and under development. 🚧
 
 > Decentralized Identifiers (DIDs) are a new type of identifier for verifiable, "self-sovereign" digital identity. DIDs are fully under the control of the DID subject, independent from any centralized registry, identity provider, or certificate authority. DIDs are URLs that relate a DID subject to means for trustable interactions with that subject. DIDs resolve to DID Documents — simple documents that describe how to use that specific DID. Each DID Document contains at least three things: cryptographic material, authentication suites, and service endpoints. Cryptographic material combined with authentication suites provide a set of mechanisms to authenticate as the DID subject (e.g., public keys, pseudonymous biometric protocols, etc.). Service endpoints enable trusted interactions with the DID subject.
 
 ### Install CLI
 
 ```
-npm i -g @transmute/github-did 
+npm i -g @transmute/github-did
 ```
 
 ### Install Library
@@ -17,7 +20,6 @@ npm i -g @transmute/github-did
 ```
 npm i @transmute/github-did --save
 ```
-
 
 ## Motivation
 
@@ -59,13 +61,12 @@ If you wish to use our repo, you must open a pull request instead.
 Now that your `DID Document` is on Github in the correct repo, you can use the `ghdid` did method resolver, and linked data signature verification libraries.
 
 ```
-ghdid resolve did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e
+ghdid resolve did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a
 ```
 
 This will resolve the DID to a DID Document by using Github and https.
 
 The signature for the DID Document will be checked.
-
 
 ### What is a DID Method?
 
@@ -111,28 +112,28 @@ For example:
 ```json
 {
   "@context": "https://w3id.org/did/v1",
-  "id": "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e",
+  "id": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
   "publicKey": [
     {
-      "id": "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e#kid=8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e",
+      "id": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a#kid=1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
       "type": "OpenPgpSignature2019",
-      "owner": "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e",
-      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.0.1\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXDo53RMFK4EEAAoCAwQ22JuKLOw0REjgH3KPldvpQLyPbevO6nd/vs/h\nUyBgRDFhB66eam0Kg0K/bFspd7EqBQf5sg4MjtW2g+UlMNuAzRMiYWxpY2VA\nZXhhbXBsZS5jb20iwncEEBMIACkFAlw6Od0GCwkHCAMCCRA/03d/CzwNKwQV\nCAoCAxYCAQIZAQIbAwIeAQAARVEBANrQ9hjBRec22DvJ67hsk+539ooBV16t\nKLCOPAE89nU3AQCYeKyulra02CR4SQaKSqkt9Zd2ZDqAGkpRcpGep34HiM5T\nBFw6Od0SBSuBBAAKAgMENtibiizsNERI4B9yj5Xb6UC8j23rzup3f77P4VMg\nYEQxYQeunmptCoNCv2xbKXexKgUH+bIODI7VtoPlJTDbgAMBCAfCYQQYEwgA\nEwUCXDo53QkQP9N3fws8DSsCGwwAANBPAP9/lUus9vaB/l9Uc4IS8uizYHHL\neJbkD0+kuIsvRy6JEgD/dZ+DipZF2DM3jiRnuf/9/7bccDSSwsDgTBHn9OIi\n0qc=\r\n=NNnu\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n\r\n"
+      "owner": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
+      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXDqOxhMFK4EEAAoCAwQ22JuKLOw0REjgH3KPldvpQLyPbevO6nd/vs/h\r\nUyBgRDFhB66eam0Kg0K/bFspd7EqBQf5sg4MjtW2g+UlMNuAzRMiYWxpY2VA\r\nZXhhbXBsZS5jb20iwncEEBMIAB8FAlw6jsYGCwkHCAMCBBUICgIDFgIBAhkB\r\nAhsDAh4BAAoJEPwxTLocb2BmC2YA+gONpQ3zIBtHR5uxFGwLTVliYwxz5CcD\r\nNfHPz7q+Z+WzAQCuCyYtkwu3y28HhT6YWVm2EQuVnUw6PRgsITeMUTTsWs5T\r\nBFw6jsYSBSuBBAAKAgMENtibiizsNERI4B9yj5Xb6UC8j23rzup3f77P4VMg\r\nYEQxYQeunmptCoNCv2xbKXexKgUH+bIODI7VtoPlJTDbgAMBCAfCYQQYEwgA\r\nCQUCXDqOxgIbDAAKCRD8MUy6HG9gZlq4AQCV3m/C5VI6meml0AHpWCFd9Rlj\r\nwsosaak1gsd+aawnGgEA95414FwaqMWVVbq7hWBHtBOHJiL5ezHxKmEhL7K9\r\nrf8=\r\n=ViJn\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n"
     }
   ],
   "authentication": [
     {
-      "publicKey": "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e#kid=8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e",
+      "publicKey": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a#kid=1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
       "type": "OpenPgpSignature2019"
     }
   ],
   "proof": {
     "type": "OpenPgpSignature2019",
-    "creator": "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e#kid=8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e",
+    "creator": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a#kid=1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
     "domain": "github-did",
-    "nonce": "14917f9f7b591cf13ec52dd5d1fc2f93",
-    "created": "2019-01-12T19:32:45.415Z",
-    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlw6QN4ACgkQP9N3fws8DSus2QEAiyLiERPrUgBgnZ5V3fUd\r\nFixkUhzk4DvoKfFLeQfBxFkBAIUwuDyIfAYoslCaZaGhxcvDbso4eqIYb9HD\r\n0ZY0DZn/\r\n=LbnT\r\n-----END PGP SIGNATURE-----\r\n"
+    "nonce": "2102e5883aa896c49d205405808a184f",
+    "created": "2019-01-13T01:05:11.774Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlw6jsgACgkQ/DFMuhxvYGZGLwEAoSZjSgX9QRBscjHNNpR0\r\nGiIrIrF3W+ixFlCTUCIBqlABAJHApKcMekuQrsq7SNY4vlH2W3vklp9lW7S7\r\nHpLvULmp\r\n=BHgj\r\n-----END PGP SIGNATURE-----\r\n"
   }
 }
 ```
@@ -141,7 +142,7 @@ For example:
 
 They provide authentication for JSON-LD Documents, prooving that a DID has signed the document, by attaching a signature which can be verified by resolving the DID Document. Linked Data Signatures are currently being developed and standardized, here's how they typically work:
 
-When a user wants to sign a json-ld document, they ensure that the public key corrosponding to their private key is listed in their did document. In the document above, the public key is in `publicKeyPem` format and has an `id` which will become the `creator` attribute on the signed linked data. In other systems, such as `ActivityPub` used by Mastodon, DIDs are URLs, but the principle of retrieving cryptographic material from a downloaded json document is the same. 
+When a user wants to sign a json-ld document, they ensure that the public key corrosponding to their private key is listed in their did document. In the document above, the public key is in `publicKeyPem` format and has an `id` which will become the `creator` attribute on the signed linked data. In other systems, such as `ActivityPub` used by Mastodon, DIDs are URLs, but the principle of retrieving cryptographic material from a downloaded json document is the same.
 
 Next a string that will be signed is created from the document and the `signatureOptions`, which can include properties like `nonce`, `domain`, `type`, `creator`, etc... This step is called [createVerifyData](https://w3c-dvcg.github.io/ld-signatures/#create-verify-hash-algorithm).
 
@@ -149,7 +150,7 @@ Create Verify Data ensures that a json document can be converted to the same has
 
 You can see how it is used in [Mastodon](https://github.com/tootsuite/mastodon/blob/cabdbb7f9c1df8007749d07a2e186bb3ad35f62b/app/lib/activitypub/linked_data_signature.rb#L19).
 
-Here is the method used in the [OpenPgpSignature2019](https://github.com/transmute-industries/PROPOSAL-OpenPgpSignature2019/blob/master/src/common.js) Proposal. 
+Here is the method used in the [OpenPgpSignature2019](https://github.com/transmute-industries/PROPOSAL-OpenPgpSignature2019/blob/master/src/common.js) Proposal.
 
 The final string to be signed is of the following format: `${optionsHash}${documentHash}`. Sometimes a signature algorithm will hash this again, be careful to ensure your implementation can verify and generate signatures that are compatible with existing implementations.
 
@@ -157,23 +158,47 @@ When verifying a linked data signature, first the signing key is retrieved from 
 
 ### Danger / Fun
 
-The Linked Data Signature Spec is still evolving, and you may find cases where a signature type such as `EcdsaKoblitzSignature2016` is claimed to be used, but where the signatures cannot be verified with libraries such as [jsonld-signatures](https://github.com/digitalbazaar/jsonld-signatures). This is often due to a lack of understanding regarding Linked Data Signature `type` field. This field should match a value in the [ld-cryptosuite-registry](https://w3c-ccg.github.io/ld-cryptosuite-registry/). Unfortunatly, this registry is very out of date and does not even contain `RsaSignature2017` used by Mastodon, which is probably the mostly widely used signature suite. This can cause developers to make up their own signature type and that will work fine so long as they are the only system verifying and signing. Doing this weakens the JSON-LD Signature spec, making it harder for developers to know what `EcdsaKoblitzSignature2016` means, please don't make this worse. 
+The Linked Data Signature Spec is still evolving, and you may find cases where a signature type such as `EcdsaKoblitzSignature2016` is claimed to be used, but where the signatures cannot be verified with libraries such as [jsonld-signatures](https://github.com/digitalbazaar/jsonld-signatures). This is often due to a lack of understanding regarding Linked Data Signature `type` field. This field should match a value in the [ld-cryptosuite-registry](https://w3c-ccg.github.io/ld-cryptosuite-registry/). Unfortunatly, this registry is very out of date and does not even contain `RsaSignature2017` used by Mastodon, which is probably the mostly widely used signature suite. This can cause developers to make up their own signature type and that will work fine so long as they are the only system verifying and signing. Doing this weakens the JSON-LD Signature spec, making it harder for developers to know what `EcdsaKoblitzSignature2016` means, please don't make this worse.
 
-If you would like to develop a new signature suite, like the ones we propose such as `OpenPgpSignature2019` and  `EcdsaKoblitzSignature2019`, make sure to make it clear that it is a `PROPOSAL`, and get it registered once its clearly documented, has test coverage, and supports at least the fields described in [terminology](https://w3c-dvcg.github.io/ld-signatures/#terminology).
-
+If you would like to develop a new signature suite, like the ones we propose such as `OpenPgpSignature2019` and `EcdsaKoblitzSignature2019`, make sure to make it clear that it is a `PROPOSAL`, and get it registered once its clearly documented, has test coverage, and supports at least the fields described in [terminology](https://w3c-dvcg.github.io/ld-signatures/#terminology).
 
 #### Help Wanted
 
 The DID Spec is long, and this project does not fully support a DID implementation. If you would like to contribute, or have questions about DIDs, please feel free to open an issue or a PR.
 
-### Development
+## Development
+
+See `.travis.yml`.
 
 ```
 npm i
-npm run ghdid init alice@example.com yolo
+npm run bootstrap
+npm run lint
+npm run test
 ```
 
-### W3 Links
+##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/api/docs)
+
+## Setup Steps
+
+- [Sign up for a Box personal account](https://box.com)
+- [Create a new Custom app usng OAuth2 with JWT](https://developer.box.com/docs/authentication-types-and-security#section-oauth-2-with-jwt)
+- [Sign up for a Firebase personal account](http://console.firebase.google.com)
+
+```
+npm i -g firebase-tools lerna
+firebase login
+firebase init
+lerna init
+```
+
+- Update firebase.json to support lerna folder structure.
+- [Enable Cloud Firestore](https://stackoverflow.com/questions/46582180/error-http-error-400-project-my-project-is-not-a-firestore-enabled-project)
+
+- [Configure Firebase Web SDK](https://firebase.google.com/docs/web/setup)
+- [Configure Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
+
+### Related Work
 
 - https://w3c-ccg.github.io/did-spec/
 - https://w3c-dvcg.github.io/ld-signatures

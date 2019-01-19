@@ -1,4 +1,3 @@
-vault
 node_modules
-attic
-coverage
+.firebase
+secrets

@@ -1,0 +1,45 @@
+{
+  "name": "@github-did/functions",
+  "version": "0.0.0",
+  "description": "Cloud Functions for Github DID",
+  "author": "Orie Steele",
+  "license": "Apache-2.0",
+  "scripts": {
+    "lint": "eslint ./src",
+    "test": "jest --coverage",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "@github-did/lib": "^0.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "firebase": "^5.7.3",
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.1.0",
+    "swagger-jsdoc": "^3.2.6",
+    "swagger-ui-express": "^4.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": "8"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-security": "^1.4.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "__fixtures__",
+      "./src/__tests__/box"
+    ]
+  }
+}
