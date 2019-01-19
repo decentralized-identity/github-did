@@ -177,13 +177,7 @@ npm run lint
 npm run test
 ```
 
-##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/api/docs)
-
-## Setup Steps
-
-- [Sign up for a Box personal account](https://box.com)
-- [Create a new Custom app usng OAuth2 with JWT](https://developer.box.com/docs/authentication-types-and-security#section-oauth-2-with-jwt)
-- [Sign up for a Firebase personal account](http://console.firebase.google.com)
+##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/docs)
 
 ```
 npm i -g firebase-tools lerna
