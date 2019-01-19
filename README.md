@@ -191,6 +191,12 @@ lerna init
 - [Configure Firebase Web SDK](https://firebase.google.com/docs/web/setup)
 - [Configure Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
 
+Commercial Support
+------------------
+
+Commercial support for this library is available upon request from
+Transmute: support@transmute.industries.
+
 ### Related Work
 
 - https://w3c-ccg.github.io/did-spec/
