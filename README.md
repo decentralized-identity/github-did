@@ -11,13 +11,13 @@
 ### Install CLI
 
 ```
-npm i -g @transmute/github-did
+npm i -g @github-did/cli
 ```
 
 ### Install Library
 
 ```
-npm i @transmute/github-did --save
+npm i @github-did/lib --save
 ```
 
 ## Motivation
