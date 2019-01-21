@@ -2,6 +2,8 @@ const express = require('express');
 const didLib = require('../../../lib/did');
 const { getBasePath } = require('../../../config');
 
+const logger = require('../../../lib/winston');
+
 const router = express.Router();
 
 /**
@@ -49,6 +51,7 @@ router.get('/', async (req, res, next) => {
         },
       ],
     };
+    logger.info(`webfinger ${did}`);
     res.status(200).json(result);
   } catch (e) {
     next(e);

@@ -2,6 +2,9 @@
 
 Firebase Cloud Functions for Github DID
 
+##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/docs)
+
+
 ## Setting Environment Variables
 
 ```

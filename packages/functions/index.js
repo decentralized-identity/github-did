@@ -1,8 +1,9 @@
 const express = require('express');
-
+const morgan = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const winston = require('./src/lib/winston');
 
 const pack = require('./package.json');
 
@@ -18,6 +19,7 @@ const onErrorResponse = require('./src/express/onErrorResponse');
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
 app.use(express.json());
+app.use(morgan('combined', { stream: winston.stream }));
 app.options('*', cors({ origin: true }));
 
 // API Definition.
@@ -37,10 +39,7 @@ const swaggerDoc = swaggerJSDoc({
     basePath: getBasePath(),
   },
   // Path to the API docs
-  apis: [
-    './src/express/routes/**/*/index.js',
-    './src/express/routes/.well-known/webfinger.js',
-  ],
+  apis: ['./src/express/routes/**/*/index.js', './src/express/routes/.well-known/webfinger.js'],
 });
 
 // 404 Middleware
