@@ -172,6 +172,57 @@ vorpal.command("logs", "display logs").action(async args => {
   return vorpal.wait(1);
 });
 
+const fetch = require('node-fetch');
+const openpgp = require('openpgp');
+
+vorpal.command("sendMessageOnSlack <password> <didTo> <message>", "send an encrypted message on Slack")
+  .action(async ({ password, didTo, message }) => {
+    // Recover the wallet and get my private key
+    const walletFilePath = path.resolve(os.homedir(), ".github-did", "wallet.json");
+    const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
+    const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
+    await wallet.decrypt(password);
+    const primaryKid = Object.keys(wallet.data.keystore)[0];
+    const { privateKey } = wallet.data.keystore[primaryKid].data;
+    const privateKeyObj = (await openpgp.key.readArmored(privateKey)).keys;
+
+    // Get public key of didTo
+    const didDocumentTo = await ghdid.resolver.resolve(didTo);
+    const publicKey = didDocumentTo.publicKey[0].publicKeyPem;
+    const publicKeyObj = (await openpgp.key.readArmored(publicKey)).keys;
+
+    // Create encrypted message
+    const encryptedMessage = (await openpgp.encrypt({
+      message: openpgp.message.fromText(message),
+      publicKeys: publicKeyObj,
+      privateKeys: privateKeyObj,
+    })).data;
+
+    // Send message on Slack
+    const didFrom = ghdid.createDID("ghdid", user, repo, primaryKid);
+    const body = {
+      type: 'github-did message',
+      didFrom,
+      didTo,
+      message: encryptedMessage,
+    };
+    const text = '```' + JSON.stringify(body, null, 2) + '```';
+    const webhook = 'https://hooks.slack.com/services/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';
+    await fetch(webhook, {
+      method: 'post',
+      body: JSON.stringify({ text }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    // const decryptedMessage = (await openpgp.decrypt({
+    //   message: await openpgp.message.readArmored(encryptedMessage),    // parse armored message
+    //   publicKeys: publicKeyObj,
+    //   privateKeys: privateKeyObj,
+    // })).data;
+
+    return vorpal.wait(1);
+  });
+
 vorpal.parse(process.argv);
 if (process.argv.length == 0) {
   vorpal.delimiter("🐙 ").show();
