@@ -33,8 +33,11 @@ const [user, repo] = repository.url
 
 // TODO: merge with init
 vorpal
-  .command("addKey <password> <tag>", "add a key to your wallet")
+  .command("addKey <password> [tag]", "add a key to your wallet")
   .action(async ({ password, tag }) => {
+    if (!tag) {
+      tag = 'main';
+    }
     if (!vorpal.config) {
       logger.log({
         level: "info",
