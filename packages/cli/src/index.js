@@ -129,48 +129,8 @@ vorpal
       });
       shell.config.silent = silentState; // restore old silent state
 
-      const tag = 'main';
+      // Create an empty wallet
       const wallet = await ghdid.createWallet();
-      await ghdid.addKeyWithTag({
-        wallet,
-        passphrase: password,
-        tag
-      });
-
-      const kid = Object.keys(wallet.data.keystore)[0];
-      const did = ghdid.createDID("ghdid", user, repo, kid);
-
-      const didDocument = await wallet.toDIDDocumentByTag({
-        did,
-        tag,
-      });
-
-      const signedDIDDocument = await ghdid.sign({
-        data: didDocument.data,
-        creator: ghdid.constructDIDPublicKeyID(didDocument.data.id, kid),
-        privateKey: await ghdid.getUnlockedPrivateKey(
-          wallet.data.keystore[kid].data.privateKey,
-          password
-        )
-      });
-
-      await fse.outputFile(
-        path.resolve(
-          os.homedir(),
-          ".github-did",
-          repo,
-          "dids",
-          `${kid}.jsonld`
-        ),
-        JSON.stringify(
-          {
-            ...signedDIDDocument
-          },
-          null,
-          2
-        )
-      );
-
       await wallet.encrypt(password);
 
       await fse.outputFile(
