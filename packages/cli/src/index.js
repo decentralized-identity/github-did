@@ -30,11 +30,10 @@ const [user, repo] = repository.url
   .split(".")[0]
   .split("/");
 
-// TODO: remove email
 // TODO: merge with init
 vorpal
-  .command("addKey <email> <password> <tag>", "add a key to your wallet")
-  .action(async ({ email, password, tag }) => {
+  .command("addKey <password> <tag>", "add a key to your wallet")
+  .action(async ({ password, tag }) => {
     if (!vorpal.config) {
       logger.log({
         level: "info",
@@ -48,7 +47,6 @@ vorpal
       await wallet.decrypt(password);
       const kid = await ghdid.addKeyWithTag({
         wallet,
-        email,
         passphrase: password,
         tag
       });
@@ -106,8 +104,8 @@ vorpal
   });
 
 vorpal
-  .command("init <email> <password>", "initialize github-did")
-  .action(async ({ email, password }) => {
+  .command("init <password>", "initialize github-did")
+  .action(async ({ password }) => {
     if (vorpal.config) {
       logger.log({
         level: "info",
@@ -141,7 +139,6 @@ vorpal
       const wallet = await ghdid.createWallet();
       await ghdid.addKeyWithTag({
         wallet,
-        email: email,
         passphrase: password,
         tag
       });
@@ -192,7 +189,6 @@ vorpal
         JSON.stringify(
           {
             name: "github-did-config",
-            email: email,
             version,
             wallet: walletFilePath,
             logs: logPath
