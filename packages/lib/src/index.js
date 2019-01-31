@@ -2,8 +2,10 @@ const fetch = require("node-fetch");
 
 const {
   createWallet,
+  TransmuteDIDWallet,
   constructDIDPublicKeyID,
-  DIDLinkedDataSignatureVerifier
+  DIDLinkedDataSignatureVerifier,
+  openpgpExtensions,
 } = require("@transmute/transmute-did");
 
 const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
@@ -37,8 +39,7 @@ const didToDIDDocumentURL = did => {
   return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
 };
 
-const createDIDWallet = async ({ email, passphrase }) => {
-  const wallet = await createWallet();
+const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
   const keypair = await openpgp.generateKey({
     userIds: [
       {
@@ -56,7 +57,7 @@ const createDIDWallet = async ({ email, passphrase }) => {
     },
     "assymetric",
     {
-      tags: ["OpenPgpSignature2019", "PROPOSAL"],
+      tags: ["OpenPgpSignature2019", "PROPOSAL", tag],
       notes: "Created for Github DID",
       did: {
         publicKey: true,
@@ -66,7 +67,6 @@ const createDIDWallet = async ({ email, passphrase }) => {
       }
     }
   );
-  return wallet;
 };
 
 const resolver = {
@@ -145,14 +145,17 @@ const verifyCapability = async ({ did, capabilityResolver }) => {
 };
 
 module.exports = {
+  createWallet,
+  TransmuteDIDWallet,
   constructDIDPublicKeyID,
   getUnlockedPrivateKey,
   createDID,
   didToDIDDocumentURL,
   getJson,
-  createDIDWallet,
+  addKeyWithTag,
   sign,
   verify,
+  openpgpExtensions,
   verifyCapability,
   resolver
 };

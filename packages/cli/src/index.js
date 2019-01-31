@@ -62,16 +62,21 @@ vorpal
         "wallet.json"
       );
 
-      const wallet = await ghdid.createDIDWallet({
+      const tag = 'main';
+      const wallet = await ghdid.createWallet();
+      await ghdid.addKeyWithTag({
+        wallet,
         email: email,
-        password: password
+        passphrase: password,
+        tag
       });
 
       const kid = Object.keys(wallet.data.keystore)[0];
+      const did = ghdid.createDID("ghdid", user, repo, kid);
 
-      const didDocument = await wallet.toDIDDocument({
-        did: ghdid.createDID("ghdid", user, repo, kid),
-        cacheLocal: true
+      const didDocument = await wallet.toDIDDocumentByTag({
+        did,
+        tag,
       });
 
       const signedDIDDocument = await ghdid.sign({
