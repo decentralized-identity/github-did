@@ -30,6 +30,81 @@ const [user, repo] = repository.url
   .split(".")[0]
   .split("/");
 
+// TODO: remove email
+// TODO: merge with init
+vorpal
+  .command("addKey <email> <password> <tag>", "add a key to your wallet")
+  .action(async ({ email, password, tag }) => {
+    if (!vorpal.config) {
+      logger.log({
+        level: "info",
+        message: `You should init your wallet first`
+      });
+    } else {
+      // TODO: global variable?
+      const walletFilePath = path.resolve(os.homedir(), ".github-did", "wallet.json");
+      const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
+      const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
+      await wallet.decrypt(password);
+      const kid = await ghdid.addKeyWithTag({
+        wallet,
+        email,
+        passphrase: password,
+        tag
+      });
+
+      const did = ghdid.createDID("ghdid", user, repo, kid);
+
+      const didDocument = await wallet.toDIDDocumentByTag({
+        did,
+        tag,
+      });
+
+      const signedDIDDocument = await ghdid.sign({
+        data: didDocument.data,
+        creator: ghdid.constructDIDPublicKeyID(didDocument.data.id, kid),
+        privateKey: await ghdid.getUnlockedPrivateKey(
+          wallet.data.keystore[kid].data.privateKey,
+          password
+        )
+      });
+
+      // Update DID Document
+      await fse.outputFile(
+        path.resolve(
+          os.homedir(),
+          ".github-did",
+          repo,
+          "dids",
+          `${kid}.jsonld`
+        ),
+        JSON.stringify(
+          {
+            ...signedDIDDocument
+          },
+          null,
+          2
+        )
+      );
+
+      const kidsByTag = Object.values(wallet.data.keystore)
+        .filter(key => key.meta.tags.includes(tag))
+        .map(key => key.kid);
+      await wallet.encrypt(password);
+
+      // Update wallet
+      await fse.outputFile(
+        walletFilePath,
+        JSON.stringify(wallet.data, null, 2)
+      );
+      logger.log({
+        level: "info",
+        message: `Wallet saved. Kids stored for the tag ${tag} are ${kidsByTag}`,
+      });
+    }
+    return vorpal.wait(1);
+  });
+
 vorpal
   .command("init <email> <password>", "initialize github-did")
   .action(async ({ email, password }) => {

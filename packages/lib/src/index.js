@@ -50,7 +50,7 @@ const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
     passphrase: passphrase
   });
 
-  await wallet.addKey(
+  return wallet.addKey(
     {
       publicKey: keypair.publicKeyArmored,
       privateKey: keypair.privateKeyArmored
