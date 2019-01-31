@@ -19,6 +19,7 @@ const { version, repository } = require("../package.json");
 const logPath = path.resolve(os.homedir(), ".github-did", "log.json");
 
 const configPath = path.resolve(os.homedir(), ".github-did", "config.json");
+const walletFilePath = path.resolve(os.homedir(), ".github-did", "wallet.json");
 
 if (fse.existsSync(configPath)) {
   vorpal.config = require(configPath);
@@ -41,7 +42,6 @@ vorpal
       });
     } else {
       // TODO: global variable?
-      const walletFilePath = path.resolve(os.homedir(), ".github-did", "wallet.json");
       const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
       const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
       await wallet.decrypt(password);
@@ -128,12 +128,6 @@ vorpal
         // console.log("Program stderr:", stderr);
       });
       shell.config.silent = silentState; // restore old silent state
-
-      const walletFilePath = path.resolve(
-        os.homedir(),
-        ".github-did",
-        "wallet.json"
-      );
 
       const tag = 'main';
       const wallet = await ghdid.createWallet();
@@ -254,7 +248,6 @@ const openpgp = require('openpgp');
 vorpal.command("sendMessageOnSlack <password> <didTo> <message>", "send an encrypted message on Slack")
   .action(async ({ password, didTo, message }) => {
     // Recover the wallet and get my private key
-    const walletFilePath = path.resolve(os.homedir(), ".github-did", "wallet.json");
     const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
     const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
     await wallet.decrypt(password);
