@@ -247,14 +247,42 @@ vorpal.command("sendMessageOnSlack <password> <didTo> <message>", "send an encry
       headers: { 'Content-Type': 'application/json' },
     });
 
-    // const decryptedMessage = (await openpgp.decrypt({
-    //   message: await openpgp.message.readArmored(encryptedMessage),    // parse armored message
-    //   publicKeys: publicKeyObj,
-    //   privateKeys: privateKeyObj,
-    // })).data;
+    return vorpal.wait(1);
+  });
+
+vorpal.command("decrypt <password>", "send an encrypted message on Slack")
+  .action(async ({ password }) => {
+    const out = path.resolve('./out.json');
+    const json = JSON.parse(fse.readFileSync(out));
+    const { didFrom, didTo, message } = json;
+
+    // Get public key of sender
+    const didDocumentFrom = await ghdid.resolver.resolve(didFrom);
+    const publicKey = didDocumentFrom.publicKey[0].publicKeyPem;
+    const publicKeyObj = (await openpgp.key.readArmored(publicKey)).keys[0];
+
+    // Get wallet of recipient
+    const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
+    const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
+    await wallet.decrypt(password);
+
+    // Get private key of recipient
+    const didDocumentTo = await ghdid.resolver.resolve(didTo);
+    const kid = didTo.split('~github-did~')[1];
+    const { privateKey } = wallet.data.keystore[kid].data;
+    const privateKeyObj = (await openpgp.key.readArmored(privateKey)).keys[0];
+    await privateKeyObj.decrypt(password);
+
+    const decryptedMessage = (await openpgp.decrypt({
+      // TODO: ciphertext instead of message?
+      message: await openpgp.message.readArmored(message),    // parse armored message
+      publicKeys: publicKeyObj,
+      privateKeys: privateKeyObj,
+    })).data;
 
     return vorpal.wait(1);
   });
+
 
 vorpal.parse(process.argv);
 if (process.argv.length == 0) {
