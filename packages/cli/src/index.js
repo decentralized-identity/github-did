@@ -283,6 +283,7 @@ vorpal.command("decrypt <password>", "send an encrypted message on Slack")
       publicKeys: publicKeyObj,
       privateKeys: privateKeyObj,
     })).data;
+    console.log(`🙈 ${decryptedMessage}`);
 
     return vorpal.wait(1);
   });
