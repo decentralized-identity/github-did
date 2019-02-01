@@ -1,4 +1,7 @@
 const fetch = require("node-fetch");
+const path = require("path");
+const os = require("os");
+const fse = require("fs-extra");
 
 const {
   createWallet,
@@ -12,6 +15,7 @@ const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
 const openpgp = require("openpgp");
 
 const getJson = async url => {
+  // TODO: remove await
   const data = await (await fetch(url, {
     method: "get",
     headers: {
@@ -69,10 +73,21 @@ const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
   );
 };
 
+const resolveLocally = did => {
+  const kid = did.split('~github-did~')[1];
+  const didFile = `${kid}.jsonld`;
+  const localRepoPath = path.resolve(os.homedir(), ".github-did/github-did/dids", didFile);
+  const didDocument = JSON.parse(fse.readFileSync(localRepoPath).toString());
+  return didDocument
+};
+
 const resolver = {
   resolve: did => {
     const url = didToDIDDocumentURL(did);
-    return getJson(url);
+    return getJson(url)
+      .catch(() => {
+        return resolveLocally(did);
+      });
   }
 };
 
