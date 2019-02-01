@@ -88,6 +88,10 @@ vorpal
           2
         )
       );
+      logger.log({
+        level: "info",
+        message: `Created did document for ${did}`,
+      });
 
       const kidsByTag = Object.values(wallet.data.keystore)
         .filter(key => key.meta.tags.includes(tag))
@@ -101,7 +105,7 @@ vorpal
       );
       logger.log({
         level: "info",
-        message: `Wallet saved. Kids stored for the tag ${tag} are ${kidsByTag}`,
+        message: `Keys for tag "${tag}" stored in the wallet are\n${kidsByTag.map(kid => kid + '\n')}`,
       });
     }
     return vorpal.wait(1);
