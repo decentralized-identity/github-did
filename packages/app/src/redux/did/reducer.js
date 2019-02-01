@@ -1,15 +1,19 @@
 import { handleActions } from 'redux-actions';
 
-import { didResolved } from './actions';
+import { didResolved, set } from './actions';
 
 const initialState = {
   version: 0,
+  resolving: false,
   dids: {},
-  boxExploreTokens: {},
 };
 
 export default handleActions(
   {
+    [set]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
     [didResolved]: (state, { payload }) => ({
       ...state,
       ...payload,

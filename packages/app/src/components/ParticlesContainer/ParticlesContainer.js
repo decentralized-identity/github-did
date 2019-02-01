@@ -9,6 +9,9 @@ class ParticlesContainer extends Component {
         className="Particles"
         params={{
           fps_limit: 28,
+          color: {
+            value: '#000',
+          },
           particles: {
             number: {
               value: 200,

@@ -9,11 +9,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import did from '../did';
+import snackbar from '../snackbar';
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 const rootReducer = {
   did: did.reducer,
+  snackbar: snackbar.reducer,
   router: connectRouter(history),
 };
 

@@ -20,7 +20,8 @@ class App extends Component {
             <ConnectedRouter history={history}>
               <Switch>
                 <Route exact path="/" render={() => <Pages.Landing />} />
-                <Route render={() => <div>Miss</div>} />
+                <Route exact path="/resolver" render={() => <Pages.Resolver />} />
+                <Route render={() => <Pages.NotFound />} />
               </Switch>
             </ConnectedRouter>
           </PersistGate>
