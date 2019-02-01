@@ -5,6 +5,9 @@ const fse = require("fs-extra");
 const vorpal = require("vorpal")();
 const shell = require("shelljs");
 const ghdid = require("@github-did/lib");
+const fetch = require('node-fetch');
+const openpgp = require('openpgp');
+
 const logger = require("./logger");
 vorpal.logger = logger;
 
@@ -31,7 +34,6 @@ const [user, repo] = repository.url
   .split(".")[0]
   .split("/");
 
-// TODO: merge with init
 vorpal
   .command("addKey <password> [tag]", "add a key to your wallet")
   .action(async ({ password, tag }) => {
@@ -44,7 +46,6 @@ vorpal
         message: `You should init your wallet first`
       });
     } else {
-      // TODO: global variable?
       const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
       const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
       await wallet.decrypt(password);
@@ -205,29 +206,29 @@ vorpal.command("logs", "display logs").action(async args => {
   return vorpal.wait(1);
 });
 
-const fetch = require('node-fetch');
-const openpgp = require('openpgp');
-
 vorpal.command("sendMessageOnSlack <password> <didTo> <message>", "send an encrypted message on Slack")
   .action(async ({ password, didTo, message }) => {
     // Recover the wallet and get my private key
     const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
     const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
     await wallet.decrypt(password);
-    const primaryKid = Object.keys(wallet.data.keystore)[0];
+    const primaryKid = Object.values(wallet.data.keystore)
+      .filter(key => key.meta.tags.includes('main'))
+      .map(key => key.kid)[0];
     const { privateKey } = wallet.data.keystore[primaryKid].data;
-    const privateKeyObj = (await openpgp.key.readArmored(privateKey)).keys;
+    const privateKeyObj = (await openpgp.key.readArmored(privateKey)).keys[0];
+    await privateKeyObj.decrypt(password);
 
     // Get public key of didTo
     const didDocumentTo = await ghdid.resolver.resolve(didTo);
     const publicKey = didDocumentTo.publicKey[0].publicKeyPem;
-    const publicKeyObj = (await openpgp.key.readArmored(publicKey)).keys;
+    const publicKeyObj = (await openpgp.key.readArmored(publicKey)).keys[0];
 
     // Create encrypted message
     const encryptedMessage = (await openpgp.encrypt({
       message: openpgp.message.fromText(message),
-      publicKeys: publicKeyObj,
-      privateKeys: privateKeyObj,
+      publicKeys: [publicKeyObj],
+      privateKeys: [privateKeyObj],
     })).data;
 
     // Send message on Slack
