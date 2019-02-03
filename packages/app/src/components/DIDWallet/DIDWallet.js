@@ -37,6 +37,7 @@ class DIDWallet extends Component {
     });
   };
 
+  // eslint-disable-next-line
   handleChange = name => (event) => {
     this.setState({
       isWalletLockDialogOpen: true,
