@@ -10,5 +10,12 @@ export { default as GithubDIDDocument } from './GithubDIDDocument';
 
 export { default as ExpansionPanelList } from './ExpansionPanelList';
 export { default as DIDWallet } from './DIDWallet';
+export { default as DIDSigner } from './DIDSigner';
+export { default as DIDVerifer } from './DIDVerifer';
+
+export { default as DIDEncrypter } from './DIDEncrypter';
+export { default as DIDDecrypter } from './DIDDecrypter';
+
+export { default as DisplayPayloadDialog } from './DisplayPayloadDialog';
 
 export { default as Pages } from './Pages';

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
-import CodeIcon from '@material-ui/icons/Code';
 
-import { Home, Code } from '@material-ui/icons';
+import {
+  Home, Code, Star, VpnKey, Fingerprint, Search, Lock,
+} from '@material-ui/icons';
 
 import MenuSection from './MenuSection';
 
@@ -19,9 +20,25 @@ const DrawerContent = ({ classes }) => (
           link: '/',
         },
         {
-          label: 'Resolver',
-          icon: <Code />,
+          label: 'Resolve',
+          icon: <Search />,
           link: '/resolver',
+        },
+
+        {
+          label: 'Sign',
+          icon: <Fingerprint />,
+          link: '/sign/new',
+        },
+        {
+          label: 'Encrypt',
+          icon: <Lock />,
+          link: '/encrypt/new',
+        },
+        {
+          label: 'Wallet',
+          icon: <VpnKey />,
+          link: '/wallet',
         },
       ]}
     />
@@ -30,8 +47,13 @@ const DrawerContent = ({ classes }) => (
       items={[
         {
           label: 'Source',
-          icon: <CodeIcon />,
+          icon: <Code />,
           link: 'https://github.com/transmute-industries/github-did',
+        },
+        {
+          label: 'Credits',
+          icon: <Star />,
+          link: '/credits',
         },
       ]}
     />

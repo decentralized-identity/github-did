@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
-import { red, blue, green } from '@material-ui/core/colors';
+import {
+  grey,
+  deepPurple,
+  green,
+  red,
+  indigo,
+  purple,
+  // amber,
+  // blue,
+  // yellow,
+  // blueGrey,
+} from '@material-ui/core/colors';
 
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 
@@ -11,7 +22,7 @@ import { Pages } from '../../index';
 class Landing extends Component {
   state = {
     mobile: false,
-    isCarouselOpen: false,
+    isCarouselOpen: !localStorage.getItem('hasClosedTour'),
   };
 
   componentWillMount() {
@@ -48,6 +59,19 @@ class Landing extends Component {
     /* eslint-enable */
   }
 
+  handleCloseTour = () => {
+    this.setState({
+      isCarouselOpen: false,
+    });
+    localStorage.setItem('hasClosedTour', true);
+  };
+
+  handleStartTour = () => {
+    this.setState({
+      isCarouselOpen: true,
+    });
+  };
+
   render() {
     const { mobile, isCarouselOpen } = this.state;
     return (
@@ -76,58 +100,88 @@ class Landing extends Component {
           >
             Read More on Github.com
           </Button>{' '}
-          <Button
-            variant="contained"
-            color={'primary'}
-            onClick={() => {
-              this.setState({
-                isCarouselOpen: true,
-              });
-            }}
-          >
+          <Button variant="contained" color={'primary'} onClick={this.handleStartTour}>
             Start Tour
           </Button>
         </div>
 
         <AutoRotatingCarousel
           label="Get started"
+          interval={6 * 1000}
           open={isCarouselOpen}
           mobile={mobile}
           ButtonProps={{
-            onClick: () => {
-              this.setState({
-                isCarouselOpen: false,
-              });
-            },
+            onClick: this.handleCloseTour,
           }}
-          onClose={() => {
-            this.setState({
-              isCarouselOpen: false,
-            });
-          }}
+          onClose={this.handleCloseTour}
         >
           <Slide
-            media={<img src="http://www.icons101.com/icon_png/size_256/id_79394/youtube.png" />}
-            mediaBackgroundStyle={{ backgroundColor: red[400] }}
+            media={<img src="/cys/png/011-data.png" alt="data" />}
+            mediaBackgroundStyle={{ backgroundColor: purple[400], padding: '32px' }}
+            style={{ backgroundColor: purple[600] }}
+            title="Open Source Library"
+            subtitle="Modular JavaScript library for working with Decentralized Identities and Verifiable Credentials."
+          />
+          <Slide
+            media={<img src="/cys/png/039-id.png" alt="id" />}
+            mediaBackgroundStyle={{ backgroundColor: deepPurple[400], padding: '32px' }}
+            style={{ backgroundColor: deepPurple[600] }}
+            title="Progressive Web App"
+            subtitle="Modern, extensible and friendly interface for reviewing identities, credentials and attestations."
+          />
+          <Slide
+            media={<img src="/mgmt/png/rectangular.png" alt="terminal" />}
+            mediaBackgroundStyle={{ backgroundColor: grey[400] }}
+            style={{ backgroundColor: grey[600] }}
+            title="Command Line Interface"
+            subtitle="Shell support for DID Wallet, Encryption, Decryption, Attestation and Verification."
+          />
+          <Slide
+            media={<img src="/cys/png/036-server.png" alt="server" />}
+            mediaBackgroundStyle={{ backgroundColor: indigo[400], padding: '32px' }}
+            style={{ backgroundColor: indigo[600] }}
+            title="Serverless Backend"
+            subtitle="Cloud Function powerd REST API built with Swagger and JSON Schema."
+          />
+
+          <Slide
+            media={<img src="/mgmt/png/ancient.png" alt="ancient" />}
+            mediaBackgroundStyle={{ backgroundColor: deepPurple[400] }}
+            style={{ backgroundColor: deepPurple[600] }}
+            title="Standards Compliant"
+            subtitle="Leverages the DID Spec, Linked Data Signatures, Activity Pub and more."
+          />
+
+          <Slide
+            media={<img src="/mgmt/png/chatting.png" alt="chatting" />}
+            mediaBackgroundStyle={{ backgroundColor: red[400], padding: '32px' }}
             style={{ backgroundColor: red[600] }}
-            title="This is a very cool feature"
-            subtitle="Just using this will blow your mind."
+            title="Research & Development"
+            subtitle="Perfect for collaborating and testing new signature suites or credential flows."
           />
+
           <Slide
-            media={<img src="http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png" />}
-            mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-            style={{ backgroundColor: blue[600] }}
-            title="Ever wanted to be popular?"
-            subtitle="Well just mix two colors and your are good to go!"
+            media={<img src="/cys/png/031-network.png" alt="network" />}
+            mediaBackgroundStyle={{ backgroundColor: deepPurple[400], padding: '32px' }}
+            style={{ backgroundColor: deepPurple[600] }}
+            title="Authenticated Encryption"
+            subtitle="Leverage DID Documents for private communication over insecure channels."
           />
+
           <Slide
-            media={
-              <img src="http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png" />
-            }
-            mediaBackgroundStyle={{ backgroundColor: green[400] }}
+            media={<img src="/mgmt/png/agreement.png" alt="agreement" />}
+            mediaBackgroundStyle={{ backgroundColor: green[400], padding: '32px' }}
             style={{ backgroundColor: green[600] }}
-            title="May the force be with you"
-            subtitle="The Force is a metaphysical and ubiquitous power in the Star Wars fictional universe."
+            title="Verifiable Credentials"
+            subtitle="Decentralized Identity powerd verifiable credentials built with JSON-LD and modular signature suites."
+          />
+
+          <Slide
+            media={<img src="/cys/png/050-alarm.png" alt="alarm" />}
+            mediaBackgroundStyle={{ backgroundColor: grey[700], padding: '32px' }}
+            style={{ backgroundColor: grey[800] }}
+            title="Under Construction!"
+            subtitle="Github DID is experimental, be careful and have fun!"
           />
         </AutoRotatingCarousel>
       </Pages.WithNavigation>

@@ -10,12 +10,14 @@ import thunk from 'redux-thunk';
 
 import did from '../did';
 import snackbar from '../snackbar';
+import wallet from '../wallet';
 
 export const history = createBrowserHistory();
 
 const rootReducer = {
   did: did.reducer,
   snackbar: snackbar.reducer,
+  wallet: wallet.reducer,
   router: connectRouter(history),
 };
 

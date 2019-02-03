@@ -11,3 +11,12 @@ html {
   margin: 0;
   padding: 0;
 }
+
+a:link {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}

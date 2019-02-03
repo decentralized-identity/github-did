@@ -3,7 +3,9 @@ const fetch = require("node-fetch");
 const {
   createWallet,
   constructDIDPublicKeyID,
-  DIDLinkedDataSignatureVerifier
+  DIDLinkedDataSignatureVerifier,
+  TransmuteDIDWallet,
+  getPublicKeyFromDIDDocByKID
 } = require("@transmute/transmute-did");
 
 const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
@@ -17,6 +19,24 @@ const getJson = async url => {
     }
   })).json();
   return data;
+};
+
+const cipherTextWalletJsonToPlainTextWalletJson = async (
+  cipherTextWalletJson,
+  password
+) => {
+  const instance = new TransmuteDIDWallet(cipherTextWalletJson);
+  await instance.decrypt(password);
+  return instance.data;
+};
+
+const plainTextWalletJsonToCipherTextWalletJson = async (
+  plainTextWalletJson,
+  password
+) => {
+  const instance = new TransmuteDIDWallet(plainTextWalletJson);
+  await instance.encrypt(password);
+  return instance.data;
 };
 
 const createDID = (method, user, repo, kid) => {
@@ -144,6 +164,53 @@ const verifyCapability = async ({ did, capabilityResolver }) => {
   return data.publicKey.length !== undefined;
 };
 
+const getPublicKeyByKeyId = async keyId => {
+  const document = await resolver.resolve(keyId.split("#kid=")[0]);
+  return await getPublicKeyFromDIDDocByKID(document, keyId);
+};
+
+const encryptFor = async ({
+  fromKeyId,
+  toKeyId,
+  publicKey,
+  privateKey,
+  data
+}) => {
+  const message = JSON.stringify(data);
+
+  const options = {
+    message: openpgp.message.fromText(message), // input as String (or Uint8Array)
+    publicKeys: (await openpgp.key.readArmored(publicKey)).keys, // for encryption
+    privateKeys: [privateKey] // for signing (optional)
+  };
+
+  const cipherText = await openpgp.encrypt(options).then(ciphertext => {
+    const encrypted = ciphertext.data; // '-----BEGIN PGP MESSAGE ... END PGP MESSAGE-----'
+    return encrypted;
+  });
+
+  return {
+    fromKeyId,
+    toKeyId,
+    cipherText
+  };
+};
+
+const decryptFor = async ({ fromKeyId, cipherText, privateKey }) => {
+  const publicKey = await getPublicKeyByKeyId(fromKeyId);
+  const options = {
+    message: await openpgp.message.readArmored(cipherText), // parse armored message
+    publicKeys: (await openpgp.key.readArmored(publicKey)).keys, // for verification (optional)
+    privateKeys: [privateKey] // for decryption
+  };
+
+  const plainText = await openpgp
+    .decrypt(options)
+    .then(plaintext => plaintext.data);
+
+  return JSON.parse(plainText);
+};
+
 module.exports = {
   constructDIDPublicKeyID,
   getUnlockedPrivateKey,
@@ -154,5 +221,10 @@ module.exports = {
   sign,
   verify,
   verifyCapability,
-  resolver
+  resolver,
+  cipherTextWalletJsonToPlainTextWalletJson,
+  plainTextWalletJsonToCipherTextWalletJson,
+  getPublicKeyByKeyId,
+  encryptFor,
+  decryptFor
 };

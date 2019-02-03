@@ -36,7 +36,7 @@ class GithubDIDDocument extends Component {
     return (
       <Paper className={classes.container}>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={7}>
             <form noValidate autoComplete="off">
               <FormControl fullWidth disabled>
                 <TextField
@@ -71,7 +71,7 @@ class GithubDIDDocument extends Component {
               </FormControl>
             </form>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={5}>
             <QRCode value={didDocument.id} style={{ width: '100%', height: '100%' }} />
           </Grid>
 

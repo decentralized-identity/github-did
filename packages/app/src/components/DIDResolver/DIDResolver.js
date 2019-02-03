@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Paper, Button, Grid, TextField, CircularProgress,
+  Button, Grid, TextField, CircularProgress,
 } from '@material-ui/core';
-
-import _ from 'lodash';
 
 import { GithubDIDDocument } from '../index';
 
@@ -29,7 +27,6 @@ class DIDResolver extends Component {
   render() {
     const { did, classes } = this.props;
     const { currentDID } = this.state;
-    console.log(did);
 
     const showProgress = currentDID && did.resolving;
     const didDocument = did.dids[currentDID];

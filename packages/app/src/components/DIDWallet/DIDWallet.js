@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import { Paper, Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import {
+  Paper,
+  Button,
+  Typography,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  TextField,
+  Chip,
+} from '@material-ui/core';
 
-import defaultWallet from './wallet.json';
+import { red } from '@material-ui/core/colors';
 
-import constants from '../../constants';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import WalletLockDialog from './WalletLockDialog';
+
+import { ExpansionPanelList } from '../index';
 
 class DIDWallet extends Component {
   state = {
-    wallet: defaultWallet,
-    did: constants.serverDID,
+    isWalletLockDialogOpen: false,
   };
 
   handleFileChange = (event) => {
@@ -17,29 +31,44 @@ class DIDWallet extends Component {
       const file = event.target.files[index];
       const reader = new FileReader();
       reader.onload = (upload) => {
-        console.log(upload.target.result);
-        this.setState({
-          wallet: JSON.parse(upload.target.result),
-        });
+        this.props.importCipherTextWallet(JSON.parse(upload.target.result));
       };
-
-      //   reader.readAsDataURL(file);
       return reader.readAsText(file);
     });
   };
 
+  handleChange = name => (event) => {
+    this.setState({
+      isWalletLockDialogOpen: true,
+    });
+  };
+
+  handleUnlock = (password) => {
+    this.setState({
+      isWalletLockDialogOpen: false,
+    });
+    this.props.toggleWallet(password);
+    this.setState({ locked: false });
+  };
+
   render() {
-    const { wallet } = this.state;
-    return (
-      <Paper style={{ padding: '16px', margin: '16px' }}>
-        {wallet === null && (
+    const { isWalletLockDialogOpen } = this.state;
+    const { data } = this.props.wallet;
+    if (data === null) {
+      return (
+        <div>
+          <Typography variant="h3">Warning</Typography>
+          <Typography variant="body2">
+            Imported a wallet into a web application should only be done for testing purposes.
+          </Typography>
+          <br />
           <Button
             variant="contained"
             onClick={() => {
               document.getElementById('wallet-file-input').click();
             }}
           >
-            Import Wallet
+            Import Encrypted Wallet
             <input
               accept="application/json"
               style={{ display: 'none' }}
@@ -49,16 +78,117 @@ class DIDWallet extends Component {
               type="file"
             />
           </Button>
-        )}
+        </div>
+      );
+    }
 
-        {wallet !== null && <div>Wallet Loaded...</div>}
+    const walletState = data.keystore.nonce === undefined ? 'unlocked' : 'locked';
+
+    return (
+      <Paper
+        style={{
+          padding: '16px',
+          margin: '16px',
+          backgroundColor: walletState === 'unlocked' ? red[900] : '',
+        }}
+      >
+        <WalletLockDialog
+          open={isWalletLockDialogOpen}
+          walletState={walletState}
+          onPassword={this.handleUnlock}
+        />
+
+        {data !== null && (
+          <div style={{ flexDirection: 'column', display: 'flex' }}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Wallet</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={walletState === 'locked'}
+                      onChange={this.handleChange('locked')}
+                    />
+                  }
+                  label={walletState === 'locked' ? 'Locked' : 'Unlocked!'}
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl component="fieldset" disabled>
+              <FormGroup>
+                <TextField label="Version" value={data.version} fullWidth margin="normal" />
+              </FormGroup>
+              <FormGroup>
+                <TextField label="Salt" value={data.salt} fullWidth margin="normal" />
+              </FormGroup>
+            </FormControl>
+            <br />
+            <br />
+            <FormControl component="fieldset" disabled>
+              {data.keystore.nonce === undefined
+                && Object.keys(data.keystore).map((kid) => {
+                  const key = data.keystore[kid];
+                  return (
+                    <ExpansionPanelList
+                      key={kid}
+                      panels={[
+                        {
+                          title: `${key.meta.did.signatureType} ${kid.substring(0, 8)}...`,
+                          children: (
+                            <div style={{ width: '100%' }}>
+                              <Typography variant="body2">{key.meta.notes}</Typography>
+                              <br />
+                              <br />
+                              <div>
+                                {key.meta.tags.map(t => (
+                                  <Chip
+                                    key={t}
+                                    label={t}
+                                    variant="outlined"
+                                    style={{ margin: '4px' }}
+                                  />
+                                ))}
+                              </div>
+                              <br />
+                              <CopyToClipboard
+                                text={key.data.publicKey}
+                                onCopy={() => {
+                                  this.props.snackbarMessage({
+                                    snackbarMessage: {
+                                      message: `Copied Public Key: ${key.data.publicKey.substring(
+                                        0,
+                                        32,
+                                      )} ...`,
+                                      variant: 'success',
+                                      open: true,
+                                    },
+                                  });
+                                }}
+                              >
+                                <Button style={{ marginTop: '28px' }} fullWidth variant="contained">
+                                  Copy Public Key
+                                </Button>
+                              </CopyToClipboard>
+                            </div>
+                          ),
+                        },
+                      ]}
+                    />
+                  );
+                })}
+            </FormControl>
+          </div>
+        )}
       </Paper>
     );
   }
 }
 
 DIDWallet.propTypes = {
-  // did: PropTypes.object.isRequired,
+  wallet: PropTypes.object.isRequired,
+  importCipherTextWallet: PropTypes.func.isRequired,
+  toggleWallet: PropTypes.func.isRequired,
+  snackbarMessage: PropTypes.func.isRequired,
 };
 
 export default DIDWallet;

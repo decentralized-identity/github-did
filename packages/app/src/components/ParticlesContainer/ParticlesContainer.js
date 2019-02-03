@@ -44,7 +44,7 @@ class ParticlesContainer extends Component {
             move: {
               radius: 10,
             },
-            url: './svg_masks/transmute_logo_outline.svg',
+            url: './svg/transmute_logo_outline.svg',
             inline: {
               arrangement: 'equidistant',
             },

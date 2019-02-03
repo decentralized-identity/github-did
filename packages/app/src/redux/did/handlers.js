@@ -14,7 +14,7 @@ export default withHandlers({
       didResolved({ didDocument: data });
       snackbarMessage({
         snackbarMessage: {
-          message: `Resolved: ${did}`,
+          message: `Resolved: ...${did.substring(32, 64)}...`,
           variant: 'success',
           open: true,
         },
