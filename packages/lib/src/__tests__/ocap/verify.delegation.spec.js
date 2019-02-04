@@ -12,7 +12,7 @@ describe("ghdid", () => {
       });
       expect(verified).toBe(true);
     },
-    10 * 1000
+    20 * 1000
   );
 
   it(
@@ -37,6 +37,6 @@ describe("ghdid", () => {
       });
       expect(verified).toBe(false);
     },
-    10 * 1000
+    20 * 1000
   );
 });
