@@ -9,7 +9,6 @@ const {
   constructDIDPublicKeyID,
   DIDLinkedDataSignatureVerifier,
   openpgpExtensions,
-  TransmuteDIDWallet,
   getPublicKeyFromDIDDocByKID
 } = require("@transmute/transmute-did");
 
