@@ -1,6 +1,8 @@
 html,
 body,
-#root {
+#root,
+.App,
+.DefaultPage {
   height: 100%;
   margin: 0;
 }
@@ -8,11 +10,13 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  background-image: url("https://source.unsplash.com/random/1280x1024");
-  background-size: cover;
-  background-color: rgba(0, 0, 0, 0.8);
-  background-blend-mode: darken;
-  background-repeat: none;
-  height: 100%;
+}
+
+a:link {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: green;
 }

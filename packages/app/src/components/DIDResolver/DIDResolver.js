@@ -1,53 +1,79 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Paper } from '@material-ui/core';
-import { SelectMultiple, ExpansionPanelList } from '../index';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Button, Grid, TextField, CircularProgress,
+} from '@material-ui/core';
+
+import { GithubDIDDocument } from '../index';
 
 import { namedWhitelist } from '../../constants';
 
-const suggestions = namedWhitelist.map(item => ({
-  value: item.did,
-  label: item.name,
-}));
+const styles = theme => ({
+  progress: {
+    margin: `${theme.spacing.unit * 2}px auto`,
+  },
+});
 
 class DIDResolver extends Component {
   state = {
-    selected: [],
+    currentDID: namedWhitelist[0].did,
+  };
+
+  safeResolve = () => {
+    this.props.resolveDID(this.state.currentDID);
   };
 
   render() {
-    const { resolveDID, did } = this.props;
-    const { selected } = this.state;
-    // todo move to panel selector
-    const panels = selected.map(item => ({
-      title: item.value,
-      children: <pre>{JSON.stringify(did.dids[item.value], null, 2)}</pre>,
-      disabled: false,
-    }));
+    const { did, classes } = this.props;
+    const { currentDID } = this.state;
+
+    const showProgress = currentDID && did.resolving;
+    const didDocument = did.dids[currentDID];
+
     return (
-      <Paper style={{ padding: '16px', margin: '16px' }}>
-        <SelectMultiple
-          label={'Github DID Resolver'}
-          placeholder={'Resolve multiple DIDs'}
-          suggestions={suggestions}
-          onChange={(values) => {
-            values.map(v => !did.dids[v.value] && resolveDID(v.value));
-            this.setState({
-              selected: values,
-            });
-          }}
-        />
-        {/* spacer */}
-        {panels.length !== 0 && <div style={{ display: 'block', height: '16px' }} />}
-        <ExpansionPanelList panels={panels} />
-      </Paper>
+      <Grid container spacing={24}>
+        <Grid item xs={12} sm={11}>
+          <TextField
+            label="Github DID Resolver"
+            value={currentDID}
+            fullWidth
+            onChange={(event) => {
+              this.setState({
+                currentDID: event.target.value,
+              });
+            }}
+            margin="normal"
+          />
+        </Grid>
+        <Grid item xs={12} sm={1}>
+          <Button
+            style={{ marginTop: '28px' }}
+            fullWidth
+            disabled={did.resolving}
+            variant="contained"
+            onClick={() => {
+              this.safeResolve();
+            }}
+          >
+            Resolve
+          </Button>
+        </Grid>
+
+        {showProgress ? (
+          <CircularProgress className={classes.progress} color="secondary" />
+        ) : (
+          didDocument && <GithubDIDDocument didDocument={didDocument} />
+        )}
+      </Grid>
     );
   }
 }
 
 DIDResolver.propTypes = {
+  classes: PropTypes.object.isRequired,
   resolveDID: PropTypes.func.isRequired,
   did: PropTypes.object.isRequired,
 };
 
-export default DIDResolver;
+export default withStyles(styles)(DIDResolver);

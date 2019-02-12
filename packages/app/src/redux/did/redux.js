@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
-import { didResolved } from './actions';
+import * as actions from './actions';
 
 export default connect(
   ({ did }) => ({ did }),
   {
-    didResolved,
+    ...actions,
   },
 );

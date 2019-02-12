@@ -1,5 +1,5 @@
 import DIDWallet from './DIDWallet';
 
-import did from '../../redux/did';
+import wallet from '../../redux/wallet';
 
-export default did.container(DIDWallet);
+export default wallet.container(DIDWallet);

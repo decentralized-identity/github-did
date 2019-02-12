@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/transmute-industries/github-did#readme",
   "dependencies": {
-    "@github-did/lib": "0.0.0",
     "@transmute/openpgpsignature2019": "^0.1.1",
+    "@github-did/lib": "0.0.1",
     "fs-extra": "^7.0.1",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",

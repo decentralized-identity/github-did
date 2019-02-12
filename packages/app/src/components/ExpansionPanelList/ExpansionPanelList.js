@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-function SimpleExpansionPanel({ classes, panels }) {
+function ExpansionPanelList({ classes, panels }) {
   return (
     <div className={classes.root}>
       {panels
@@ -33,9 +33,9 @@ function SimpleExpansionPanel({ classes, panels }) {
   );
 }
 
-SimpleExpansionPanel.propTypes = {
+ExpansionPanelList.propTypes = {
   classes: PropTypes.object.isRequired,
   panels: PropTypes.array.isRequired,
 };
 
-export default withStyles(styles)(SimpleExpansionPanel);
+export default withStyles(styles)(ExpansionPanelList);

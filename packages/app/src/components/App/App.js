@@ -20,7 +20,14 @@ class App extends Component {
             <ConnectedRouter history={history}>
               <Switch>
                 <Route exact path="/" render={() => <Pages.Landing />} />
-                <Route render={() => <div>Miss</div>} />
+                <Route exact path="/resolver" render={() => <Pages.Resolver />} />
+                <Route exact path="/wallet" render={() => <Pages.Wallet />} />
+                <Route path="/sign/:base64EncodedJsonLd" render={() => <Pages.Sign />} />
+                <Route path="/verify/:base64EncodedJsonLd" render={() => <Pages.Verify />} />
+                <Route path="/encrypt/:base64EncodedJsonLd" render={() => <Pages.Encrypt />} />
+                <Route path="/decrypt/:base64EncodedJsonLd" render={() => <Pages.Decrypt />} />
+                <Route exact path="/credits" render={() => <Pages.Credits />} />
+                <Route render={() => <Pages.NotFound />} />
               </Switch>
             </ConnectedRouter>
           </PersistGate>
