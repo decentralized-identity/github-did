@@ -241,7 +241,7 @@ vorpal.command("sendMessageOnSlack <password> <didFrom> <didTo> <message>", "sen
       message: encryptedMessage,
     };
     const text = '```' + JSON.stringify(body, null, 2) + '```';
-    const webhook = 'https://hooks.slack.com/services/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';
+    const webhook = process.env.SLACK_HOOK;
     await fetch(webhook, {
       method: 'post',
       body: JSON.stringify({ text }),
