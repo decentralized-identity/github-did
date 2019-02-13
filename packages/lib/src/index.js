@@ -1,10 +1,14 @@
 const fetch = require("node-fetch");
+const path = require("path");
+const os = require("os");
+const fse = require("fs-extra");
 
 const {
   createWallet,
+  TransmuteDIDWallet,
   constructDIDPublicKeyID,
   DIDLinkedDataSignatureVerifier,
-  TransmuteDIDWallet,
+  openpgpExtensions,
   getPublicKeyFromDIDDocByKID
 } = require("@transmute/transmute-did");
 
@@ -12,6 +16,7 @@ const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
 const openpgp = require("openpgp");
 
 const getJson = async url => {
+  // TODO: remove await
   const data = await (await fetch(url, {
     method: "get",
     headers: {
@@ -57,8 +62,7 @@ const didToDIDDocumentURL = did => {
   return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
 };
 
-const createDIDWallet = async ({ email, passphrase }) => {
-  const wallet = await createWallet();
+const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
   const keypair = await openpgp.generateKey({
     userIds: [
       {
@@ -69,14 +73,14 @@ const createDIDWallet = async ({ email, passphrase }) => {
     passphrase: passphrase
   });
 
-  await wallet.addKey(
+  return wallet.addKey(
     {
       publicKey: keypair.publicKeyArmored,
       privateKey: keypair.privateKeyArmored
     },
     "assymetric",
     {
-      tags: ["OpenPgpSignature2019", "PROPOSAL"],
+      tags: ["OpenPgpSignature2019", "PROPOSAL", tag],
       notes: "Created for Github DID",
       did: {
         publicKey: true,
@@ -86,13 +90,23 @@ const createDIDWallet = async ({ email, passphrase }) => {
       }
     }
   );
-  return wallet;
+};
+
+const resolveLocally = did => {
+  const kid = did.split('~github-did~')[1];
+  const didFile = `${kid}.jsonld`;
+  const localRepoPath = path.resolve(os.homedir(), ".github-did/github-did/dids", didFile);
+  const didDocument = JSON.parse(fse.readFileSync(localRepoPath).toString());
+  return didDocument
 };
 
 const resolver = {
   resolve: did => {
     const url = didToDIDDocumentURL(did);
-    return getJson(url);
+    return getJson(url)
+      .catch(() => {
+        return resolveLocally(did);
+      });
   }
 };
 
@@ -212,14 +226,17 @@ const decryptFor = async ({ fromKeyId, cipherText, privateKey }) => {
 };
 
 module.exports = {
+  createWallet,
+  TransmuteDIDWallet,
   constructDIDPublicKeyID,
   getUnlockedPrivateKey,
   createDID,
   didToDIDDocumentURL,
   getJson,
-  createDIDWallet,
+  addKeyWithTag,
   sign,
   verify,
+  openpgpExtensions,
   verifyCapability,
   resolver,
   cipherTextWalletJsonToPlainTextWalletJson,

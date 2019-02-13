@@ -33,7 +33,8 @@ The objective of Github DID is to encourage contribution to the [DID Spec](https
 ## Getting Started
 
 ```
-ghdid init alice@example.com yolo
+ghdid init @example.com yolo
+ghdid addKey yolo
 ```
 
 The email goes in your OpenPGP key, the password is used to protect your private key.

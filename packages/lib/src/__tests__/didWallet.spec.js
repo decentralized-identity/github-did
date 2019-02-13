@@ -12,15 +12,22 @@ const {
 } = require("@transmute/transmute-did");
 
 describe("ghdid", () => {
-  it("can create a wallet", async () => {
-    const newWallet = await ghdid.createDIDWallet({
-      email: fixtures.email,
-      passphrase: fixtures.passphrase
+  it("can add a key to the wallet with a tag", async () => {
+    const wallet = await ghdid.createWallet();
+    const tag = 'main';
+    const kid = await ghdid.addKeyWithTag({
+      wallet,
+      passphrase: fixtures.passphrase,
+      tag,
     });
-    expect(newWallet).toBeDefined();
+    expect(kid).toBeDefined();
+    expect(wallet.data.keystore[kid]).toBeDefined();
+    expect(wallet.data.keystore[kid].meta.tags).toContain(tag);
+
   });
 
   it("can sign and verify DID Document", async () => {
+    jest.setTimeout(10000);
     const signed = await ghdid.sign({
       data: fixtures.didDocument,
       creator: fixtures.ocap.dids.alice.didDocument.publicKey[0].id,
