@@ -210,15 +210,13 @@ vorpal.command("logs", "display logs").action(async args => {
   return vorpal.wait(1);
 });
 
-vorpal.command("sendMessageOnSlack <password> <didTo> <message>", "send an encrypted message on Slack")
-  .action(async ({ password, didTo, message }) => {
+vorpal.command("sendMessageOnSlack <password> <didFrom> <didTo> <message>", "send an encrypted message on Slack")
+  .action(async ({ password, didFrom, didTo, message }) => {
     // Recover the wallet and get my private key
     const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
     const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
     await wallet.decrypt(password);
-    const primaryKid = Object.values(wallet.data.keystore)
-      .filter(key => key.meta.tags.includes('main'))
-      .map(key => key.kid)[0];
+    const primaryKid = didFrom.split('~').pop();
     const { privateKey } = wallet.data.keystore[primaryKid].data;
     const privateKeyObj = (await openpgp.key.readArmored(privateKey)).keys[0];
     await privateKeyObj.decrypt(password);
@@ -236,7 +234,6 @@ vorpal.command("sendMessageOnSlack <password> <didTo> <message>", "send an encry
     })).data;
 
     // Send message on Slack
-    const didFrom = ghdid.createDID("ghdid", user, repo, primaryKid);
     const body = {
       type: 'github-did message',
       didFrom,
