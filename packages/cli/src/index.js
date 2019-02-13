@@ -251,9 +251,9 @@ vorpal.command("sendMessageOnSlack <password> <didFrom> <didTo> <message>", "sen
     return vorpal.wait(1);
   });
 
-vorpal.command("decrypt <password>", "send an encrypted message on Slack")
-  .action(async ({ password }) => {
-    const out = path.resolve('./out.json');
+vorpal.command("decrypt <password> <payloadPath>", "send an encrypted message on Slack")
+  .action(async ({ password, payloadPath }) => {
+    const out = path.resolve(payloadPath);
     const json = JSON.parse(fse.readFileSync(out));
     const { didFrom, didTo, message } = json;
 

@@ -5,7 +5,7 @@ A command line interface for working with Github DIDs.
 ## Get started with the CLI
 
 In order to create an empty wallet, run
-``` 
+```
 ghdid init my-password
 ```
 This will create a wallet.json file, encrypted with the provided password
@@ -34,7 +34,7 @@ First, go to: [https://api.slack.com/apps](https://api.slack.com/apps) and selec
 
 Then go to incoming webhooks -> Add new webhook to workspace -> Setup the channel you want ghdid cli to publish the encrypted messages in -> Copy the webhook url
 
-Then run 
+Then run
 
 ```
 export SLACK_HOOK=<your_webhook_url>
