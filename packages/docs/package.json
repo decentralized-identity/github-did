@@ -1,0 +1,41 @@
+{
+  "name": "@github-did/docs",
+  "description": "github-did docs",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "keywords": [
+    "gatsby"
+  ],
+  "main": "n/a",
+  "scripts": {
+    "start": "npm run develop",
+    "build": "gatsby build",
+    "publish": "cp -R ./public/* ../../docs",
+    "develop": "gatsby develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^1.1.0",
+    "bulma": "^0.7.1",
+    "font-awesome": "^4.7.0",
+    "gatsby": "^1.9.277",
+    "gatsby-plugin-favicon": "^2.1.1",
+    "gatsby-plugin-react-helmet": "^2.0.11",
+    "gatsby-plugin-react-next": "^1.0.11",
+    "gatsby-plugin-sass": "^1.0.26",
+    "gatsby-plugin-sharp": "^1.6.44",
+    "gatsby-source-filesystem": "^1.5.36",
+    "gatsby-source-medium": "^1.0.14",
+    "gatsby-source-twitch": "^1.0.0",
+    "gatsby-transformer-remark": "^1.7.41",
+    "gatsby-transformer-sharp": "^1.6.24",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-helmet": "^5.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.7.4"
+  }
+}
