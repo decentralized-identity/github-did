@@ -15,7 +15,10 @@ export default createMuiTheme({
       main: lightBlue[500],
       dark: lightBlue[800]
     },
-
     error: red
+  },
+  typography: {
+    useNextVariants: true,
+    fontFamily: ['"Lato"', '"Helvetica"', '"Arial"', "sans-serif"].join(",")
   }
 });
