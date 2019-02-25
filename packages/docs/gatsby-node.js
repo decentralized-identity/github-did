@@ -1,83 +1,107 @@
-const _ = require('lodash');
-const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
+const path = require(`path`);
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
-exports.createPages = ({ boundActionCreators, graphql }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
 
-  return graphql(`
-    {
-      allMarkdownRemark(limit: 1000) {
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              tags
-              templateKey
+  // Create Blog posts
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.js`);
+  let result = await graphql(
+    `
+      {
+        allMarkdownRemark(
+          sort: { fields: [frontmatter___date], order: DESC }
+          filter: { fileAbsolutePath: { regex: "/posts/" } }
+          limit: 1000
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
             }
           }
         }
       }
-    }
-  `).then(result => {
-    if (result.errors) {
-      result.errors.forEach(e => console.error(e.toString()));
-      return Promise.reject(result.errors);
-    }
+    `
+  );
 
-    const posts = result.data.allMarkdownRemark.edges;
+  if (result.errors) {
+    throw result.errors;
+  }
 
-    posts.forEach(edge => {
-      const id = edge.node.id;
-      const slug = edge.node.fields.slug.replace('/pages/', '/');
-      const tags = edge.node.frontmatter.tags;
-      const component = path.resolve(
-        `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-      );
+  const posts = result.data.allMarkdownRemark.edges;
 
-      if (edge.node.frontmatter.templateKey) {
-        createPage({
-          path: slug,
-          tags: tags,
-          component: component,
-          // additional data can be passed via context
-          context: {
-            id
+  posts.forEach((post, index) => {
+    const previous = index === posts.length - 1 ? null : posts[index + 1].node;
+    const next = index === 0 ? null : posts[index - 1].node;
+
+    createPage({
+      path: post.node.fields.slug,
+      component: blogPostTemplate,
+      context: {
+        slug: post.node.fields.slug,
+        previous,
+        next
+      }
+    });
+  });
+
+  // Create Tutorials
+  const tutorialTemplate = path.resolve(`./src/templates/tutorial.js`);
+
+  result = await graphql(
+    `
+      {
+        allMarkdownRemark(
+          sort: { fields: [frontmatter___date], order: DESC }
+          filter: { fileAbsolutePath: { regex: "/tutorials/" } }
+          limit: 1000
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
+            }
           }
-        });
-      }
-    });
-
-    // Tag pages:
-    let tags = [];
-    // Iterate through each post, putting all found tags into `tags`
-    posts.forEach(edge => {
-      if (_.get(edge, `node.frontmatter.tags`)) {
-        tags = tags.concat(edge.node.frontmatter.tags);
-      }
-    });
-    // Eliminate duplicate tags
-    tags = _.uniq(tags);
-
-    // Make tag pages
-    tags.forEach(tag => {
-      const tagPath = `/tags/${_.kebabCase(tag)}/`;
-      createPage({
-        path: tagPath,
-        component: path.resolve(`src/templates/tags.js`),
-        context: {
-          tag
         }
-      });
+      }
+    `
+  );
+
+  if (result.errors) {
+    throw result.errors;
+  }
+
+  const tutorials = result.data.allMarkdownRemark.edges;
+
+
+  tutorials.forEach((post, index) => {
+    const previous =
+      index === tutorials.length - 1 ? null : tutorials[index + 1].node;
+    const next = index === 0 ? null : tutorials[index - 1].node;
+
+    createPage({
+      path: post.node.fields.slug,
+      component: tutorialTemplate,
+      context: {
+        slug: post.node.fields.slug,
+        previous,
+        next
+      }
     });
   });
 };
 
-exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
-  const { createNodeField } = boundActionCreators;
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
