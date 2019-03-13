@@ -37,8 +37,14 @@ const getBasePath = () => {
   }
 };
 
+const getAPIBaseUrl = () => {
+  const protocol = getBaseConfig().env === 'production' ? 'https' : 'http';
+  return `${protocol}://${getBaseHost()}${getBasePath()}`;
+};
+
 module.exports = {
   getBaseConfig,
   getBaseHost,
   getBasePath,
+  getAPIBaseUrl,
 };

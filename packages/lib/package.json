@@ -18,7 +18,9 @@
   "homepage": "https://github.com/transmute-industries/github-did#readme",
   "dependencies": {
     "@transmute/openpgpsignature2019": "^0.1.1",
+    "@transmute/rsasignature2017": "^0.1.0",
     "@transmute/transmute-did": "1.1.8",
+    "jsonwebtoken": "^8.5.0",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",
     "uuid": "^3.3.2"
