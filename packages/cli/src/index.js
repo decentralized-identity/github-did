@@ -35,11 +35,62 @@ const [user, repo] = repository.url
   .split('/');
 
 vorpal
+  .command('init <password>', 'initialize github-did')
+  .action(async ({ password }) => {
+    if (vorpal.config) {
+      logger.log({
+        level: 'info',
+        message: `Config exists ${configPath}`,
+      });
+    } else {
+      const cwd = process.cwd();
+      const repoUrl = `git@github.com:${user}/${repo}.git`;
+      const repoPath = path.resolve(os.homedir(), '.github-did', repo);
+      const cmd = `
+    if cd ${repoPath}; then git pull; else git clone ${repoUrl} ${repoPath}; fi
+    cd ${cwd};
+    `;
+      const silentState = shell.config.silent;
+      shell.config.silent = true;
+
+      shell.exec(cmd);
+      shell.config.silent = silentState; // restore old silent state
+
+      // Create an empty wallet
+      const wallet = await ghdid.createWallet();
+      await wallet.encrypt(password);
+
+      await fse.outputFile(
+        walletFilePath,
+        JSON.stringify(wallet.data, null, 2),
+      );
+
+      await fse.outputFile(
+        configPath,
+        JSON.stringify(
+          {
+            name: 'github-did-config',
+            version,
+            wallet: walletFilePath,
+            logs: logPath,
+          },
+          null,
+          2,
+        ),
+      );
+      await vorpal.logger.log({
+        level: 'info',
+        message: `Config created ${configPath}`,
+      });
+    }
+    return vorpal.wait(1);
+  });
+
+vorpal
   .command('addKey <password> [tag]', 'add a key to your wallet')
   .action(async ({ password, tag }) => {
-    if (!tag) {
-      tag = 'main';
-    }
+    // eslint-disable-next-line
+    tag = tag || 'main';
     if (!vorpal.config) {
       logger.log({
         level: 'info',
@@ -106,58 +157,6 @@ vorpal
       logger.log({
         level: 'info',
         message: `Keys for tag "${tag}" stored in the wallet are\n${kidsByTag.map(k => `${k}\n`)}`,
-      });
-    }
-    return vorpal.wait(1);
-  });
-
-vorpal
-  .command('init <password>', 'initialize github-did')
-  .action(async ({ password }) => {
-    if (vorpal.config) {
-      logger.log({
-        level: 'info',
-        message: `Config exists ${configPath}`,
-      });
-    } else {
-      const cwd = process.cwd();
-      const repoUrl = `git@github.com:${user}/${repo}.git`;
-      const repoPath = path.resolve(os.homedir(), '.github-did', repo);
-      const cmd = `
-    if cd ${repoPath}; then git pull; else git clone ${repoUrl} ${repoPath}; fi
-    cd ${cwd};
-    `;
-      const silentState = shell.config.silent;
-      shell.config.silent = true;
-
-      shell.exec(cmd);
-      shell.config.silent = silentState; // restore old silent state
-
-      // Create an empty wallet
-      const wallet = await ghdid.createWallet();
-      await wallet.encrypt(password);
-
-      await fse.outputFile(
-        walletFilePath,
-        JSON.stringify(wallet.data, null, 2),
-      );
-
-      await fse.outputFile(
-        configPath,
-        JSON.stringify(
-          {
-            name: 'github-did-config',
-            version,
-            wallet: walletFilePath,
-            logs: logPath,
-          },
-          null,
-          2,
-        ),
-      );
-      await vorpal.logger.log({
-        level: 'info',
-        message: `Config created ${configPath}`,
       });
     }
     return vorpal.wait(1);
