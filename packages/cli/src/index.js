@@ -1,49 +1,49 @@
 #!/usr/bin/env node
-const os = require("os");
-const path = require("path");
-const fse = require("fs-extra");
-const vorpal = require("vorpal")();
-const shell = require("shelljs");
-const ghdid = require("@github-did/lib");
+const os = require('os');
+const path = require('path');
+const fse = require('fs-extra');
+const vorpal = require('vorpal')();
+const shell = require('shelljs');
+const ghdid = require('@github-did/lib');
 const fetch = require('node-fetch');
 const openpgp = require('openpgp');
 
-const logger = require("./logger");
+const logger = require('./logger');
+
 vorpal.logger = logger;
 
-vorpal.wait = seconds => {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, seconds * 1000);
-  });
-};
+vorpal.wait = seconds => new Promise((resolve) => {
+  setTimeout(resolve, seconds * 1000);
+});
 
-const { version, repository } = require("../package.json");
+const { version, repository } = require('../package.json');
 
-const logPath = path.resolve(os.homedir(), ".github-did", "log.json");
+const logPath = path.resolve(os.homedir(), '.github-did', 'log.json');
 
-const configPath = path.resolve(os.homedir(), ".github-did", "config.json");
-const walletFilePath = path.resolve(os.homedir(), ".github-did", "wallet.json");
+const configPath = path.resolve(os.homedir(), '.github-did', 'config.json');
+const walletFilePath = path.resolve(os.homedir(), '.github-did', 'wallet.json');
 
 if (fse.existsSync(configPath)) {
+  // eslint-disable-next-line
   vorpal.config = require(configPath);
 }
 
 const [user, repo] = repository.url
-  .split("+")[1]
-  .split("https://github.com/")[1]
-  .split(".")[0]
-  .split("/");
+  .split('+')[1]
+  .split('https://github.com/')[1]
+  .split('.')[0]
+  .split('/');
 
 vorpal
-  .command("addKey <password> [tag]", "add a key to your wallet")
+  .command('addKey <password> [tag]', 'add a key to your wallet')
   .action(async ({ password, tag }) => {
     if (!tag) {
       tag = 'main';
     }
     if (!vorpal.config) {
       logger.log({
-        level: "info",
-        message: `You should init your wallet first`
+        level: 'info',
+        message: 'You should init your wallet first',
       });
     } else {
       const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
@@ -52,10 +52,10 @@ vorpal
       const kid = await ghdid.addKeyWithTag({
         wallet,
         passphrase: password,
-        tag
+        tag,
       });
 
-      const did = ghdid.createDID("ghdid", user, repo, kid);
+      const did = ghdid.createDID('ghdid', user, repo, kid);
 
       const didDocument = await wallet.toDIDDocumentByTag({
         did,
@@ -67,29 +67,29 @@ vorpal
         creator: ghdid.constructDIDPublicKeyID(didDocument.data.id, kid),
         privateKey: await ghdid.getUnlockedPrivateKey(
           wallet.data.keystore[kid].data.privateKey,
-          password
-        )
+          password,
+        ),
       });
 
       // Update DID Document
       await fse.outputFile(
         path.resolve(
           os.homedir(),
-          ".github-did",
+          '.github-did',
           repo,
-          "dids",
-          `${kid}.jsonld`
+          'dids',
+          `${kid}.jsonld`,
         ),
         JSON.stringify(
           {
-            ...signedDIDDocument
+            ...signedDIDDocument,
           },
           null,
-          2
-        )
+          2,
+        ),
       );
       logger.log({
-        level: "info",
+        level: 'info',
         message: `Created did document for ${did}`,
       });
 
@@ -101,28 +101,28 @@ vorpal
       // Update wallet
       await fse.outputFile(
         walletFilePath,
-        JSON.stringify(wallet.data, null, 2)
+        JSON.stringify(wallet.data, null, 2),
       );
       logger.log({
-        level: "info",
-        message: `Keys for tag "${tag}" stored in the wallet are\n${kidsByTag.map(kid => kid + '\n')}`,
+        level: 'info',
+        message: `Keys for tag "${tag}" stored in the wallet are\n${kidsByTag.map(k => `${k}\n`)}`,
       });
     }
     return vorpal.wait(1);
   });
 
 vorpal
-  .command("init <password>", "initialize github-did")
+  .command('init <password>', 'initialize github-did')
   .action(async ({ password }) => {
     if (vorpal.config) {
       logger.log({
-        level: "info",
-        message: `Config exists ${configPath}`
+        level: 'info',
+        message: `Config exists ${configPath}`,
       });
     } else {
       const cwd = process.cwd();
       const repoUrl = `git@github.com:${user}/${repo}.git`;
-      const repoPath = path.resolve(os.homedir(), ".github-did", repo);
+      const repoPath = path.resolve(os.homedir(), '.github-did', repo);
       const cmd = `
     if cd ${repoPath}; then git pull; else git clone ${repoUrl} ${repoPath}; fi
     cd ${cwd};
@@ -130,11 +130,7 @@ vorpal
       const silentState = shell.config.silent;
       shell.config.silent = true;
 
-      shell.exec(cmd, (code, stdout, stderr) => {
-        // console.log("Exit code:", code);
-        // console.log("Program output:", stdout);
-        // console.log("Program stderr:", stderr);
-      });
+      shell.exec(cmd);
       shell.config.silent = silentState; // restore old silent state
 
       // Create an empty wallet
@@ -143,75 +139,76 @@ vorpal
 
       await fse.outputFile(
         walletFilePath,
-        JSON.stringify(wallet.data, null, 2)
+        JSON.stringify(wallet.data, null, 2),
       );
 
       await fse.outputFile(
         configPath,
         JSON.stringify(
           {
-            name: "github-did-config",
+            name: 'github-did-config',
             version,
             wallet: walletFilePath,
-            logs: logPath
+            logs: logPath,
           },
           null,
-          2
-        )
+          2,
+        ),
       );
       await vorpal.logger.log({
-        level: "info",
-        message: `Config created ${configPath}`
+        level: 'info',
+        message: `Config created ${configPath}`,
       });
     }
     return vorpal.wait(1);
   });
 
-vorpal.command("resolve <did>", "resolve a ghdid").action(async ({ did }) => {
+vorpal.command('resolve <did>', 'resolve a ghdid').action(async ({ did }) => {
   const didDocument = await ghdid.resolver.resolve(did);
   console.log(JSON.stringify(didDocument, null, 2));
   await vorpal.logger.log({
-    level: "info",
-    message: `did resolved ${did}`
+    level: 'info',
+    message: `did resolved ${did}`,
   });
   const verified = await ghdid.verify({
-    data: didDocument
+    data: didDocument,
   });
 
   await vorpal.logger.log({
-    level: "info",
-    message: `did verification ${verified} ${did}`
+    level: 'info',
+    message: `did verification ${verified} ${did}`,
   });
   return vorpal.wait(1);
 });
 
-vorpal.command("version", "display github-did version").action(async args => {
+vorpal.command('version', 'display github-did version').action(async () => {
   await vorpal.logger.log({
-    level: "info",
-    message: `version ${version}`
+    level: 'info',
+    message: `version ${version}`,
   });
   return vorpal.wait(1);
 });
 
-vorpal.command("logs", "display logs").action(async args => {
+vorpal.command('logs', 'display logs').action(async () => {
   const logs = fse
     .readFileSync(vorpal.config.logs)
     .toString()
-    .split("\n")
-    .filter(defined => {
-      return defined;
-    })
-    .map(logLine => {
+    .split('\n')
+    .filter(defined => defined)
+    .map((logLine) => {
       if (logLine) {
         return JSON.parse(logLine);
       }
+      return '';
     });
   console.log(JSON.stringify(logs, null, 2));
   return vorpal.wait(1);
 });
 
-vorpal.command("sendMessageOnSlack <password> <didFrom> <didTo> <message>", "send an encrypted message on Slack")
-  .action(async ({ password, didFrom, didTo, message }) => {
+vorpal.command('sendMessageOnSlack <password> <didFrom> <didTo> <message>', 'send an encrypted message on Slack')
+  .action(async ({
+    password, didFrom, didTo, message,
+  }) => {
     // Recover the wallet and get my private key
     const encryptedWalletData = JSON.parse(fse.readFileSync(walletFilePath).toString());
     const wallet = new ghdid.TransmuteDIDWallet(encryptedWalletData);
@@ -240,7 +237,7 @@ vorpal.command("sendMessageOnSlack <password> <didFrom> <didTo> <message>", "sen
       didTo,
       message: encryptedMessage,
     };
-    const text = '```' + JSON.stringify(body, null, 2) + '```';
+    const text = `\`\`\`${JSON.stringify(body, null, 2)}\`\`\``;
     const webhook = process.env.SLACK_HOOK;
     await fetch(webhook, {
       method: 'post',
@@ -251,7 +248,7 @@ vorpal.command("sendMessageOnSlack <password> <didFrom> <didTo> <message>", "sen
     return vorpal.wait(1);
   });
 
-vorpal.command("decrypt <password> <payloadPath>", "send an encrypted message on Slack")
+vorpal.command('decrypt <password> <payloadPath>', 'send an encrypted message on Slack')
   .action(async ({ password, payloadPath }) => {
     const out = path.resolve(payloadPath);
     const json = JSON.parse(fse.readFileSync(out));
@@ -268,7 +265,6 @@ vorpal.command("decrypt <password> <payloadPath>", "send an encrypted message on
     await wallet.decrypt(password);
 
     // Get private key of recipient
-    const didDocumentTo = await ghdid.resolver.resolve(didTo);
     const kid = didTo.split('~github-did~')[1];
     const { privateKey } = wallet.data.keystore[kid].data;
     const privateKeyObj = (await openpgp.key.readArmored(privateKey)).keys[0];
@@ -276,7 +272,7 @@ vorpal.command("decrypt <password> <payloadPath>", "send an encrypted message on
 
     const decryptedMessage = (await openpgp.decrypt({
       // TODO: ciphertext instead of message?
-      message: await openpgp.message.readArmored(message),    // parse armored message
+      message: await openpgp.message.readArmored(message), // parse armored message
       publicKeys: publicKeyObj,
       privateKeys: privateKeyObj,
     })).data;
@@ -287,6 +283,6 @@ vorpal.command("decrypt <password> <payloadPath>", "send an encrypted message on
 
 
 vorpal.parse(process.argv);
-if (process.argv.length == 0) {
-  vorpal.delimiter("🐙 ").show();
+if (process.argv.length === 0) {
+  vorpal.delimiter('🐙 ').show();
 }
