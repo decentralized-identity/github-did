@@ -11,7 +11,8 @@
   "scripts": {
     "start": "npm run ghdid",
     "ghdid": "node ./src/index.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,10 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.1.2",
     "jest": "^23.6.0"
   },
   "jest": {
