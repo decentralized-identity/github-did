@@ -9,17 +9,15 @@ const fetch = require('node-fetch');
 const openpgp = require('openpgp');
 
 const logger = require('./logger');
+const packageJson = require('../package.json');
 
 vorpal.logger = logger;
-
 vorpal.wait = seconds => new Promise((resolve) => {
   setTimeout(resolve, seconds * 1000);
 });
 
-const { version, repository } = require('../package.json');
-
+const { version } = packageJson;
 const logPath = path.resolve(os.homedir(), '.github-did', 'log.json');
-
 const configPath = path.resolve(os.homedir(), '.github-did', 'config.json');
 const walletFilePath = path.resolve(os.homedir(), '.github-did', 'wallet.json');
 
@@ -28,31 +26,31 @@ if (fse.existsSync(configPath)) {
   vorpal.config = require(configPath);
 }
 
-const [user, repo] = repository.url
-  .split('+')[1]
-  .split('https://github.com/')[1]
-  .split('.')[0]
-  .split('/');
-
 vorpal
-  .command('init <password>', 'initialize github-did')
-  .action(async ({ password }) => {
+  .command('init <password> [forkedRepoUrl]', 'initialize github-did')
+  .action(async ({ password, forkedRepoUrl }) => {
+    // If no forked repo url is specified, default to the Transmute one
+    const repoUrl = forkedRepoUrl || packageJson.repository.url;
     if (vorpal.config) {
       logger.log({
         level: 'info',
         message: `Config exists ${configPath}`,
       });
     } else {
+      // Clone the github-did repo from the specified url
+      const [user, repo] = repoUrl
+        .split(/github.com./)[1]
+        .split('.git')[0]
+        .split('/');
+      const gitUrl = `git@github.com:${user}/${repo}.git`;
       const cwd = process.cwd();
-      const repoUrl = `git@github.com:${user}/${repo}.git`;
       const repoPath = path.resolve(os.homedir(), '.github-did', repo);
       const cmd = `
-    if cd ${repoPath}; then git pull; else git clone ${repoUrl} ${repoPath}; fi
-    cd ${cwd};
-    `;
+        if cd ${repoPath}; then git pull; else git clone ${gitUrl} ${repoPath}; fi
+        cd ${cwd};
+      `;
       const silentState = shell.config.silent;
       shell.config.silent = true;
-
       shell.exec(cmd);
       shell.config.silent = silentState; // restore old silent state
 
@@ -73,6 +71,7 @@ vorpal
             version,
             wallet: walletFilePath,
             logs: logPath,
+            repoUrl,
           },
           null,
           2,
@@ -106,6 +105,11 @@ vorpal
         tag,
       });
 
+      const { repoUrl } = vorpal.config;
+      const [user, repo] = repoUrl
+        .split(/github.com./)[1]
+        .split('.git')[0]
+        .split('/');
       const did = ghdid.createDID('ghdid', user, repo, kid);
 
       const didDocument = await wallet.toDIDDocumentByTag({
