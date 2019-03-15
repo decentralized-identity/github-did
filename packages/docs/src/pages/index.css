@@ -1,0 +1,33 @@
+html {
+    height: 100%;
+}
+
+#___gatsby {
+    height: 100%;
+}
+
+#___gatsby>div {
+    height: 100%;
+}
+
+#___gatsby>div>div:nth-of-type(1) {
+    height: 92%;
+}
+
+body {
+    color: white;
+    height: 100%;
+}
+
+.drawer-main {
+    padding: 10px;
+    min-height: 100%;
+}
+
+pre {
+    background: white;
+    color: #000;
+    padding: 16px;
+    margin: 8px;
+    border-radius: 5px;
+}
