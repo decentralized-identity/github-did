@@ -20,7 +20,7 @@ body {
 }
 
 .drawer-main {
-    padding: 10px;
+    /* padding: 10px; */
     min-height: 100%;
 }
 
@@ -30,4 +30,6 @@ pre {
     padding: 16px;
     margin: 8px;
     border-radius: 5px;
+    overflow: scroll;
 }
+

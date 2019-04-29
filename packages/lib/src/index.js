@@ -53,13 +53,27 @@ const didToDIDDocumentURL = did => {
   if (_ !== "did") {
     throw new Error("Invalid DID");
   }
-  if (method !== "ghdid") {
+  if (method !== "ghdid" && method !== "github") {
     throw new Error("Invalid ghdid");
   }
-  const [username, repo, kid] = identifier.split("~");
-  const base = "https://raw.githubusercontent.com/";
-  const didRepoDir = "/master/dids";
-  return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
+
+  if (method === "ghdid"){
+    const [username, repo, kid] = identifier.split("~");
+    const base = "https://raw.githubusercontent.com/";
+    const didRepoDir = "/master/dids";
+    return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
+  } 
+
+  if (method === "github"){
+    const base = "https://raw.githubusercontent.com/";
+    const didRepoDir = "/master/did.jsonld";
+    const url = `${base}${identifier}/did${didRepoDir}`;
+    return url;
+  } 
+
+
+
+  
 };
 
 const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {

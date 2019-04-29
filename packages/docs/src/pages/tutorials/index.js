@@ -27,37 +27,39 @@ class TutorialsIndex extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO
-          title="Docs"
-          keywords={[`DID`, `Github`, `Cryptography`, `Credentials`]}
-        />
-        <h2>Tutorials</h2>
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug;
-          return (
-            <Paper
-              key={node.fields.slug}
-              style={{ padding: "8px 8px", marginBottom: "16px" }}
-            >
-              <h3
-                style={{
-                  marginTop: "2px",
-                  marginBottom: rhythm(1 / 4)
-                }}
+        <div style={{ padding: "10px" }}>
+          <SEO
+            title="Docs"
+            keywords={[`DID`, `Github`, `Cryptography`, `Credentials`]}
+          />
+          <h2>Tutorials</h2>
+          {posts.map(({ node }) => {
+            const title = node.frontmatter.title || node.fields.slug;
+            return (
+              <Paper
+                key={node.fields.slug}
+                style={{ padding: "8px 8px", marginBottom: "16px" }}
               >
-                {title}
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+                <h3
+                  style={{
+                    marginTop: "2px",
+                    marginBottom: rhythm(1 / 4)
+                  }}
+                >
+                  {title}
+                </h3>
+                <small>{node.frontmatter.date}</small>
+                <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
 
-              <div style={{ textAlign: "right" }}>
-                <Button component={Link} to={node.fields.slug}>
-                  View
-                </Button>
-              </div>
-            </Paper>
-          );
-        })}
+                <div style={{ textAlign: "right" }}>
+                  <Button component={Link} to={node.fields.slug}>
+                    View
+                  </Button>
+                </div>
+              </Paper>
+            );
+          })}
+        </div>
       </Layout>
     );
   }

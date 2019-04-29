@@ -14,12 +14,14 @@ class Layout extends React.Component {
       title,
       children
     } = this.props;
-    
+
     // const rootPath = `${__PATH_PREFIX__}/`;
     return (
       <MuiThemeProvider theme={theme}>
-        <Drawer title={title}>{children}</Drawer>
-        <Footer />
+        <Drawer title={title}>
+          {children}
+          <Footer />
+        </Drawer>
       </MuiThemeProvider>
     );
   }

@@ -1,58 +1,61 @@
 ---
 title: Getting Started
-date: "2015-05-01T22:12:03.284Z"
+date: "2019-04-29T22:12:03.284Z"
 ---
 
-In this tutorial, we'll walk you through how to set up a Github DID.
+In this tutorial, we'll walk you through how Github DID works.
+
+## DID Method
+
+At the core a DID is the `method`. its the process that helps resolve the identifier that looks like `did:method:123` to the document which is JSON-LD and contains the `publicKey` and `service` properties.
+
+Github DID is experimental and supports a couple different formats for methods.
 
 
-### Clone the github-did repo
+### Username DIDs
 
-Head over to [https://github.com/transmute-industries/github-did](https://github.com/transmute-industries/github-did) and fork the repository.
-
-In the `dids` folder is where you will publish your did document(s).
-
-### Setup the CLI
-
-Github DID comes with a command line interface.
-
-```bash
-npm i -g @github-did/cli
-```
-
-You can now use the `ghdid` cli too to manage a local wallet.
-
-In order to create an empty wallet, run
-
-```bash
-ghdid init my-password https://github.com/<your-github-username>/github-did
-```
-Note that you need to specify the url of your forked github-did repo.
-
-This will create a wallet.json file, encrypted with the provided password. Check it out at `~/.github-did/wallet.json`
-
-### Create and submit your first DID Document
-
-```bash
-ghdid addKey my-password
-```
-
-This will:
-- add an openpgp key to your wallet
-- create a DID document in your local repo `~/.github-did/github-did/dids/`
-- display the resulting DID. It should be of the format: `did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369`
-
-Now you can use git to commit your new DID and push it to your repo:
+They look like this: 
 
 ```
-cd ~/.github-did/github-did
-git add ./dids
-git commit -m "Add my did"
-git push origin master
+did:github:or13
 ```
 
-Finally, head over to [https://github-did.com/resolver](https://github-did.com/resolver) and try to resolve your DID.
+The resolver knows to convert this string to this url: 
 
-Congrats! You should now have a usable / resolvable DID to experiment with!
+```
+https://raw.githubusercontent.com/OR13/did/master/did.jsonld
+```
 
-To learn how to use your keys / DID documents head over to the [next article](#)
+So long as `did.jsonld` is a properly formatted DID Document, `did:github:or13` is a valid DID.
+
+### Repository DIDs
+
+They look like this:
+
+```
+did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369
+```
+
+The resolver knows to convert this string to this url: 
+
+```
+https://raw.githubusercontent.com/gjgd/github-did/master/dids/f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369.jsonld
+```
+
+So long as `f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369.jsonld` is a properly formatted DID Document, `did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369` is a valid DID.
+
+## Managing DID Documents
+
+DID Documents can be signed with a `proof` property or not. The keys and services listed are up the the controller, and you can create a DID Document simply by copying one of the examples above and updating the id property and keys.
+
+The entire security of this method relies on Github. Obviously, Github can censor, revoke, tamper or delete DIDs, which makes this method a "Centralized DID" or "Weak DID", the terminology is still evolving, you can see a healthy debate [here](https://github.com/w3c-ccg/did-wg-charter/issues/22).
+
+## Managing Keys
+
+Private keys associated with public keys listed in a document can be managed by various methods including, GPG, custom wallet systems, vaults or cloud based key management systems. Its obviously critical that private keys remain private, and that public keys are revoked (removed from documents), if private keys are compromised.
+
+## Conclusion
+
+You should now understand how to create a Github DID, using Github.com's built in UI and the examples provided
+
+To learn how to use github-did's custom test wallet and cli to manage keys, and create documents, head over to the [using the cli](/using-the-cli/) 

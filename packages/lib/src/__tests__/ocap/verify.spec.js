@@ -1,6 +1,8 @@
 const ghdid = require("../../index");
 
-describe("ghdid", () => {
+jest.setTimeout(5 * 1000);
+
+describe("ocap.verify", () => {
   it("verify capability", async () => {
     const did =
       "did:ghdid:transmute-industries~github-did~4d606898-7505-4bfd-a6da-e40d02795b41";
