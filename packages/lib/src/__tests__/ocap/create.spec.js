@@ -6,7 +6,9 @@ const ghdid = require("../../index");
 
 const fixtures = require("../__fixtures__");
 
-describe("ghdid", () => {
+jest.setTimeout(5 * 1000);
+
+describe("ocap.create", () => {
   it("create capability", async () => {
     const capability = fixtures.ocap.caps.capability;
     capability.id = ghdid.createDID(
