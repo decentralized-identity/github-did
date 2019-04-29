@@ -88,7 +88,7 @@ class DrawerMenu extends React.Component {
           <ListItem
             button
             onClick={() => {
-              window.open("https://github.com/transmute-industries/github-did");
+              window.open("https://github.com/decentralized-identity/github-did");
             }}
           >
             <ListItemIcon>

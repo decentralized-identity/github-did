@@ -95,7 +95,7 @@ class Landing extends Component {
           <Button
             variant="contained"
             onClick={() => {
-              window.open('https://github.com/transmute-industries/github-did');
+              window.open('https://github.com/decentralized-identity/github-did');
             }}
           >
             Read More on Github.com

@@ -9,7 +9,7 @@ In this tutorial, we'll walk you through how to set up a GitHub DID repo using t
 
 ### Clone the github-did repo
 
-Head over to [https://github.com/transmute-industries/github-did](https://github.com/transmute-industries/github-did) and fork the repository.
+Head over to [https://github.com/decentralized-identity/github-did](https://github.com/decentralized-identity/github-did) and fork the repository.
 
 In the `dids` folder is where you will publish your did document(s).
 

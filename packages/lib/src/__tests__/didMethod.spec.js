@@ -8,7 +8,7 @@ const defaultDID =
   "did:ghdid:transmute-industries~github-did~8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e";
 
 const defaultDIDUrl =
-  "https://raw.githubusercontent.com/transmute-industries/github-did/master/dids/8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e.jsonld";
+  "https://raw.githubusercontent.com/decentralized-identity/github-did/master/dids/8e3eaf0eddf5bbaea1b6881c819ef4ed1a70ef95ca48ef5c535d2073ca72db9e.jsonld";
 
 describe("ghdid", () => {
   describe("createDID", () => {

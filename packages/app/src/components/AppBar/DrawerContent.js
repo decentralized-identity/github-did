@@ -48,7 +48,7 @@ const DrawerContent = ({ classes }) => (
         {
           label: 'Source',
           icon: <Code />,
-          link: 'https://github.com/transmute-industries/github-did',
+          link: 'https://github.com/decentralized-identity/github-did',
         },
         {
           label: 'Credits',

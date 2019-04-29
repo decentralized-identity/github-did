@@ -1,6 +1,6 @@
 # GitHub DID
 
-[![Build Status](https://travis-ci.org/transmute-industries/github-did.svg?branch=master)](https://travis-ci.org/transmute-industries/github-did) [![codecov](https://codecov.io/gh/transmute-industries/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/transmute-industries/github-did) <img src="https://readthedocs.com/projects/transmute-github-did/badge/?version=latest"> [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/transmute-industries/github-did/blob/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/transmute-industries/github-did.svg?style=social&label=Fork&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did#fork-destination-box) [![GitHub stars](https://img.shields.io/github/stars/transmute-industries/github-did.svg?style=social&label=Star&maxAge=2592000?style=flat-square)](https://github.com/transmute-industries/github-did/stargazers)
+[![Build Status](https://travis-ci.org/decentralized-identity/github-did.svg?branch=master)](https://travis-ci.org/decentralized-identity/github-did) [![codecov](https://codecov.io/gh/decentralized-identity/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/decentralized-identity/github-did) <img src="https://readthedocs.com/projects/transmute-github-did/badge/?version=latest"> [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/decentralized-identity/github-did/blob/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/decentralized-identity/github-did.svg?style=social&label=Fork&maxAge=2592000?style=flat-square)](https://github.com/decentralized-identity/github-did#fork-destination-box) [![GitHub stars](https://img.shields.io/github/stars/decentralized-identity/github-did.svg?style=social&label=Star&maxAge=2592000?style=flat-square)](https://github.com/decentralized-identity/github-did/stargazers)
 
 ### [Website](https://github-did.com) &middot; [Swagger](https://github-did.com/api/docs)
 
@@ -103,7 +103,7 @@ const didToDIDDocumentURL = did => {
 };
 ```
 
-Notice there is nothing here about this repo (`https://github.com/transmute-industries/github-did`), this is because the `ghdid` method works with any github repo that is public, the identifier includes the details needed to get the did document from dids folder. If you want to create a new folder structure, you must create a new DID method.
+Notice there is nothing here about this repo (`https://github.com/decentralized-identity/github-did`), this is because the `ghdid` method works with any github repo that is public, the identifier includes the details needed to get the did document from dids folder. If you want to create a new folder structure, you must create a new DID method.
 
 ### What can I do with my DID?
 

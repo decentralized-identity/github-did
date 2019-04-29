@@ -91,7 +91,7 @@ class Footer extends React.Component {
                       button
                       onClick={() => {
                         window.open(
-                          "https://github.com/transmute-industries/github-did"
+                          "https://github.com/decentralized-identity/github-did"
                         );
                       }}
                     >

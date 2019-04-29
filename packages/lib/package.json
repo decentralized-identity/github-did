@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/transmute-industries/github-did.git"
+    "url": "git+https://github.com/decentralized-identity/github-did.git"
   },
   "author": "Orie Steele",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/transmute-industries/github-did/issues"
+    "url": "https://github.com/decentralized-identity/github-did/issues"
   },
-  "homepage": "https://github.com/transmute-industries/github-did#readme",
+  "homepage": "https://github.com/decentralized-identity/github-did#readme",
   "dependencies": {
     "@transmute/openpgpsignature2019": "^0.1.1",
     "@transmute/rsasignature2017": "^0.1.0",
