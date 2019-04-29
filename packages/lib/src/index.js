@@ -95,7 +95,7 @@ const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
     "assymetric",
     {
       tags: ["OpenPgpSignature2019", "PROPOSAL", tag],
-      notes: "Created for Github DID",
+      notes: "Created for GitHub DID",
       did: {
         publicKey: true,
         authentication: true,

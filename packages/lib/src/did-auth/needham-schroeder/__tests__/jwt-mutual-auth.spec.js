@@ -33,7 +33,7 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
       "assymetric",
       {
         tags: ["RS256", "JWT"],
-        notes: "Created for Github DID",
+        notes: "Created for GitHub DID",
         did: {
           publicKey: true,
           authentication: true,

@@ -76,7 +76,7 @@ class Landing extends Component {
     const { mobile, isCarouselOpen } = this.state;
     return (
       <Pages.WithNavigation>
-        <Typography variant="h2">Welcome to Github DID</Typography>
+        <Typography variant="h2">Welcome to GitHub DID</Typography>
         <br />
         <Typography variant="body1">
           {`Decentralized Identifiers (DIDs) are a new type of identifier for verifiable,
@@ -181,7 +181,7 @@ class Landing extends Component {
             mediaBackgroundStyle={{ backgroundColor: grey[700], padding: '32px' }}
             style={{ backgroundColor: grey[800] }}
             title="Under Construction!"
-            subtitle="Github DID is experimental, be careful and have fun!"
+            subtitle="GitHub DID is experimental, be careful and have fun!"
           />
         </AutoRotatingCarousel>
       </Pages.WithNavigation>

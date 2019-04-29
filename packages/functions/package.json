@@ -1,7 +1,7 @@
 {
   "name": "@github-did/functions",
   "version": "0.0.0",
-  "description": "Cloud Functions for Github DID",
+  "description": "Cloud Functions for GitHub DID",
   "author": "Orie Steele",
   "license": "Apache-2.0",
   "scripts": {

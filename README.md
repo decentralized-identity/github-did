@@ -30,7 +30,7 @@ Many developers are familar with Github, and its 2 supported public key cryptosy
 
 Linked Data Signatures are difficult to work with when operating a server or running a local node of some distributed system / blockchain is a requirement.
 
-The objective of Github DID is to encourage contribution to the [DID Spec](https://w3c-ccg.github.io/did-spec/) and [Linked Data Signatures](https://w3c-dvcg.github.io/ld-signatures), and allow rapid development of extensions to these without requiring the use of slow, or complicated more trustless infrastructure, such as blockchains or other distributed systems.
+The objective of GitHub DID is to encourage contribution to the [DID Spec](https://w3c-ccg.github.io/did-spec/) and [Linked Data Signatures](https://w3c-dvcg.github.io/ld-signatures), and allow rapid development of extensions to these without requiring the use of slow, or complicated more trustless infrastructure, such as blockchains or other distributed systems.
 
 ## Getting Started
 

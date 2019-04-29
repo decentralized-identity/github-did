@@ -32,9 +32,9 @@ app.use('/.well-known/webfinger', require('./src/express/routes/.well-known/webf
 const swaggerDoc = swaggerJSDoc({
   definition: {
     info: {
-      title: 'Github DID',
+      title: 'GitHub DID',
       version: pack.version,
-      description: 'Github DID API',
+      description: 'GitHub DID API',
     },
     basePath: getBasePath(),
   },
@@ -46,7 +46,7 @@ const swaggerDoc = swaggerJSDoc({
 const pageNotFound = (req, res, next) => {
   if (['/', '/docs', '/api/docs'].indexOf(req.url) === -1) {
     res.status(404).json({
-      message: 'Github DID API endpoint not found',
+      message: 'GitHub DID API endpoint not found',
       url: req.url,
     });
   } else {

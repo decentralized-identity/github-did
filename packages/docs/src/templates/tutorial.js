@@ -15,7 +15,7 @@ class TutorialTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <div style={{padding: '10px'}}>
+        <div className='layout-inner'>
           <SEO title={post.frontmatter.title} description={post.excerpt} />
           <h1>{post.frontmatter.title}</h1>
           <p

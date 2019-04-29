@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Github DID`,
+    title: `GitHub DID`,
     author: `Transmute`,
-    description: `Github DID is an experimental tool for developing and testing the Decentralized Identity, Credentials, Signature Suites and related Cryptography.`,
+    description: `GitHub DID is an experimental tool for developing and testing the Decentralized Identity, Credentials, Signature Suites and related Cryptography.`,
     siteUrl: `https://docs.github-did.com/`,
     twitter: "@TransmuteNews",
     medium: "@Transmute"
@@ -63,7 +63,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Github DID Docs`,
+        name: `GitHub DID Docs`,
         short_name: `GithubDID`,
         start_url: `/`,
         background_color: `#ffffff`,

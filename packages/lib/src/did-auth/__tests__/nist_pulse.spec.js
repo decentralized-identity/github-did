@@ -24,7 +24,7 @@ describe("DID Auth with Nist Beacon", () => {
       "assymetric",
       {
         tags: ["RS256", "JWT"],
-        notes: "Created for Github DID",
+        notes: "Created for GitHub DID",
         did: {
           publicKey: true,
           authentication: true,

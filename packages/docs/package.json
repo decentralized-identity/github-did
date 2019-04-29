@@ -1,7 +1,7 @@
 {
   "name": "@github-did/docs",
   "private": true,
-  "description": "Github DID is an experimental tool for developing and testing the Decentralized Identity, Credentials, Signature Suites and related Cryptography.",
+  "description": "GitHub DID is an experimental tool for developing and testing the Decentralized Identity, Credentials, Signature Suites and related Cryptography.",
   "version": "0.0.0",
   "author": "Orie Steele <orie@transmute.industries>",
   "bugs": {

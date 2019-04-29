@@ -1,6 +1,6 @@
 # @github-did/functions
 
-Firebase Cloud Functions for Github DID
+Firebase Cloud Functions for GitHub DID
 
 ##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/docs)
 

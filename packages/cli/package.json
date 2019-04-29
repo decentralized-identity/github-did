@@ -1,7 +1,7 @@
 {
   "name": "@github-did/cli",
   "version": "0.0.0",
-  "description": "Github DID",
+  "description": "GitHub DID",
   "author": "Orie Steele",
   "license": "Apache-2.0",
   "bin": {

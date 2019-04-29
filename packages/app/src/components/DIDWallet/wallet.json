@@ -11,7 +11,7 @@
       "type": "assymetric",
       "meta": {
         "tags": ["OpenPgpSignature2019", "PROPOSAL"],
-        "notes": "Created for Github DID",
+        "notes": "Created for GitHub DID",
         "did": {
           "publicKey": true,
           "authentication": true,

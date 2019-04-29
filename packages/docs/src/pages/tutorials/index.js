@@ -19,6 +19,8 @@ import { rhythm } from "../../utils/typography";
 
 import "../index.css";
 
+import Typography from "@material-ui/core/Typography";
+
 class TutorialsIndex extends React.Component {
   render() {
     const { data } = this.props;
@@ -27,12 +29,17 @@ class TutorialsIndex extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <div style={{ padding: "10px" }}>
+        <div className="layout-inner">
           <SEO
             title="Docs"
-            keywords={[`DID`, `Github`, `Cryptography`, `Credentials`]}
+            keywords={[`DID`, `GitHub`, `Cryptography`, `Credentials`]}
           />
-          <h2>Tutorials</h2>
+
+          <Typography variant="h5" noWrap>
+            Tutorials
+          </Typography>
+          <br/>
+
           {posts.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug;
             return (

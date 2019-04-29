@@ -107,7 +107,7 @@ class Drawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Link to="/">
-              <Typography variant="h5" noWrap>
+              <Typography variant="h5" noWrap style={{color: 'white'}}>
                 {title}
               </Typography>
             </Link>

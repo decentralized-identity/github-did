@@ -35,7 +35,7 @@ class DIDResolver extends Component {
       <Grid container spacing={24}>
         <Grid item xs={12} sm={11}>
           <TextField
-            label="Github DID Resolver"
+            label="GitHub DID Resolver"
             value={currentDID}
             fullWidth
             onChange={(event) => {

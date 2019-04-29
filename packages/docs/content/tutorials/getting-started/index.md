@@ -1,15 +1,16 @@
 ---
 title: Getting Started
 date: "2019-04-29T22:12:03.284Z"
+image: "/imgs/micro_0.jpg"
 ---
 
-In this tutorial, we'll walk you through how Github DID works.
+In this tutorial, we'll walk you through how GitHub DID works.
 
 ## DID Method
 
 At the core a DID is the `method`. its the process that helps resolve the identifier that looks like `did:method:123` to the document which is JSON-LD and contains the `publicKey` and `service` properties.
 
-Github DID is experimental and supports a couple different formats for methods.
+GitHub DID is experimental and supports a couple different formats for methods.
 
 
 ### Username DIDs
@@ -56,6 +57,6 @@ Private keys associated with public keys listed in a document can be managed by 
 
 ## Conclusion
 
-You should now understand how to create a Github DID, using Github.com's built in UI and the examples provided
+You should now understand how to create a GitHub DID, using Github.com's built in UI and the examples provided
 
 To learn how to use github-did's custom test wallet and cli to manage keys, and create documents, head over to the [using the cli](/using-the-cli/) 

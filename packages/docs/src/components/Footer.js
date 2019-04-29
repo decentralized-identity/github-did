@@ -61,7 +61,7 @@ class Footer extends React.Component {
                   <Typography variant="h5">About</Typography>
                   <br />
                   <Typography variant="body2">
-                    Github DID is an experimental tool for developing and
+                    GitHub DID is an experimental tool for developing and
                     testing the Decentralized Identity, Credentials, Signature
                     Suites and related Cryptography.
                   </Typography>

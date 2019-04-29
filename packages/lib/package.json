@@ -1,7 +1,7 @@
 {
   "name": "@github-did/lib",
   "version": "0.0.1",
-  "description": "Github DID Library",
+  "description": "GitHub DID Library",
   "main": "./src/index.js",
   "scripts": {
     "test": "jest --coverage"
