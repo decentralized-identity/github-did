@@ -1,7 +1,7 @@
 ---
 title: Using the CLI
 date: "2019-04-29T22:12:03.284Z"
-image: "/imgs/micro_2.jpg"
+image: "/imgs/micro_2_1.jpg"
 ---
 
 In this tutorial, we'll walk you through how to set up a GitHub DID repo using the CLI and a local wallet to manage keys.
