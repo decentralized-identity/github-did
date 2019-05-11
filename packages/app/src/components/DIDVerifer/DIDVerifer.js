@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line
@@ -11,11 +11,7 @@ import 'brace/mode/json';
 // eslint-disable-next-line
 import 'brace/theme/github';
 
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import {
   // Paper,
@@ -58,21 +54,12 @@ class DIDVerifer extends Component {
     }, 500);
   }
 
-  componentDidMount() {
-    this.setState({
-      // eslint-disable-next-line
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-  }
-
   handleVerify = () => {
     this.props.verify({ signedData: JSON.parse(this.state.jsonEditorValue) });
   };
 
   render() {
-    const { wallet } = this.props;
-    const { data } = wallet;
-    const { jsonEditorValue, creator } = this.state;
+    const { jsonEditorValue, creator, kid } = this.state;
 
     const Header = () => <Typography variant="h5">Verify Payload</Typography>;
 
@@ -123,35 +110,15 @@ class DIDVerifer extends Component {
               </FormControl>
               <br />
               <br />
-              <FormControl variant="outlined" fullWidth disabled>
-                <InputLabel
-                  ref={(ref) => {
-                    this.InputLabelRef = ref;
-                  }}
-                  htmlFor="outlined-age-simple"
-                >
-                  Key ID
-                </InputLabel>
-                <Select
-                  value={this.state.kid}
-                  onChange={this.handleChange}
-                  input={
-                    <OutlinedInput
-                      labelWidth={this.state.labelWidth}
-                      name="kid"
-                      id="outlined-kid-simple"
-                    />
-                  }
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {Object.keys(data.keystore).map(kid => (
-                    <MenuItem key={kid} value={kid}>
-                      {`${kid.substring(0, 8)}...`}
-                    </MenuItem>
-                  ))}
-                </Select>
+              <FormControl variant="outlined" fullWidth>
+                <TextField
+                  disabled
+                  label="Key ID"
+                  value={kid}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                />
               </FormControl>
             </form>
           </Grid>

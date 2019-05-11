@@ -38,7 +38,7 @@ class DIDWallet extends Component {
   };
 
   // eslint-disable-next-line
-  handleChange = name => (event) => {
+  handleChange = name => event => {
     this.setState({
       isWalletLockDialogOpen: true,
     });
@@ -61,6 +61,18 @@ class DIDWallet extends Component {
           <Typography variant="h3">Warning</Typography>
           <Typography variant="body2">
             Imported a wallet into a web application should only be done for testing purposes.
+          </Typography>
+
+          <Typography variant="body2">
+            If you would like to use my test wallet, you can obtain it{' '}
+            <a
+              href="/wallet.json"
+              rel="noopener noreferrer"
+              target="_blank"
+              download="github-did-test-wallet-plaintext.json"
+            >
+              here
+            </a>
           </Typography>
           <br />
           <Button
