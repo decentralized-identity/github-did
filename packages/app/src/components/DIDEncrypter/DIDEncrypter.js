@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line
@@ -11,11 +11,7 @@ import 'brace/mode/json';
 // eslint-disable-next-line
 import 'brace/theme/github';
 
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import {
   // Paper,
@@ -41,7 +37,7 @@ class DIDEncrypter extends Component {
   };
 
   componentWillMount() {
-    const { wallet, payload } = this.props;
+    const { payload } = this.props;
 
     this.setState({
       fromPublicKeyId: 'did:github:OR13#kid=jNeDDagaBn466F-wH26YdQ5_NiabBvOlXTv5xItQakU',

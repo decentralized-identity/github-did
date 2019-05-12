@@ -1,5 +1,5 @@
 {
-  "name": "@github-did/functions",
+  "name": "@github-did/api",
   "version": "0.0.0",
   "description": "Cloud Functions for GitHub DID",
   "author": "Orie Steele",
