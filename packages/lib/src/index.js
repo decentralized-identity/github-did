@@ -1,6 +1,9 @@
 const fetch = require("node-fetch");
+
+// TODO: remove these OS related bits from this lib.
 const path = require("path");
 const os = require("os");
+
 const fse = require("fs-extra");
 
 const {
@@ -14,6 +17,8 @@ const {
 
 const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
 const openpgp = require("openpgp");
+
+const v2 = require("./v2");
 
 const getJson = async url => {
   // TODO: remove await
@@ -57,23 +62,19 @@ const didToDIDDocumentURL = did => {
     throw new Error("Invalid ghdid");
   }
 
-  if (method === "ghdid"){
+  if (method === "ghdid") {
     const [username, repo, kid] = identifier.split("~");
     const base = "https://raw.githubusercontent.com/";
     const didRepoDir = "/master/dids";
     return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
-  } 
+  }
 
-  if (method === "github"){
+  if (method === "github") {
     const base = "https://raw.githubusercontent.com/";
     const didRepoDir = "/master/did.jsonld";
     const url = `${base}${identifier}/did${didRepoDir}`;
     return url;
-  } 
-
-
-
-  
+  }
 };
 
 const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
@@ -107,20 +108,23 @@ const addKeyWithTag = async ({ wallet, email, passphrase, tag }) => {
 };
 
 const resolveLocally = did => {
-  const kid = did.split('~github-did~')[1];
+  const kid = did.split("~github-did~")[1];
   const didFile = `${kid}.jsonld`;
-  const localRepoPath = path.resolve(os.homedir(), ".github-did/github-did/dids", didFile);
+  const localRepoPath = path.resolve(
+    os.homedir(),
+    ".github-did/github-did/dids",
+    didFile
+  );
   const didDocument = JSON.parse(fse.readFileSync(localRepoPath).toString());
-  return didDocument
+  return didDocument;
 };
 
 const resolver = {
   resolve: did => {
     const url = didToDIDDocumentURL(did);
-    return getJson(url)
-      .catch(() => {
-        return resolveLocally(did);
-      });
+    return getJson(url).catch(() => {
+      return resolveLocally(did);
+    });
   }
 };
 
@@ -257,5 +261,6 @@ module.exports = {
   plainTextWalletJsonToCipherTextWalletJson,
   getPublicKeyByKeyId,
   encryptFor,
-  decryptFor
+  decryptFor,
+  v2
 };

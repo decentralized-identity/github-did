@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/decentralized-identity/github-did#readme",
   "dependencies": {
+    "@transmute/did-wallet": "0.0.0-2",
     "@transmute/openpgpsignature2019": "^0.1.1",
     "@transmute/rsasignature2017": "^0.1.0",
     "@transmute/transmute-did": "1.1.8",
