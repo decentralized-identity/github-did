@@ -1,22 +1,8 @@
 const functions = require('firebase-functions');
-const fs = require('fs');
-
-const exampleConfigPath = './example.runtimeconfig.json';
-const localConfig = '../../secrets/.runtimeconfig.json';
-
-// eslint-disable-next-line
-const exampleConfig = require(exampleConfigPath);
 
 const getBaseConfig = () => {
-  let config = functions.config();
-
-  // eslint-disable-next-line
-  if (fs.existsSync(localConfig)) {
-    // eslint-disable-next-line
-    config = require(localConfig);
-  }
-
-  return config.github_did || exampleConfig.github_did;
+  const config = functions.config();
+  return config.github_did;
 };
 
 const getBaseHost = () => {
@@ -37,8 +23,14 @@ const getBasePath = () => {
   }
 };
 
+const getAPIBaseUrl = () => {
+  const protocol = getBaseConfig().env === 'production' ? 'https' : 'http';
+  return `${protocol}://${getBaseHost()}${getBasePath()}`;
+};
+
 module.exports = {
   getBaseConfig,
   getBaseHost,
   getBasePath,
+  getAPIBaseUrl,
 };

@@ -1,7 +1,8 @@
 const express = require('express');
-const didLib = require('../../../lib/did');
+
 const { getBasePath } = require('../../../config');
 
+const ghdid = require('@github-did/lib');
 const logger = require('../../../lib/winston');
 
 const router = express.Router();
@@ -21,7 +22,7 @@ const router = express.Router();
  *         description: resource to check
  *         required: true
  *         type: string
- *         value: acct:did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a@github-did.com
+ *         value: acct:did:github:OR13@github-did.com
  *       responses:
  *         '200':
  *           description: Webfinger Record
@@ -37,7 +38,7 @@ router.get('/', async (req, res, next) => {
       });
     }
     const [did, domain] = resource.replace('acct:', '').split('@');
-    const didDocument = await didLib.resolver.resolve(did);
+    const didDocument = await ghdid.v2.func.resolver.resolve(did);
     if (!didDocument) {
       throw new Error('Webfinger could not resolve did.');
     }

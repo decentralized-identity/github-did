@@ -42,21 +42,23 @@ export default withHandlers({
     set({ loading: true });
     try {
       let message;
-      if (wallet.data.keystore.nonce !== undefined) {
-        const plainText = await ghdid.cipherTextWalletJsonToPlainTextWalletJson(
-          wallet.data,
-          password,
-        );
-        walletDecrypted({ data: plainText });
+
+      if (typeof wallet.data === 'string') {
+        const wall = ghdid.v2.func.createWallet(wallet.data);
+        wall.unlock(password);
+
+        walletDecrypted({ data: wall });
         message = 'Unlocked wallet.';
       } else {
-        const cipherTextWallet = await ghdid.plainTextWalletJsonToCipherTextWalletJson(
-          wallet.data,
-          password,
-        );
-        walletEncrypted({ data: cipherTextWallet });
+        const wall = ghdid.v2.func.createWallet({
+          keys: Object.values(wallet.data.keys),
+        });
+        wall.lock(password);
+
+        walletEncrypted({ data: wall.ciphered });
         message = 'Locked wallet.';
       }
+
       snackbarMessage({
         snackbarMessage: {
           message,
@@ -78,22 +80,12 @@ export default withHandlers({
   },
   sign: ({
     wallet, encodedSignature, snackbarMessage, set,
-  }) => async ({
-    payload,
-    creator,
-    kid,
-    password,
-  }) => {
+  }) => async ({ payload, did, kid }) => {
     set({ loading: true });
     try {
-      const signed = await ghdid.sign({
-        data: payload,
-        creator: `${creator}#kid=${kid}`,
-        privateKey: await ghdid.getUnlockedPrivateKey(
-          wallet.data.keystore[kid].data.privateKey,
-          password,
-        ),
-      });
+      const w = await ghdid.v2.func.createWallet({ keys: Object.values(wallet.data.keys) });
+
+      const signed = await ghdid.v2.func.signWithWallet(payload, did, kid, w);
 
       const message = 'Signed payload...';
 
@@ -126,9 +118,7 @@ export default withHandlers({
   verify: ({ snackbarMessage, set }) => async ({ signedData }) => {
     set({ loading: true });
     try {
-      const verified = await ghdid.verify({
-        data: signedData,
-      });
+      const verified = await ghdid.v2.func.verifyWithResolver(signedData, ghdid.v2.func.resolver);
 
       if (verified) {
         snackbarMessage({
@@ -163,28 +153,21 @@ export default withHandlers({
   encrypt: ({
     wallet, encodedEncryption, snackbarMessage, set,
   }) => async ({
-    fromKeyId,
-    toKeyId,
+    fromPublicKeyId,
+    toPublicKeyId,
     data,
-    password,
   }) => {
     set({ loading: true });
     try {
-      // const signed = await ghdid.sign({
-      //   data: payload,
-      //   creator: `${creator}#kid=${kid}`,
+      const w = await ghdid.v2.func.createWallet({ keys: Object.values(wallet.data.keys) });
 
-      // });
-
-      const cipherTextPayload = await ghdid.encryptFor({
-        fromKeyId,
-        toKeyId,
-        publicKey: await ghdid.getPublicKeyByKeyId(toKeyId),
-        privateKey: await ghdid.getUnlockedPrivateKey(
-          wallet.data.keystore[fromKeyId.split('#kid=')[1]].data.privateKey,
-          password,
-        ),
+      console.log({ w, fromPublicKeyId, toPublicKeyId, data });
+      const cipherTextPayload = await ghdid.v2.func.encryptForWithWalletAndResolver({
         data,
+        fromPublicKeyId,
+        toPublicKeyId,
+        wallet: w,
+        resolver: ghdid.v2.func.resolver,
       });
       const message = 'Encrypted payload...';
 
@@ -217,21 +200,20 @@ export default withHandlers({
   decrypt: ({
     wallet, decryptedData, snackbarMessage, set,
   }) => async ({
-    fromKeyId,
-    toKeyId,
+    fromPublicKeyId,
+    toPublicKeyId,
     cipherText,
-    password,
   }) => {
     set({ loading: true });
     try {
-      const payload = await ghdid.decryptFor({
-        fromKeyId,
-        toKeyId,
-        privateKey: await ghdid.getUnlockedPrivateKey(
-          wallet.data.keystore[toKeyId.split('#kid=')[1]].data.privateKey,
-          password,
-        ),
-        cipherText,
+      const w = await ghdid.v2.func.createWallet({ keys: Object.values(wallet.data.keys) });
+
+      const payload = await ghdid.v2.func.decryptForWithWalletAndResolver({
+        data: cipherText,
+        fromPublicKeyId,
+        toPublicKeyId,
+        wallet: w,
+        resolver: ghdid.v2.func.resolver,
       });
 
       decryptedData({

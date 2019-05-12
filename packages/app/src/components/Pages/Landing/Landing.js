@@ -91,6 +91,7 @@ class Landing extends Component {
           trusted interactions with the DID subject.`}
         </Typography>
         <br />
+        <br />
         <div>
           <Button
             variant="contained"
@@ -104,6 +105,57 @@ class Landing extends Component {
             Start Tour
           </Button>
         </div>
+        <br />
+        <br />
+
+        <Typography variant="h4">{'Getting Started'}</Typography>
+        <br />
+
+        <Typography variant="body1">
+          First, go to{' '}
+          <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">
+            github.com
+          </a>{' '}
+          and create a new public repository called "did".
+        </Typography>
+        <Typography variant="body1">
+          When complete you should end on a page like: https://github.com/USERNAME/did
+        </Typography>
+
+        <br />
+
+        <Typography variant="h4">{'Create your DID'}</Typography>
+        <br />
+
+        <pre>
+          {`
+npm i -g @github-did/cli
+ghdid init "my-password" https://github.com/USERNAME/did
+          `}
+        </pre>
+
+        <br />
+
+        <Typography variant="body1">
+          You should now have a DID visible at:
+          https://raw.githubusercontent.com/USERNAME/did/master/index.jsonld
+        </Typography>
+
+        <br />
+
+        <Typography variant="body1">
+          Head over to the wallet page to import your web wallet and continue the demo.
+        </Typography>
+        <br />
+        <Button
+          variant="contained"
+          color={'primary'}
+          onClick={() => {
+            window.location.href = '/wallet';
+          }}
+        >
+          Open Wallet
+        </Button>
 
         <AutoRotatingCarousel
           label="Get started"

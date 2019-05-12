@@ -23,13 +23,10 @@ const base64url = require('base64url');
 class DIDDecrypter extends Component {
   state = {
     jsonEditorValue: '',
-    labelWidth: 0,
-    kid: '',
-    password: 'password',
     decryptedData: {},
     jsonPayload: {
-      toKeyId: '',
-      fromKeyId: '',
+      fromPublicKeyId: '',
+      toPublicKeyId: '',
       cipherText: '',
     },
     isDisplayPayloadOpen: false,
@@ -39,12 +36,10 @@ class DIDDecrypter extends Component {
     const { payload } = this.props;
 
     const jsonPayload = JSON.parse(base64url.decode(payload));
-    const kid = jsonPayload.toKeyId.split('#kid=')[1];
 
     this.setState({
       jsonPayload,
       jsonEditorValue: JSON.stringify(jsonPayload, null, 2),
-      kid,
     });
 
     setTimeout(() => {
@@ -62,17 +57,13 @@ class DIDDecrypter extends Component {
   }
 
   handleDecrypt = () => {
-    const { jsonEditorValue, password } = this.state;
-    this.props.decrypt({ ...JSON.parse(jsonEditorValue), password });
+    const { jsonEditorValue } = this.state;
+    this.props.decrypt({ ...JSON.parse(jsonEditorValue) });
   };
 
   render() {
     const {
-      jsonEditorValue,
-      password,
-      jsonPayload,
-      decryptedData,
-      isDisplayPayloadOpen,
+      jsonEditorValue, jsonPayload, decryptedData, isDisplayPayloadOpen,
     } = this.state;
 
     const Header = () => <Typography variant="h5">Decrypt Payload</Typography>;
@@ -107,8 +98,8 @@ class DIDDecrypter extends Component {
               <FormControl variant="outlined" fullWidth>
                 <TextField
                   disabled
-                  label="From Key ID"
-                  value={jsonPayload.fromKeyId}
+                  label="From Public Key ID"
+                  value={jsonPayload.fromPublicKeyId}
                   fullWidth
                   margin="normal"
                   variant="outlined"
@@ -118,24 +109,8 @@ class DIDDecrypter extends Component {
               <FormControl variant="outlined" fullWidth>
                 <TextField
                   disabled
-                  label="To Key ID"
-                  value={jsonPayload.toKeyId}
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                />
-              </FormControl>
-
-              <FormControl variant="outlined" fullWidth>
-                <TextField
-                  label="PGP Key Password"
-                  type="password"
-                  value={password}
-                  onChange={(event) => {
-                    this.setState({
-                      password: event.target.value,
-                    });
-                  }}
+                  label="To Public Key ID"
+                  value={jsonPayload.toPublicKeyId}
                   fullWidth
                   margin="normal"
                   variant="outlined"
