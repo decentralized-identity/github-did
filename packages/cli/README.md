@@ -2,7 +2,12 @@
 
 A command line interface for working with Github DIDs.
 
+
 ## Get started with the CLI
+
+```
+npm i -g @github-did/cli
+```
 
 In order to create an empty wallet, run
 ```
@@ -95,4 +100,10 @@ Then you can decrypt it using the didTo's private key by running
 
 ```
 ghdid decrypt my-password out.json
+```
+
+### Development
+
+```
+npm run ghdid
 ```

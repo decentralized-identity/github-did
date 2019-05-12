@@ -11,20 +11,28 @@ const openpgp = require('openpgp');
 const logger = require('./logger');
 const packageJson = require('../package.json');
 
-vorpal.logger = logger;
-vorpal.wait = seconds => new Promise((resolve) => {
-  setTimeout(resolve, seconds * 1000);
-});
+const v2 = require('./v2');
 
 const { version } = packageJson;
 const logPath = path.resolve(os.homedir(), '.github-did', 'log.json');
 const configPath = path.resolve(os.homedir(), '.github-did', 'config.json');
-const walletFilePath = path.resolve(os.homedir(), '.github-did', 'wallet.json');
+const walletFilePath = path.resolve(os.homedir(), '.github-did', 'wallet.enc');
+const webWalletFilePath = path.resolve(os.homedir(), '.github-did', 'web.wallet.enc');
 
 if (fse.existsSync(configPath)) {
   // eslint-disable-next-line
   vorpal.config = require(configPath);
 }
+
+vorpal.packageJson = packageJson;
+vorpal.configPath = configPath;
+vorpal.logPath = logPath;
+vorpal.walletFilePath = walletFilePath;
+vorpal.webWalletFilePath = webWalletFilePath;
+vorpal.logger = logger;
+vorpal.wait = seconds => new Promise((resolve) => {
+  setTimeout(resolve, seconds * 1000);
+});
 
 vorpal
   .command('init <password> [forkedRepoUrl]', 'initialize github-did')
@@ -58,10 +66,7 @@ vorpal
       const wallet = await ghdid.createWallet();
       await wallet.encrypt(password);
 
-      await fse.outputFile(
-        walletFilePath,
-        JSON.stringify(wallet.data, null, 2),
-      );
+      await fse.outputFile(walletFilePath, JSON.stringify(wallet.data, null, 2));
 
       await fse.outputFile(
         configPath,
@@ -128,13 +133,7 @@ vorpal
 
       // Update DID Document
       await fse.outputFile(
-        path.resolve(
-          os.homedir(),
-          '.github-did',
-          repo,
-          'dids',
-          `${kid}.jsonld`,
-        ),
+        path.resolve(os.homedir(), '.github-did', repo, 'dids', `${kid}.jsonld`),
         JSON.stringify(
           {
             ...signedDIDDocument,
@@ -154,10 +153,7 @@ vorpal
       await wallet.encrypt(password);
 
       // Update wallet
-      await fse.outputFile(
-        walletFilePath,
-        JSON.stringify(wallet.data, null, 2),
-      );
+      await fse.outputFile(walletFilePath, JSON.stringify(wallet.data, null, 2));
       logger.log({
         level: 'info',
         message: `Keys for tag "${tag}" stored in the wallet are\n${kidsByTag.map(k => `${k}\n`)}`,
@@ -208,7 +204,11 @@ vorpal.command('logs', 'display logs').action(async () => {
   return vorpal.wait(1);
 });
 
-vorpal.command('sendMessageOnSlack <password> <didFrom> <didTo> <message>', 'send an encrypted message on Slack')
+vorpal
+  .command(
+    'sendMessageOnSlack <password> <didFrom> <didTo> <message>',
+    'send an encrypted message on Slack',
+  )
   .action(async ({
     password, didFrom, didTo, message,
   }) => {
@@ -251,7 +251,8 @@ vorpal.command('sendMessageOnSlack <password> <didFrom> <didTo> <message>', 'sen
     return vorpal.wait(1);
   });
 
-vorpal.command('decrypt <password> <payloadPath>', 'send an encrypted message on Slack')
+vorpal
+  .command('decrypt <password> <payloadPath>', 'send an encrypted message on Slack')
   .action(async ({ password, payloadPath }) => {
     const out = path.resolve(payloadPath);
     const json = JSON.parse(fse.readFileSync(out));
@@ -279,11 +280,18 @@ vorpal.command('decrypt <password> <payloadPath>', 'send an encrypted message on
       publicKeys: publicKeyObj,
       privateKeys: privateKeyObj,
     })).data;
+    // eslint-disable-next-line
     console.log(`🙈 ${decryptedMessage}`);
 
     return vorpal.wait(1);
   });
 
+v2.init2(vorpal);
+v2.resolve2(vorpal);
+v2.verify2(vorpal);
+v2.sign2(vorpal);
+v2.encrypt2(vorpal);
+v2.decrypt2(vorpal);
 
 vorpal.parse(process.argv);
 if (process.argv.length === 0) {
