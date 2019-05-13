@@ -12,6 +12,10 @@ const findPublicKeyTypeKey = key => {
   if (key.tags.includes("Secp256k1VerificationKey2018")) {
     return "Secp256k1VerificationKey2018";
   }
+
+  if (key.tags.includes("RsaSignature2017")) {
+    return "RsaSignature2017";
+  }
 };
 
 // https://w3c-ccg.github.io/did-spec/
@@ -19,6 +23,12 @@ const findPublicKeyTypeKey = key => {
 const findPublicKeyPropertyNameFromKey = key => {
   if (key.encoding === "application/pgp-keys") {
     return "publicKeyPem";
+  }
+  if (key.encoding === "application/x-pem-file") {
+    return "publicKeyPem";
+  }
+  if (key.didPublicKeyEncoding) {
+    return key.didPublicKeyEncoding;
   }
 };
 

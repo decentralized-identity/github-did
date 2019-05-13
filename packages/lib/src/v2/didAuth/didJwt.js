@@ -16,7 +16,7 @@ const decrypt = (privateKey, base64EncodedBuffer) => {
   return JSON.parse(plaintext);
 };
 
-const auth_encrypt = (publicKey, privateKey, payload) => {
+const authEncrypt = (publicKey, privateKey, payload) => {
   const token = jwt.sign(
     {
       encrypted: encrypt(publicKey, Buffer.from(JSON.stringify(payload)))
@@ -27,13 +27,13 @@ const auth_encrypt = (publicKey, privateKey, payload) => {
   return token;
 };
 
-const auth_decrypt = (publicKey, privateKey, token) => {
+const authDecrypt = (publicKey, privateKey, token) => {
   const decoded = jwt.verify(token, publicKey);
   const decrypted = decrypt(privateKey, decoded.encrypted);
   return decrypted;
 };
 
 module.exports = {
-  auth_encrypt,
-  auth_decrypt
+  authEncrypt,
+  authDecrypt
 };

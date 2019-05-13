@@ -10,6 +10,7 @@ const getJson = async url => {
       Accept: "application/ld+json"
     }
   })).json();
+
   return data;
 };
 

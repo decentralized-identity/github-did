@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 
-const ghdid = require("../../../index");
+const ghdid = require("../../../../index");
 
 const { A, B } = require("./__fixtures__");
 
@@ -8,7 +8,7 @@ const createNonce = () => {
   return crypto.randomBytes(32).toString("hex");
 };
 
-const { auth_encrypt, auth_decrypt } = require("../../jwt");
+const { authEncrypt, authDecrypt } = require("../../didJwt");
 
 describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
   const resolver_table = {};
@@ -24,28 +24,29 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
   let message_3_NbForB;
 
   const registerDID = async (did, public_key, private_key) => {
-    let wallet = await ghdid.createWallet();
-    wallet.addKey(
-      {
-        publicKey: public_key,
-        privateKey: private_key
-      },
-      "assymetric",
-      {
-        tags: ["RS256", "JWT"],
-        notes: "Created for GitHub DID",
-        did: {
-          publicKey: true,
-          authentication: true,
-          publicKeyType: "publicKeyPem",
-          signatureType: "RsaSignature2017"
+    const wallet = await ghdid.v2.func.createWallet({
+      keys: [
+        {
+          encoding: 'application/x-pem-file',
+          didPublicKeyEncoding: "publicKeyPem",
+          type: "assymetric",
+          publicKey: public_key,
+          privateKey: private_key,
+          tags: ["RsaSignature2017", did, "OpenPGP"],
+          notes: "Mutual Auth Demo"
         }
-      }
-    );
-    const { data } = await wallet.toDIDDocument({
-      did
+      ]
     });
-    resolver_table[data.id] = data;
+
+    const doc = await ghdid.v2.func.createDIDDocFromWallet(wallet, {
+      includeKeysWithTags: [did],
+      id: did,
+      publicKey: [],
+      service: [],
+      authentication: []
+    });
+
+    resolver_table[doc.id] = doc;
   };
 
   it("can register A", async () => {
@@ -69,19 +70,19 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
   it("A generates Na and encrypts it for B", async () => {
     Na = createNonce();
 
-    message_1_NaForB = auth_encrypt(B.public_key, A.private_key, {
+    message_1_NaForB = authEncrypt(B.public_key, A.private_key, {
       Na
     });
     expect(message_1_NaForB).toBeDefined();
   });
 
   it("B generates Nb and encrypt [Na, Nb, didB] for A", async () => {
-    const NaX = auth_decrypt(A.public_key, B.private_key, message_1_NaForB);
+    const NaX = authDecrypt(A.public_key, B.private_key, message_1_NaForB);
     expect(NaX.Na).toBe(Na);
     Nb = createNonce();
 
     // Fixed by Lowe, include B's DID
-    message_2_NaNbForA = auth_encrypt(A.public_key, B.private_key, {
+    message_2_NaNbForA = authEncrypt(A.public_key, B.private_key, {
       Na: NaX.Na,
       Nb,
       did: "did:test:B"
@@ -91,7 +92,7 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
   });
 
   it("A decrypts NaNb and sends B Nb", async () => {
-    let NaNbX = auth_decrypt(B.public_key, A.private_key, message_2_NaNbForA);
+    let NaNbX = authDecrypt(B.public_key, A.private_key, message_2_NaNbForA);
 
     let NaX = NaNbX.Na;
     let NbX = NaNbX.Nb;
@@ -105,13 +106,13 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
     expect(NbX).toBe(Nb);
     expect(didX).toBe("did:test:B");
 
-    message_3_NbForB = auth_encrypt(B.public_key, A.private_key, {
+    message_3_NbForB = authEncrypt(B.public_key, A.private_key, {
       Nb: NaNbX.Nb
     });
   });
 
   it("B decrypts Nb", async () => {
-    let NbX = auth_decrypt(A.public_key, B.private_key, message_3_NbForB);
+    let NbX = authDecrypt(A.public_key, B.private_key, message_3_NbForB);
     expect(NbX.Nb).toBe(Nb);
 
     // here B should use the resolver and confirm once again that
