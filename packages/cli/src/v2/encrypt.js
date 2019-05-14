@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = (vorpal) => {
   vorpal
     .command(
-      'encrypt2 <password> <pathToFile> <pathToOutFile> <fromPublicKeyId> <toPublicKeyId>',
+      'encrypt <password> <pathToFile> <pathToOutFile> <fromPublicKeyId> <toPublicKeyId>',
       'encrypt JSON-LD from a did key to a did key.',
     )
     .types({ string: ['_'] })

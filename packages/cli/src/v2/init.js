@@ -11,7 +11,7 @@ module.exports = (vorpal) => {
   } = vorpal;
   const { version } = packageJson;
   vorpal
-    .command('init2 <password> [targetRepo]', 'initialize github-did')
+    .command('init <password> [targetRepo]', 'initialize github-did')
     .option('-f, --force', 'Force init, overwriting existing data.')
     .action(async ({ password, targetRepo, options }) => {
       // console.log(options);
