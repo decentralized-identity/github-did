@@ -25,6 +25,9 @@ describe("encryptForWithWalletAndResolver", () => {
       resolver: walletResolver
     });
 
-    console.log(payload);
+    expect(payload.fromPublicKeyId).toBe('did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ')
+    expect(payload.toPublicKeyId).toBe('did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ')
+
+    // console.log(payload);
   });
 });

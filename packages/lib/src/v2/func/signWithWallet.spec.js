@@ -12,12 +12,10 @@ describe("signWithWallet", () => {
     };
     const kid = Object.keys(wallet.keys)[0];
     const signed = await signWithWallet(data, "did:github:or13", kid, wallet);
-    console.log(JSON.stringify(signed));
-    
+    // console.log(JSON.stringify(signed));
+
     expect(signed.proof.creator).toBe(
       `did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ`
     );
-
-
   });
 });

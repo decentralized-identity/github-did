@@ -77,6 +77,6 @@ describe("wallet-did-setup", () => {
 
     expect(webWalletExport).not.toBe(rootWalletExport);
 
-    console.log(rootWalletExport)
+    // console.log(rootWalletExport)
   });
 });

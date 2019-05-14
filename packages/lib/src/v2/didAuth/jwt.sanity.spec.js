@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const { private_key, public_key } = require("./__fixtures__");
+const { private_key, public_key } = require("../__fixtures__");
 
 describe("jwt.sanity.spec", () => {
   it("can sign and verify", async () => {
