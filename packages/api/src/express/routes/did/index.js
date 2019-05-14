@@ -30,7 +30,7 @@ const router = express.Router();
 router.get('/:did', async (req, res, next) => {
   try {
     const result = {
-      ...(await ghdid.v2.func.resolver.resolve(req.params.did)),
+      ...(await ghdid.resolver.resolve(req.params.did)),
     };
     res.status(200).json(result);
   } catch (e) {

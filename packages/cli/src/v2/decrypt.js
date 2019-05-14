@@ -13,15 +13,15 @@ module.exports = (vorpal) => {
       const payload = JSON.parse(fse.readFileSync(path.resolve(pathToFile)));
 
       const encrypedWebWallet = fse.readFileSync(vorpal.webWalletFilePath).toString();
-      const wallet = ghdid.v2.func.createWallet(encrypedWebWallet);
+      const wallet = ghdid.createWallet(encrypedWebWallet);
       wallet.unlock(password);
 
-      const decryptedPaylaod = await ghdid.v2.func.decryptForWithWalletAndResolver({
+      const decryptedPaylaod = await ghdid.decryptForWithWalletAndResolver({
         data: payload.cipherText,
         fromPublicKeyId: payload.fromPublicKeyId,
         toPublicKeyId: payload.fromPublicKeyId,
         wallet,
-        resolver: ghdid.v2.func.resolver,
+        resolver: ghdid.resolver,
       });
 
       await fse.outputFile(path.resolve(pathToOutFile), JSON.stringify(decryptedPaylaod, null, 2));

@@ -40,19 +40,19 @@ module.exports = (vorpal) => {
         shell.exec(cmd);
         shell.config.silent = silentState; // restore old silent state
 
-        let wallet = ghdid.v2.func.createWallet();
+        let wallet = ghdid.createWallet();
 
-        const key1 = await ghdid.v2.func.createKeypair({
+        const key1 = await ghdid.createKeypair({
           userIds: [{ name: 'anon', email: 'anon@example.com' }],
           curve: 'secp256k1',
         });
 
-        const key2 = await ghdid.v2.func.createKeypair({
+        const key2 = await ghdid.createKeypair({
           userIds: [{ name: 'anon', email: 'anon@example.com' }],
           curve: 'secp256k1',
         });
 
-        wallet = ghdid.v2.func.addKeyToWallet(wallet, {
+        wallet = ghdid.addKeyToWallet(wallet, {
           type: 'assymetric',
           encoding: 'application/pgp-keys',
           publicKey: key1.publicKeyArmored,
@@ -62,7 +62,7 @@ module.exports = (vorpal) => {
           notes: 'Created with github-did cli.',
         });
 
-        wallet = ghdid.v2.func.addKeyToWallet(wallet, {
+        wallet = ghdid.addKeyToWallet(wallet, {
           type: 'assymetric',
           encoding: 'application/pgp-keys',
           publicKey: key2.publicKeyArmored,
@@ -76,7 +76,7 @@ module.exports = (vorpal) => {
 
         if (!fse.existsSync(rootDIDPath) || options.force) {
           const kid = Object.keys(wallet.keys)[0];
-          const doc = await ghdid.v2.func.createDIDDocFromWallet(wallet, {
+          const doc = await ghdid.createDIDDocFromWallet(wallet, {
             signWithKID: kid,
             includeKeysWithTags: [`did:github:${user}`],
             id: `did:github:${user}`,
@@ -107,7 +107,7 @@ module.exports = (vorpal) => {
         }
 
         const webKeys = wallet.extractByTags(['web']);
-        const webWallet = ghdid.v2.func.createWallet({ keys: webKeys });
+        const webWallet = ghdid.createWallet({ keys: webKeys });
 
         webWallet.lock(password);
         const webWalletExport = webWallet.export();

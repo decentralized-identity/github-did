@@ -44,13 +44,13 @@ export default withHandlers({
       let message;
 
       if (typeof wallet.data === 'string') {
-        const wall = ghdid.v2.func.createWallet(wallet.data);
+        const wall = ghdid.createWallet(wallet.data);
         wall.unlock(password);
 
         walletDecrypted({ data: wall });
         message = 'Unlocked wallet.';
       } else {
-        const wall = ghdid.v2.func.createWallet({
+        const wall = ghdid.createWallet({
           keys: Object.values(wallet.data.keys),
         });
         wall.lock(password);
@@ -83,9 +83,9 @@ export default withHandlers({
   }) => async ({ payload, did, kid }) => {
     set({ loading: true });
     try {
-      const w = await ghdid.v2.func.createWallet({ keys: Object.values(wallet.data.keys) });
+      const w = await ghdid.createWallet({ keys: Object.values(wallet.data.keys) });
 
-      const signed = await ghdid.v2.func.signWithWallet(payload, did, kid, w);
+      const signed = await ghdid.signWithWallet(payload, did, kid, w);
 
       const message = 'Signed payload...';
 
@@ -118,7 +118,7 @@ export default withHandlers({
   verify: ({ snackbarMessage, set }) => async ({ signedData }) => {
     set({ loading: true });
     try {
-      const verified = await ghdid.v2.func.verifyWithResolver(signedData, ghdid.v2.func.resolver);
+      const verified = await ghdid.verifyWithResolver(signedData, ghdid.resolver);
 
       if (verified) {
         snackbarMessage({
@@ -159,15 +159,15 @@ export default withHandlers({
   }) => {
     set({ loading: true });
     try {
-      const w = await ghdid.v2.func.createWallet({ keys: Object.values(wallet.data.keys) });
+      const w = await ghdid.createWallet({ keys: Object.values(wallet.data.keys) });
 
       console.log({ w, fromPublicKeyId, toPublicKeyId, data });
-      const cipherTextPayload = await ghdid.v2.func.encryptForWithWalletAndResolver({
+      const cipherTextPayload = await ghdid.encryptForWithWalletAndResolver({
         data,
         fromPublicKeyId,
         toPublicKeyId,
         wallet: w,
-        resolver: ghdid.v2.func.resolver,
+        resolver: ghdid.resolver,
       });
       const message = 'Encrypted payload...';
 
@@ -206,14 +206,14 @@ export default withHandlers({
   }) => {
     set({ loading: true });
     try {
-      const w = await ghdid.v2.func.createWallet({ keys: Object.values(wallet.data.keys) });
+      const w = await ghdid.createWallet({ keys: Object.values(wallet.data.keys) });
 
-      const payload = await ghdid.v2.func.decryptForWithWalletAndResolver({
+      const payload = await ghdid.decryptForWithWalletAndResolver({
         data: cipherText,
         fromPublicKeyId,
         toPublicKeyId,
         wallet: w,
-        resolver: ghdid.v2.func.resolver,
+        resolver: ghdid.resolver,
       });
 
       decryptedData({

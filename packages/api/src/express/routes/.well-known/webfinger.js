@@ -38,7 +38,7 @@ router.get('/', async (req, res, next) => {
       });
     }
     const [did, domain] = resource.replace('acct:', '').split('@');
-    const didDocument = await ghdid.v2.func.resolver.resolve(did);
+    const didDocument = await ghdid.resolver.resolve(did);
     if (!didDocument) {
       throw new Error('Webfinger could not resolve did.');
     }

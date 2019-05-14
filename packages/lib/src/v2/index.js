@@ -1,5 +1,3 @@
 const func = require("./func");
 
-module.exports = {
-  func
-};
+module.exports = func;

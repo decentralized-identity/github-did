@@ -24,7 +24,7 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
   let message_3_NbForB;
 
   const registerDID = async (did, public_key, private_key) => {
-    const wallet = await ghdid.v2.func.createWallet({
+    const wallet = await ghdid.createWallet({
       keys: [
         {
           encoding: 'application/x-pem-file',
@@ -38,7 +38,7 @@ describe("DID Mutual Auth with Modified Needham-Schroeder", () => {
       ]
     });
 
-    const doc = await ghdid.v2.func.createDIDDocFromWallet(wallet, {
+    const doc = await ghdid.createDIDDocFromWallet(wallet, {
       includeKeysWithTags: [did],
       id: did,
       publicKey: [],

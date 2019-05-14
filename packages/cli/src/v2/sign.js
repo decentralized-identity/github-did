@@ -9,14 +9,14 @@ module.exports = (vorpal) => {
     .action(async ({ password, pathToFile, pathToOutFile }) => {
       const payload = JSON.parse(fse.readFileSync(path.resolve(pathToFile)));
       const encrypedWebWallet = fse.readFileSync(vorpal.webWalletFilePath).toString();
-      const wallet = ghdid.v2.func.createWallet(encrypedWebWallet);
+      const wallet = ghdid.createWallet(encrypedWebWallet);
       wallet.unlock(password);
 
       const rootDIDPath = path.resolve(os.homedir(), '.github-did', 'did', 'index.jsonld');
       const rootDID = JSON.parse(fse.readFileSync(rootDIDPath));
       const [did, kid] = rootDID.publicKey[1].id.split('#kid=');
 
-      const signedPayload = await ghdid.v2.func.signWithWallet(payload, did, kid, wallet);
+      const signedPayload = await ghdid.signWithWallet(payload, did, kid, wallet);
 
       await fse.outputFile(path.resolve(pathToOutFile), JSON.stringify(signedPayload, null, 2));
 
