@@ -3,10 +3,10 @@
   "givenName": "Alice",
   "proof": {
     "type": "OpenPgpSignature2019",
-    "creator": "did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
+    "creator": "did:github:OR13#kid=0Z3IwklaUqxNPX0KJI841FCugoJxUb6qArwpHycNOWg",
     "domain": "GitHubDID",
-    "nonce": "f1e58f17c161c40632499c16154011cf",
-    "created": "2019-05-12T02:44:33.245Z",
-    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlzXiJIACgkQhLyMXF7hX75pKAD9GMPrjMfQ1obu4t3sNl8K\r\niNWzSGRqcg+xoiTrL64gjTsBAI5xOTTsHDv6wYgaubw/D/Mm5mKT2oLpuLEH\r\nrHEe02BS\r\n=A2Jt\r\n-----END PGP SIGNATURE-----\r\n"
+    "nonce": "502b4b018bead74100fd096270c8d3d0",
+    "created": "2019-05-15T01:01:14.602Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlzbZNsACgkQKEGwqZOzHgiTTwD/eohFp62rbFd7dENpmeO/\r\n0i4J8jwnCzEZaimHysOXxy4A/RSM4iA697I/jC2UPdmr9JR4lF+fe87iuya9\r\nlGkrb7Ko\r\n=zDqR\r\n-----END PGP SIGNATURE-----\r\n"
   }
 }

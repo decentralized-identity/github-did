@@ -6,7 +6,7 @@
 
 ### 🚧 This is experimental, not endorsed by GitHub, and under development. 🚧
 
-^ This means don't trust signatures, messages or software related to this project AND don't import keys that are used for anything else.
+# ^ This means don't trust signatures, messages or software related to this project AND don't import keys that are used for anything else.
 
 [![GitHub DID](./Logo.png)](https://github-did.com)
 

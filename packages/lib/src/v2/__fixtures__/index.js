@@ -5,7 +5,7 @@ const public_key = fs.readFileSync(path.resolve(__dirname, "./public.pem"));
 const private_key = fs.readFileSync(path.resolve(__dirname, "./private.pem"));
 
 const encryptedWallet = fs
-  .readFileSync(path.resolve(__dirname, "./wallet.txt"))
+  .readFileSync(path.resolve(__dirname, "./web.wallet.enc"))
   .toString();
 
 const signedJson = require("./signedJson.json");
