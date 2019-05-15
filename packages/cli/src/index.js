@@ -35,6 +35,7 @@ vorpal.command('version', 'display github-did version').action(async () => {
     level: 'info',
     message: `version ${version}`,
   });
+  // eslint-disable-next-line
   console.log(
     JSON.stringify(
       {
@@ -62,6 +63,7 @@ vorpal.command('logs', 'display logs').action(async () => {
       }
       return '';
     });
+  // eslint-disable-next-line
   console.log(JSON.stringify(logs, null, 2));
   return vorpal.wait(1);
 });
