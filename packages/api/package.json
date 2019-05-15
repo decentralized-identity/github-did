@@ -31,13 +31,14 @@
     "node": "8"
   },
   "devDependencies": {
-    "jest": "^23.6.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-security": "^1.4.0"
+    "eslint-plugin-security": "^1.4.0",
+    "jest": "^23.6.0",
+    "supertest": "^4.0.2"
   },
   "jest": {
     "testPathIgnorePatterns": [
