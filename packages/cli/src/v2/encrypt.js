@@ -13,10 +13,11 @@ module.exports = (vorpal) => {
       password, pathToFile, pathToOutFile, fromPublicKeyId, toPublicKeyId,
     }) => {
       // required because vorpal escapes # used in kid.
+
       // eslint-disable-next-line
-      fromPublicKeyId = process.argv[4];
+      fromPublicKeyId = process.argv[4].replace(/['"]+/g, '');
       // eslint-disable-next-line
-      toPublicKeyId = process.argv[5];
+      toPublicKeyId = process.argv[5].replace(/['"]+/g, '');
 
       const payload = JSON.parse(fse.readFileSync(path.resolve(pathToFile)));
       const encrypedWebWallet = fse.readFileSync(vorpal.webWalletFilePath).toString();
