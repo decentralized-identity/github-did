@@ -131,6 +131,8 @@ class Landing extends Component {
           {`
 npm i -g @github-did/cli
 ghdid init "my-password" https://github.com/USERNAME/ghdid
+# if you need to revoke all / reset your DID
+ghdid init "my-password" https://github.com/USERNAME/ghdid --force
           `}
         </pre>
 

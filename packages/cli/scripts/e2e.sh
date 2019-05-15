@@ -7,6 +7,7 @@ GITHUB_DID_CLAIM="./scripts/data/claim.json"
 GITHUB_DID_CLAIM_SIGNED="./scripts/data/claim.signed.json"
 GITHUB_DID_CLAIM_SIGNED_ENCRYPTED="./scripts/data/claim.signed.encrypted.json"
 GITHUB_DID_CLAIM_SIGNED_ENCRYPTED_DECRYPTED="./scripts/data/claim.signed.decrypted.json"
+GITHUB_DID_WEB_WALLET="./scripts/data/web.wallet.enc"
 
 
 npm run ghdid init $GITHUB_DID_PASSWORD https://github.com/$GITHUB_USERNAME/ghdid -- --force
@@ -18,3 +19,4 @@ KEY_1=$(cat ./scripts/data/did:github:$GITHUB_USERNAME.jsonld | jq '.publicKey[1
 KEY_2=$(cat ./scripts/data/did:github:$GITHUB_USERNAME.jsonld | jq '.publicKey[1].id')
 npm run ghdid encrypt $GITHUB_DID_PASSWORD $GITHUB_DID_CLAIM_SIGNED $GITHUB_DID_CLAIM_SIGNED_ENCRYPTED $KEY_1 $KEY_2 
 npm run ghdid decrypt $GITHUB_DID_PASSWORD $GITHUB_DID_CLAIM_SIGNED_ENCRYPTED $GITHUB_DID_CLAIM_SIGNED_ENCRYPTED_DECRYPTED
+npm run ghdid exportWebWallet $GITHUB_DID_WEB_WALLET

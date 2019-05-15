@@ -88,6 +88,17 @@ class DisplayWallet extends React.Component {
                 />
 
                 <div style={{ flexDirection: 'column', display: 'flex' }}>
+                  <Button
+                    onClick={() => {
+                      localStorage.removeItem('persist:root');
+                      window.location.reload();
+                    }}
+                    variant="contained"
+                  >
+                    Delete From Browser
+                  </Button>
+                  <br />
+
                   <FormControl component="fieldset">
                     <FormLabel component="legend">DID Wallet</FormLabel>
                     <FormGroup>
@@ -107,7 +118,6 @@ class DisplayWallet extends React.Component {
                       />
                     )}
                   </FormControl>
-
                   <FormControl component="fieldset" disabled>
                     {!walletIsLocked
                       && Object.keys(wallet.data.keys).map((kid) => {
@@ -194,6 +204,7 @@ DisplayWallet.propTypes = {
   classes: PropTypes.object.isRequired,
   wallet: PropTypes.any.isRequired,
   toggleWallet: PropTypes.any.isRequired,
+  snackbarMessage: PropTypes.any.isRequired,
 };
 
 export default withStyles(styles)(DisplayWallet);

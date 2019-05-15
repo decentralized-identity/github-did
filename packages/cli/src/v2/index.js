@@ -4,6 +4,7 @@ const verify = require('./verify');
 const sign = require('./sign');
 const encrypt = require('./encrypt');
 const decrypt = require('./decrypt');
+const exportWebWallet = require('./exportWebWallet');
 
 const commands = {
   init,
@@ -12,6 +13,7 @@ const commands = {
   sign,
   encrypt,
   decrypt,
+  exportWebWallet,
 };
 
 const register = (vorpal) => {
