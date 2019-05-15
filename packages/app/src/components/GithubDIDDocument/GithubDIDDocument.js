@@ -21,7 +21,7 @@ const styles = theme => ({
   },
   textField: {},
   publicKeysHeading: {
-    marginBottom: theme.spacing.unit * 1
+    marginBottom: theme.spacing.unit * 1,
   },
 });
 
@@ -69,6 +69,25 @@ class GithubDIDDocument extends Component {
                         />
                       </FormControl>
                     )}
+
+                    <FormControl fullWidth disabled>
+                      <CopyToClipboard
+                        text={k.id}
+                        onCopy={() => {
+                          this.props.snackbarMessage({
+                            snackbarMessage: {
+                              message: 'Copied Public Key ID',
+                              variant: 'success',
+                              open: true,
+                            },
+                          });
+                        }}
+                      >
+                        <Button style={{ marginTop: '28px' }} fullWidth variant="contained">
+                          Copy Public Key ID
+                        </Button>
+                      </CopyToClipboard>
+                    </FormControl>
 
                     <FormControl fullWidth disabled>
                       <CopyToClipboard

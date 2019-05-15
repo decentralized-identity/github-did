@@ -52,7 +52,7 @@ class DisplayPlayloadDialog extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} color="secondary">
               Close
             </Button>
           </DialogActions>

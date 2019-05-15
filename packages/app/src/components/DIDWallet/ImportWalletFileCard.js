@@ -50,17 +50,17 @@ class ImportWalletFileCard extends React.Component {
           </Typography>
           <Typography component="p">
             Your web wallet is located at ~/.github-did/web.wallet.enc. <br />
-            You may need to copy it some place easier to upload... Open terminal and type "open
-            ~/.github-did" <br />
+            You may need to copy it some place easier to upload... Open terminal and type "ghdid
+            exportWebWallet ~/Desktop/web.wallet.enc" <br />
             You will need to unlock it before it can be used. <br />
-            The password is the same one used when you created your DID.
+            The password is the same one used when you created your DID with the "init" command..
           </Typography>
         </CardContent>
 
         <CardActions>
           <Button
             size="small"
-            color="primary"
+            color="secondary"
             onClick={() => {
               document.getElementById('wallet-file-input').click();
             }}

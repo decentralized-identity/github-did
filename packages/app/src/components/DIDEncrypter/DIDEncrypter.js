@@ -40,8 +40,8 @@ class DIDEncrypter extends Component {
     const { payload } = this.props;
 
     this.setState({
-      fromPublicKeyId: 'did:github:OR13#kid=jNeDDagaBn466F-wH26YdQ5_NiabBvOlXTv5xItQakU',
-      toPublicKeyId: 'did:github:OR13#kid=jNeDDagaBn466F-wH26YdQ5_NiabBvOlXTv5xItQakU',
+      fromPublicKeyId: '',
+      toPublicKeyId: '',
     });
 
     if (payload === 'new') {
@@ -90,8 +90,8 @@ class DIDEncrypter extends Component {
         <div>
           <Typography variant="h5">Encrypt Payload</Typography>
           <Typography variant="body1">
-            Be sure to pick keys that are web wallet compatible. The second key is usually correct
-            choice. Use the resolver to find a github user's web key.
+            Use the Resolver, copy your second public key id and past it into from. Do the same for
+            to. You can use your own public key id for both as well.
           </Typography>
         </div>
       );
