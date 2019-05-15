@@ -52,8 +52,7 @@ If you mess up, you can overwrite everything with:
 ghdid init "my-password" https://github.com/USERNAME/ghdid --force
 ```
 
-Don't worry about this, its all experimental for now (which means be careful!).
-
+Don't worry about this, its all experimental for now (which means be careful!)... This will automatically revoke (according to the DID Spec, not PGP!) all keys associated with your GitHub DID.
 
 This will clone the repo into `~/.github-did/${repo}`. Your wallet will be created, encrypted and stored:
 
@@ -98,7 +97,6 @@ const didToDIDDocumentURL = did => {
     return url;
   }
 };
-
 ```
 
 Notice there is nothing here about this repo (`https://github.com/decentralized-identity/github-did`), this is because the `github` method works with any github repo that is public, the identifier includes the details needed to get the did document from dids folder. If you want to create a new folder structure, you must create a new DID method, or convince us to change this one. Since this is all highly experimental, expect this to maybe change in the future.
@@ -182,6 +180,7 @@ npm run test
 ```
 
 ##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/docs)
+
 ##### [API Docs](http://github-did.com/api/docs)
 
 ```
