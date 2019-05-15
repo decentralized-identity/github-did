@@ -2,7 +2,7 @@
   "name": "@github-did/docs",
   "private": true,
   "description": "GitHub DID is an experimental tool for developing and testing the Decentralized Identity, Credentials, Signature Suites and related Cryptography.",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "author": "Orie Steele <orie@transmute.industries>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"

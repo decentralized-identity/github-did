@@ -1,6 +1,6 @@
 {
   "name": "@github-did/cli",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "GitHub DID",
   "author": "Orie Steele",
   "license": "Apache-2.0",
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/decentralized-identity/github-did#readme",
   "dependencies": {
+    "@github-did/lib": "^0.0.2",
     "@transmute/openpgpsignature2019": "^0.1.1",
-    "@github-did/lib": "0.0.2",
     "fs-extra": "^7.0.1",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",
