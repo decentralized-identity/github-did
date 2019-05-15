@@ -1,5 +1,5 @@
 {
-  "fromPublicKeyId": "did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
-  "toPublicKeyId": "did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
+  "fromPublicKeyId": "did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
+  "toPublicKeyId": "did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
   "cipherText": "-----BEGIN PGP MESSAGE-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nwX4DF6+i68IAP4QSAgMENtibiizsNERI4B9yj5Xb6UC8j23rzup3f77P4VMg\r\nYEQxYQeunmptCoNCv2xbKXexKgUH+bIODI7VtoPlJTDbgDCIrB/7a9+7D6zu\r\nPuOIiGKvHNDonqld3TqW40yhZi8gBo/cMCYW33GSY2TqJAx/Er/SwCYB3JXA\r\neKJAiYmtSKIUkoQghwjDsImPI4ogRg/Db3Uztm0d/3AOlxM5H9nZ8A6pXiR6\r\nxHtpXYDUMV73PiKuzhJSMlExsSeA7Kn1ANFKXyRkcZjEL5hkrDW4K5Z68o3a\r\nTLQlIXnWwxWqNDsVlaXD2Cu7s/ULgxgZapxBjcT3MESXfWKca07Ic9nrCJ7Z\r\n6ETszqwxWtBQSBf4Ufik4hdYvCPqPqycgiA/YRhGdcXcuYR3/oThqcOasHrd\r\nmovg7Q2j9aIqAfJlM7YQDbQBHTOqNlLSTR7aXFb+nvL9TzTkBKhCyTv/C/oK\r\nCw==\r\n=Z+DX\r\n-----END PGP MESSAGE-----\r\n"
 }

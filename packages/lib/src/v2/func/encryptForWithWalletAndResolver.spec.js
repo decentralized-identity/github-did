@@ -18,15 +18,15 @@ describe("encryptForWithWalletAndResolver", () => {
     const payload = await encryptForWithWalletAndResolver({
       data,
       fromPublicKeyId:
-        "did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
+        "did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
       toPublicKeyId:
-        "did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
+        "did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
       wallet,
       resolver: walletResolver
     });
 
-    expect(payload.fromPublicKeyId).toBe('did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ')
-    expect(payload.toPublicKeyId).toBe('did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ')
+    expect(payload.fromPublicKeyId).toBe('did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ')
+    expect(payload.toPublicKeyId).toBe('did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ')
 
     // console.log(payload);
   });

@@ -5,19 +5,19 @@ A command line interface for working with Github DIDs.
 ## Getting Started
 
 - Go to [Github.com](https://github.com/new) and create a new public repo called `did`.
-- When complete, you should end on a page like https://github.com/USERNAME/did.
+- When complete, you should end on a page like https://github.com/USERNAME/ghdid.
 
 Next, you will need to install the cli to complete creating your GitHub DID.
 
 ```
 npm i -g @github-did/cli
-ghdid init "my-password" https://github.com/USERNAME/did
+ghdid init "my-password" https://github.com/USERNAME/ghdid
 ```
 
 If you mess up, you can overwrite everything with:
 
 ```
-ghdid init "my-password" https://github.com/USERNAME/did --force
+ghdid init "my-password" https://github.com/USERNAME/ghdid --force
 ```
 
 Don't worry about this, its all experimental for now (which means be careful!).

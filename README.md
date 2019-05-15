@@ -36,20 +36,20 @@ The objective of GitHub DID is to encourage contribution to the [DID Spec](https
 
 ## Getting Started
 
-- Go to [Github.com](https://github.com/new) and create a new public repo called `did`.
-- When complete, you should end on a page like https://github.com/USERNAME/did.
+- Go to [Github.com](https://github.com/new) and create a new public repo called `ghdid`.
+- When complete, you should end on a page like https://github.com/USERNAME/ghdid.
 
 Next, you will need to install the cli to complete creating your GitHub DID.
 
 ```
 npm i -g @github-did/cli
-ghdid init "my-password" https://github.com/USERNAME/did
+ghdid init "my-password" https://github.com/USERNAME/ghdid
 ```
 
 If you mess up, you can overwrite everything with:
 
 ```
-ghdid init "my-password" https://github.com/USERNAME/did --force
+ghdid init "my-password" https://github.com/USERNAME/ghdid --force
 ```
 
 Don't worry about this, its all experimental for now (which means be careful!).
@@ -94,7 +94,7 @@ const didToDIDDocumentURL = did => {
   if (method === "github") {
     const base = "https://raw.githubusercontent.com/";
     const didRepoDir = "/master/index.jsonld";
-    const url = `${base}${identifier}/did${didRepoDir}`;
+    const url = `${base}${identifier}/ghdid${didRepoDir}`;
     return url;
   }
 };

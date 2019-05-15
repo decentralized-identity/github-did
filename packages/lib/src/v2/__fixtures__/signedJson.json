@@ -3,7 +3,7 @@
   "givenName": "Alice",
   "proof": {
     "type": "OpenPgpSignature2019",
-    "creator": "did:github:or13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
+    "creator": "did:github:OR13#kid=BW_Xb3H0Ah1MCFhmigbOOttLo4e97gP6AAt3uj8ASGQ",
     "domain": "GitHubDID",
     "nonce": "f1e58f17c161c40632499c16154011cf",
     "created": "2019-05-12T02:44:33.245Z",

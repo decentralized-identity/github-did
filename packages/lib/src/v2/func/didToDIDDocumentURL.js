@@ -9,8 +9,7 @@ const didToDIDDocumentURL = did => {
 
   if (method === "github") {
     const base = "https://raw.githubusercontent.com/";
-    const didRepoDir = "/master/index.jsonld";
-    const url = `${base}${identifier}/did${didRepoDir}`;
+    const url = `${base}${identifier}/ghdid/master/index.jsonld`;
     return url;
   }
 };

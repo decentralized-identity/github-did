@@ -116,10 +116,10 @@ class Landing extends Component {
           <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">
             github.com
           </a>{' '}
-          and create a new public repository called "did".
+          and create a new public repository called "ghdid".
         </Typography>
         <Typography variant="body1">
-          When complete you should end on a page like: https://github.com/USERNAME/did
+          When complete you should end on a page like: https://github.com/USERNAME/ghdid
         </Typography>
 
         <br />
@@ -130,7 +130,7 @@ class Landing extends Component {
         <pre>
           {`
 npm i -g @github-did/cli
-ghdid init "my-password" https://github.com/USERNAME/did
+ghdid init "my-password" https://github.com/USERNAME/ghdid
           `}
         </pre>
 
@@ -138,7 +138,7 @@ ghdid init "my-password" https://github.com/USERNAME/did
 
         <Typography variant="body1">
           You should now have a DID visible at:
-          https://raw.githubusercontent.com/USERNAME/did/master/index.jsonld
+          https://raw.githubusercontent.com/USERNAME/ghdid/master/index.jsonld
         </Typography>
 
         <br />

@@ -87,7 +87,8 @@ module.exports = (vorpal) => {
           await fse.outputFile(rootDIDPath, JSON.stringify(doc, null, 2));
           cmd = `
             cd ${repoPath};
-            git add ./index.jsonld;
+            echo '# [did:github:${user}](https://raw.githubusercontent.com/${user}/ghdid/master/index.jsonld)' > README.md
+            git add README.md ./index.jsonld;
             git commit -m "Create and publish did:github:${user} with github-did cli."
             git push origin master;
             cd ${cwd};
