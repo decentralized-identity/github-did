@@ -6,6 +6,8 @@
 
 ### 🚧 This is experimental, not endorsed by GitHub, and under development. 🚧
 
+# ^ This means don't trust signatures, messages or software related to this project AND don't import keys that are used for anything else.
+
 [![GitHub DID](./Logo.png)](https://github-did.com)
 
 > Decentralized Identifiers (DIDs) are a new type of identifier for verifiable, "self-sovereign" digital identity. DIDs are fully under the control of the DID subject, independent from any centralized registry, identity provider, or certificate authority. DIDs are URLs that relate a DID subject to means for trustable interactions with that subject. DIDs resolve to DID Documents — simple documents that describe how to use that specific DID. Each DID Document contains at least three things: cryptographic material, authentication suites, and service endpoints. Cryptographic material combined with authentication suites provide a set of mechanisms to authenticate as the DID subject (e.g., public keys, pseudonymous biometric protocols, etc.). Service endpoints enable trusted interactions with the DID subject.
@@ -24,7 +26,7 @@ npm i @github-did/lib --save
 
 ## Motivation
 
-The `ghdid` method is meant to make working with DIDs very simple at the cost of trusting Github.com for assisting in resolving DID Documents.
+The `github` method is meant to make working with DIDs very simple at the cost of trusting Github.com for assisting in resolving DID Documents.
 
 Many developers are familar with Github, and its 2 supported public key cryptosystems, GPG and SSH.
 
@@ -34,51 +36,43 @@ The objective of GitHub DID is to encourage contribution to the [DID Spec](https
 
 ## Getting Started
 
+- Go to [Github.com](https://github.com/new) and create a new public repo called `ghdid`.
+- When complete, you should end on a page like https://github.com/USERNAME/ghdid.
+
+Next, you will need to install the cli to complete creating your GitHub DID.
+
 ```
-ghdid init @example.com yolo
-ghdid addKey yolo
+npm i -g @github-did/cli
+ghdid init "my-password" https://github.com/USERNAME/ghdid
 ```
 
-The email goes in your OpenPGP key, the password is used to protect your private key.
+If you mess up, you can overwrite everything with:
 
-This will clone the repo into `~/.github-did/${repo}`, where `repo` is specified by package.json repository (github-did). Your wallet will be created, encrypted and stored:
+```
+ghdid init "my-password" https://github.com/USERNAME/ghdid --force
+```
 
-`~/.github-did/wallet.json`
+Don't worry about this, its all experimental for now (which means be careful!)... This will automatically revoke (according to the DID Spec, not PGP!) all keys associated with your GitHub DID.
+
+This will clone the repo into `~/.github-did/${repo}`. Your wallet will be created, encrypted and stored:
+
+`~/.github-did/wallet.enc` and `~/.github-did/web.wallet.enc`
 
 Your DID Document will be:
 
-`~/.github-did/${repo}/dids/${kid}.jsonld`;
+`~/.github-did/${repo}/index.jsonld`;
 
-Use git to commit your new DID Before proceeding.
+It will be commited and push automatically by `init`.
 
-```
-cd ~/.github-did/github-did
-git add ./dids
-git commit -m "add did for alice@example.com"
-git push origin master
-```
-
-If you wish to use our repo, you must open a pull request instead.
-
-Now that your `DID Document` is on Github in the correct repo, you can use the `ghdid` did method resolver, and linked data signature verification libraries.
+Now that your `DID Document` is on Github in the correct repo, you can use the `github` did method resolver, and linked data signature verification libraries.
 
 ```
-ghdid resolve did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a
+ghdid resolve did:github:OR13
 ```
 
 This will resolve the DID to a DID Document by using Github and https.
 
 The signature for the DID Document will be checked.
-
-### What is a DID Method?
-
-```js
-const createDID = (method, user, repo, kid) => {
-  return `did:${method}:${user}~${repo}~${kid}`;
-};
-```
-
-The method is always `ghdid` for identifiers of the form `${user}~${repo}~${kid}`. If you wish to create your own, please use a different method name, for example `ghdid-${ext}`, then you can decide how you want to map the github `username` and `repo` to a did document. Technically you don't need the `kid`, you could use the repo as the identifer, for example: `did:gh:username~repo`, but then you would need a new repo for every new DID. Regardless of your choices, a DID Method links a structured identier to a json-ld document, so if you decide you want to do that in a different way, then you must create a new did method.
 
 ### How does the DID Resolver work?
 
@@ -88,22 +82,24 @@ This one works, by converting the DID to a path in a git repo and then requestin
 
 ```js
 const didToDIDDocumentURL = did => {
-  const didToDIDDocumentURL = did => {
   const [_, method, identifier] = did.split(":");
   if (_ !== "did") {
     throw new Error("Invalid DID");
   }
-  if (method !== "ghdid") {
-    throw new Error("Invalid ghdid");
+  if (method !== "github") {
+    throw new Error("Invalid DID, should look like did:github:USERNAME");
   }
-  const [username, repo, kid] = identifier.split("~");
-  const base = "https://raw.githubusercontent.com/";
-  const didRepoDir = "/master/dids";
-  return `${base}${username}/${repo}${didRepoDir}/${kid}.jsonld`;
+
+  if (method === "github") {
+    const base = "https://raw.githubusercontent.com/";
+    const didRepoDir = "/master/index.jsonld";
+    const url = `${base}${identifier}/ghdid${didRepoDir}`;
+    return url;
+  }
 };
 ```
 
-Notice there is nothing here about this repo (`https://github.com/decentralized-identity/github-did`), this is because the `ghdid` method works with any github repo that is public, the identifier includes the details needed to get the did document from dids folder. If you want to create a new folder structure, you must create a new DID method.
+Notice there is nothing here about this repo (`https://github.com/decentralized-identity/github-did`), this is because the `github` method works with any github repo that is public, the identifier includes the details needed to get the did document from dids folder. If you want to create a new folder structure, you must create a new DID method, or convince us to change this one. Since this is all highly experimental, expect this to maybe change in the future.
 
 ### What can I do with my DID?
 
@@ -114,28 +110,32 @@ For example:
 ```json
 {
   "@context": "https://w3id.org/did/v1",
-  "id": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
+  "id": "did:github:OR13",
   "publicKey": [
     {
-      "id": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a#kid=1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
-      "type": "OpenPgpSignature2019",
-      "owner": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
-      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXDqOxhMFK4EEAAoCAwQ22JuKLOw0REjgH3KPldvpQLyPbevO6nd/vs/h\r\nUyBgRDFhB66eam0Kg0K/bFspd7EqBQf5sg4MjtW2g+UlMNuAzRMiYWxpY2VA\r\nZXhhbXBsZS5jb20iwncEEBMIAB8FAlw6jsYGCwkHCAMCBBUICgIDFgIBAhkB\r\nAhsDAh4BAAoJEPwxTLocb2BmC2YA+gONpQ3zIBtHR5uxFGwLTVliYwxz5CcD\r\nNfHPz7q+Z+WzAQCuCyYtkwu3y28HhT6YWVm2EQuVnUw6PRgsITeMUTTsWs5T\r\nBFw6jsYSBSuBBAAKAgMENtibiizsNERI4B9yj5Xb6UC8j23rzup3f77P4VMg\r\nYEQxYQeunmptCoNCv2xbKXexKgUH+bIODI7VtoPlJTDbgAMBCAfCYQQYEwgA\r\nCQUCXDqOxgIbDAAKCRD8MUy6HG9gZlq4AQCV3m/C5VI6meml0AHpWCFd9Rlj\r\nwsosaak1gsd+aawnGgEA95414FwaqMWVVbq7hWBHtBOHJiL5ezHxKmEhL7K9\r\nrf8=\r\n=ViJn\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n"
-    }
-  ],
-  "authentication": [
+      "encoding": "application/pgp-keys",
+      "type": "OpenPgpVerificationKey2019",
+      "id": "did:github:OR13#kid=ibHP1ksrJp5FQjP7hhmTXV7YE5o5bB6YFoODu9n_82E",
+      "controller": "did:github:OR13",
+      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXNhPhBMFK4EEAAoCAwSTAb5KPYRzxaQoplpY8olodfbG3OxFqm6ULA6p\r\nvaCxZLKVwd4XCwSL8XcMMrPb78kmDEk0H5/Jl0qpRteRoy8CzRdhbm9uIDxh\r\nbm9uQGV4YW1wbGUuY29tPsJ3BBATCAAfBQJc2E+EBgsJBwgDAgQVCAoCAxYC\r\nAQIZAQIbAwIeAQAKCRAeL9f86407tSxDAP4/dXtxQKQxAsURQmNxwwlD03YM\r\n778dcM753Y4f96jW7QEAkLEDur/hKPLKKdFAi/9TCKNQvr7GVk1wYeYeiHMi\r\nJ/fOUwRc2E+EEgUrgQQACgIDBA7fIkmeQmvaG6a5B3X808pdFStePh7+uevf\r\njWpXbDYYTsxARpBT/xb34m0wrXGo7DEG6pAknQ6NBWiXSWX7qTkDAQgHwmEE\r\nGBMIAAkFAlzYT4QCGwwACgkQHi/X/OuNO7U8gQEAn3/lFx3C7iqzVG2BJgtH\r\n08Oc3h0YPwYnZjM9NXDsvEgA/3v5C28Jhx10RFKi9NDxAPjilwBDOZqYPK/s\r\nW3qWhGNU\r\n=RgYO\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n"
+    },
     {
-      "publicKey": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a#kid=1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
-      "type": "OpenPgpSignature2019"
+      "encoding": "application/pgp-keys",
+      "type": "OpenPgpVerificationKey2019",
+      "id": "did:github:OR13#kid=jNeDDagaBn466F-wH26YdQ5_NiabBvOlXTv5xItQakU",
+      "controller": "did:github:OR13",
+      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXNhPhBMFK4EEAAoCAwRzQtkzDYQJy7xfHE0ld/Yoznx0q5bfVrx51FPG\r\nXzjd28wktnePW+3Riq0+3YUa09mZJWEuGPwrrGGXEqobjlVBzRdhbm9uIDxh\r\nbm9uQGV4YW1wbGUuY29tPsJ3BBATCAAfBQJc2E+EBgsJBwgDAgQVCAoCAxYC\r\nAQIZAQIbAwIeAQAKCRC0BtN9z0XDqWsSAQCso31Utz8xji2B7WUBX+2798ae\r\ncqxSxMPWnOQKenBA0gD+N9Qiq6sQ/sDipXuG7xIg4NH4qpf96xvPwC4hX9Jv\r\n3FzOUwRc2E+EEgUrgQQACgIDBIPkRAFeFOrFMXa4XoZ8+aZb4iXLhce6N0LE\r\nCh3YZNJLwxWVKVCxr8niWq3Fa8RTkLA+F7PvIHjnpgx5UGeqPzgDAQgHwmEE\r\nGBMIAAkFAlzYT4QCGwwACgkQtAbTfc9Fw6nomAEAl+1tioF0BlbTNm3c879W\r\nadI46tXfqHt8T6TGdIsKbmoA/RjOfCUvMT277p+v3aYjROI3M7ygh24jbjzx\r\nKBQj/GIJ\r\n=UGd9\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n"
     }
   ],
+  "authentication": [],
+  "service": [],
   "proof": {
     "type": "OpenPgpSignature2019",
-    "creator": "did:ghdid:transmute-industries~github-did~1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a#kid=1bed11140547b8407478bdf2650db50a5a0c18ef2ae4caf20e818a9433923c2a",
-    "domain": "github-did",
-    "nonce": "2102e5883aa896c49d205405808a184f",
-    "created": "2019-01-13T01:05:11.774Z",
-    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.3\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlw6jsgACgkQ/DFMuhxvYGZGLwEAoSZjSgX9QRBscjHNNpR0\r\nGiIrIrF3W+ixFlCTUCIBqlABAJHApKcMekuQrsq7SNY4vlH2W3vklp9lW7S7\r\nHpLvULmp\r\n=BHgj\r\n-----END PGP SIGNATURE-----\r\n"
+    "creator": "did:github:OR13#kid=ibHP1ksrJp5FQjP7hhmTXV7YE5o5bB6YFoODu9n_82E",
+    "domain": "GitHubDID",
+    "nonce": "9c28424e440806718a5165670f79bbc2",
+    "created": "2019-05-12T16:53:25.038Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nwl0EARMIAAYFAlzYT4UACgkQHi/X/OuNO7WZQAD47BbeS2pgFW/WwPbHvC8I\r\nMfsOFhSJEywkED7uz0E4RwD/RRrsmPPb4S4Z+7D2skjiFtnd2nWd+BXcxvhm\r\nGzKk1FU=\r\n=W/tu\r\n-----END PGP SIGNATURE-----\r\n"
   }
 }
 ```
@@ -181,6 +181,8 @@ npm run test
 
 ##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/docs)
 
+##### [API Docs](http://github-did.com/api/docs)
+
 ```
 npm i -g firebase-tools lerna
 firebase login
@@ -194,8 +196,7 @@ lerna init
 - [Configure Firebase Web SDK](https://firebase.google.com/docs/web/setup)
 - [Configure Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
 
-Commercial Support
-------------------
+## Commercial Support
 
 Commercial support for this library is available upon request from
 Transmute: support@transmute.industries.

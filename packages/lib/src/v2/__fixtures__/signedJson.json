@@ -1,0 +1,12 @@
+{
+  "@context": "https://w3id.org/identity/v1",
+  "givenName": "Alice",
+  "proof": {
+    "type": "OpenPgpSignature2019",
+    "creator": "did:example:456#kid=nUN4nXQS5MwaLtSGPiWv0Cx7_WbZ6-BcXow6g6g_LEs",
+    "domain": "GitHubDID",
+    "nonce": "2bd6cbda2e876c1d07c3140e4e4cc3ee",
+    "created": "2019-05-15T01:22:53.347Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlzbae4ACgkQ1sa/Ry5GeQQtQQD+JwM5vJRoz0IvnCEdFeV2\r\nMfaftbUGN9XtFe8ykmX/z1sBAP3ZSwk5OHT86tmiBs78HshG/WuM58fVJoPD\r\nEgrd3TRN\r\n=38++\r\n-----END PGP SIGNATURE-----\r\n"
+  }
+}

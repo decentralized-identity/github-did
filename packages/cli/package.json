@@ -24,7 +24,7 @@
   "homepage": "https://github.com/decentralized-identity/github-did#readme",
   "dependencies": {
     "@transmute/openpgpsignature2019": "^0.1.1",
-    "@github-did/lib": "0.0.1",
+    "@github-did/lib": "0.0.2",
     "fs-extra": "^7.0.1",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",

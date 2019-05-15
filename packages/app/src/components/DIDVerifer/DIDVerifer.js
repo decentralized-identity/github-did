@@ -108,7 +108,7 @@ class DIDVerifer extends Component {
                   variant="outlined"
                 />
               </FormControl>
-              <br />
+
               <br />
               <FormControl variant="outlined" fullWidth>
                 <TextField

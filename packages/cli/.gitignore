@@ -2,3 +2,5 @@ vault
 node_modules
 attic
 coverage
+trash
+web.wallet.enc

@@ -5,3 +5,5 @@ image: "/imgs/micro_7.jpg"
 ---
 
 We're moving GitHub DID to the [DIF](https://identity.foundation/)!
+
+[New Repo URL](https://github.com/decentralized-identity/github-did)

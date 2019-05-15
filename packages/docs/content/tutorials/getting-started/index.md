@@ -15,35 +15,19 @@ GitHub DID is experimental and supports a couple different formats for methods.
 
 ### Username DIDs
 
-They look like this: 
+They look like this (Case Sensitive): 
 
 ```
-did:github:or13
-```
-
-The resolver knows to convert this string to this url: 
-
-```
-https://raw.githubusercontent.com/OR13/did/master/did.jsonld
-```
-
-So long as `did.jsonld` is a properly formatted DID Document, `did:github:or13` is a valid DID.
-
-### Repository DIDs
-
-They look like this:
-
-```
-did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369
+did:github:OR13
 ```
 
 The resolver knows to convert this string to this url: 
 
 ```
-https://raw.githubusercontent.com/gjgd/github-did/master/dids/f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369.jsonld
+https://raw.githubusercontent.com/OR13/ghdid/master/index.jsonld
 ```
 
-So long as `f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369.jsonld` is a properly formatted DID Document, `did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369` is a valid DID.
+So long as `index.jsonld` is a properly formatted DID Document, `did:github:OR13` is a valid DID.
 
 ## Managing DID Documents
 
