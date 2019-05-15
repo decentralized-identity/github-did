@@ -116,7 +116,7 @@ class Landing extends Component {
           <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">
             github.com
           </a>{' '}
-          and create a new public repository called "ghdid".
+          and create a new public repository called `ghdid`.
         </Typography>
         <Typography variant="body1">
           When complete you should end on a page like: https://github.com/USERNAME/ghdid

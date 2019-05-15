@@ -161,7 +161,6 @@ export default withHandlers({
     try {
       const w = await ghdid.createWallet({ keys: Object.values(wallet.data.keys) });
 
-      console.log({ w, fromPublicKeyId, toPublicKeyId, data });
       const cipherTextPayload = await ghdid.encryptForWithWalletAndResolver({
         data,
         fromPublicKeyId,
