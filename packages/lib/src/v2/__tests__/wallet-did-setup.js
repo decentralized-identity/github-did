@@ -1,4 +1,4 @@
-const func = require("../func");
+const ghdid = require("../func");
 
 describe("wallet-did-setup", () => {
   let rootWalletExport;
@@ -6,33 +6,33 @@ describe("wallet-did-setup", () => {
   let firstDIDDoc;
   let secondDIDDoc;
   it("create wallet and export", async () => {
-    const wallet = await func.createWallet();
+    const wallet = await ghdid.createWallet();
 
-    const key = await func.createKeypair({
+    const key = await ghdid.createKeypair({
       userIds: [{ name: "anon", email: "anon@example.com" }],
       curve: "secp256k1"
     });
 
-    const updatedWallet = func.addKeyToWallet(wallet, {
+    const updatedWallet = ghdid.addKeyToWallet(wallet, {
       type: "assymetric",
       encoding: "application/pgp-keys",
       publicKey: key.publicKeyArmored,
       privateKey: key.privateKeyArmored,
       revocationCertificate: key.revocationCertificate,
-      tags: ["Secp256k1VerificationKey2018", "did:github:OR13", "web"],
+      tags: ["Secp256k1VerificationKey2018", "did:github:example123", "web"],
       notes: "First key created with OpenPGP.js"
     });
 
-    firstDIDDoc = await func.createDIDDocFromWallet(wallet, {
+    firstDIDDoc = await ghdid.createDIDDocFromWallet(wallet, {
       signWithKID: Object.keys(updatedWallet.keys)[0],
-      includeKeysWithTags: ["did:github:OR13"],
-      id: "did:github:OR13",
+      includeKeysWithTags: ["did:github:example123"],
+      id: "did:github:example123",
       publicKey: [],
       service: [],
       authentication: []
     });
 
-    expect(firstDIDDoc.id).toBe("did:github:OR13");
+    expect(firstDIDDoc.id).toBe("did:github:example123");
     expect(firstDIDDoc.publicKey.length).toBe(1);
 
     updatedWallet.lock("password");
@@ -40,35 +40,35 @@ describe("wallet-did-setup", () => {
   });
 
   it("import wallet, add key and export", async () => {
-    const wallet = func.createWallet(rootWalletExport);
+    const wallet = ghdid.createWallet(rootWalletExport);
     wallet.unlock("password");
 
-    const key = await func.createKeypair({
+    const key = await ghdid.createKeypair({
       userIds: [{ name: "anon", email: "anon@example.com" }],
       curve: "secp256k1"
     });
 
-    const updatedWallet = func.addKeyToWallet(wallet, {
+    const updatedWallet = ghdid.addKeyToWallet(wallet, {
       type: "assymetric",
       encoding: "application/pgp-keys",
       publicKey: key.publicKeyArmored,
       privateKey: key.privateKeyArmored,
       revocationCertificate: key.revocationCertificate,
-      tags: ["Secp256k1VerificationKey2018", "did:github:OR13"],
+      tags: ["Secp256k1VerificationKey2018", "did:github:example123"],
       notes: "Second key created with OpenPGP.js"
     });
 
-    secondDIDDoc = await func.createDIDDocFromWallet(wallet, {
+    secondDIDDoc = await ghdid.createDIDDocFromWallet(wallet, {
       signWithKID: Object.keys(updatedWallet.keys)[0],
-      includeKeysWithTags: ["did:github:OR13"],
+      includeKeysWithTags: ["did:github:example123"],
       ...firstDIDDoc
     });
 
-    expect(secondDIDDoc.id).toBe("did:github:OR13");
+    expect(secondDIDDoc.id).toBe("did:github:example123");
     expect(secondDIDDoc.publicKey.length).toBe(2);
 
     const webKeys = updatedWallet.extractByTags(["web"]);
-    const webWallet = func.createWallet({ keys: webKeys });
+    const webWallet = ghdid.createWallet({ keys: webKeys });
     webWallet.lock("password");
     webWalletExport = webWallet.export();
 
