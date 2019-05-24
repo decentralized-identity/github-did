@@ -31,14 +31,36 @@ module.exports = (vorpal) => {
         const gitUrl = `git@github.com:${user}/${repo}.git`;
         const cwd = process.cwd();
         const repoPath = path.resolve(os.homedir(), '.github-did', repo);
-        let cmd = `
-        if cd ${repoPath}; then git pull; else git clone ${gitUrl} ${repoPath}; fi
-        cd ${cwd};
-      `;
-        const silentState = shell.config.silent;
-        shell.config.silent = true;
-        shell.exec(cmd);
-        shell.config.silent = silentState; // restore old silent state
+        
+        // Check for existing ghdid repo
+        let existingCmd = `cd ${repoPath}; then git pull`;
+        const existingResult = shell.exec(existingCmd, {silent:true});
+
+        var error = false
+        if (existingResult.code != 0) {
+
+          // Clone remote ghdid repo
+          let cloneCmd = `git clone ${gitUrl} ${repoPath}`;
+          const cloneResult = shell.exec(cloneCmd, {silent:true});
+          
+          if (cloneResult.code != 0) {
+            await vorpal.logger.log({
+              level: 'error',
+              message: `Command failed: ${cloneCmd}:\n${cloneResult.stderr}`
+            });
+
+            error = true;
+          }
+        }
+
+        // Return to pre-execution directory
+        let returnCmd = `cd ${cwd}`;
+        shell.exec(returnCmd, {silent:true});
+
+        // Exit if error encountered
+        if (error) {
+            return vorpal.wait(1);
+        }
 
         let wallet = ghdid.createWallet();
 
@@ -93,9 +115,7 @@ module.exports = (vorpal) => {
             git push origin master;
             cd ${cwd};
           `;
-          shell.config.silent = true;
-          shell.exec(cmd);
-          shell.config.silent = silentState; // restore old silent state
+          shell.exec(cmd, {silent: true});
           await vorpal.logger.log({
             level: 'info',
             message: `Create and publish did:github:${user} with github-did cli.`,
