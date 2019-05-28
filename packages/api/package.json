@@ -22,7 +22,7 @@
     "firebase-admin": "~6.0.0",
     "firebase-functions": "^2.1.0",
     "morgan": "^1.9.1",
-    "swagger-jsdoc": "^3.2.6",
+    "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.2",
     "winston": "^3.1.0"
   },
