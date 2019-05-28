@@ -8,8 +8,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import createStore from '../../redux/store';
 
 import { Pages } from '../index';
+import withTracker from '../../utils/withTracker';
+
 
 const { store, persistor, history } = createStore();
+const TrackedSwitch = withTracker(Switch);
 
 class App extends Component {
   render() {
@@ -18,7 +21,7 @@ class App extends Component {
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <ConnectedRouter history={history}>
-              <Switch>
+              <TrackedSwitch>
                 <Route exact path="/" render={() => <Pages.Landing />} />
                 <Route exact path="/resolver" render={() => <Pages.Resolver />} />
                 <Route exact path="/wallet" render={() => <Pages.Wallet />} />
@@ -28,7 +31,7 @@ class App extends Component {
                 <Route path="/decrypt/:base64EncodedJsonLd" render={() => <Pages.Decrypt />} />
                 <Route exact path="/credits" render={() => <Pages.Credits />} />
                 <Route render={() => <Pages.NotFound />} />
-              </Switch>
+              </TrackedSwitch>
             </ConnectedRouter>
           </PersistGate>
         </Provider>
