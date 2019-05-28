@@ -1,6 +1,6 @@
 {
   "name": "@github-did/cli",
-  "version": "0.0.2",
+  "version": "0.0.2-2",
   "description": "GitHub DID",
   "author": "Orie Steele",
   "license": "Apache-2.0",
@@ -38,7 +38,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.1.2",
-    "jest": "^23.6.0"
+    "jest": "^24.8.0"
   },
   "jest": {
     "setupFiles": [
