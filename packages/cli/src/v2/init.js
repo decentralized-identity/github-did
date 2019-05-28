@@ -11,12 +11,11 @@ module.exports = (vorpal) => {
   } = vorpal;
   const { version } = packageJson;
   vorpal
-    .command('init <password> [targetRepo]', 'initialize github-did')
+    .command('init <password> <targetRepo>', 'initialize github-did')
     .option('-f, --force', 'Force init, overwriting existing data.')
     .action(async ({ password, targetRepo, options }) => {
       // console.log(options);
-      // If no forked repo url is specified, default to the Transmute one
-      const repoUrl = targetRepo || packageJson.repository.url;
+      const repoUrl = targetRepo;
       if (vorpal.config && !options.force) {
         logger.log({
           level: 'info',
@@ -32,8 +31,15 @@ module.exports = (vorpal) => {
         const cwd = process.cwd();
         const repoPath = path.resolve(os.homedir(), '.github-did', repo);
         // Check for existing ghdid repo
-        let cmd = `cd ${repoPath}; then git pull`;
+        let cmd = `cd ${repoPath}; git pull`;
         const existingResult = shell.exec(cmd, { silent: true });
+
+        if (existingResult.code !== 0) {
+          await vorpal.logger.log({
+            level: 'error',
+            message: `Command failed: ${cmd}:\n${existingResult.stderr}`,
+          });
+        }
 
         let error = false;
         if (existingResult.code !== 0) {
