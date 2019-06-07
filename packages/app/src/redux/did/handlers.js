@@ -12,7 +12,7 @@ export default withHandlers({
     try {
       const { data } = await axios.get(`${API_BASE}/did/${did}`);
       if (Object.keys(data).length === 0) {
-        throw new Error();
+        throw new Error('DID not found');
       }
       didResolved({ didDocument: data });
       snackbarMessage({
