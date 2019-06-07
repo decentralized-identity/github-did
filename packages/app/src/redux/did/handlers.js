@@ -11,6 +11,9 @@ export default withHandlers({
     set({ resolving: true });
     try {
       const { data } = await axios.get(`${API_BASE}/did/${did}`);
+      if (Object.keys(data).length === 0) {
+        throw new Error();
+      }
       didResolved({ didDocument: data });
       snackbarMessage({
         snackbarMessage: {
