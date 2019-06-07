@@ -11,16 +11,18 @@ export default withHandlers({
     set({ resolving: true });
     try {
       const { data } = await axios.get(`${API_BASE}/did/${did}`);
+      if (Object.keys(data).length === 0) {
+        throw new Error();
+      }
       didResolved({ didDocument: data });
       snackbarMessage({
         snackbarMessage: {
-          message: `Resolved: ...${did.substring(32, 64)}...`,
+          message: `Resolved: ${did}`,
           variant: 'success',
           open: true,
         },
       });
     } catch (e) {
-      console.error(e);
       snackbarMessage({
         snackbarMessage: {
           message: 'Could not resolve DID, make sure it is checked in to github correctly.',
