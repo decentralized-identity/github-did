@@ -12,6 +12,7 @@ install:
 - npm i
 - npm run bootstrap
 script:
+- echo $SECRET
 - npm run lint
 - npm run test
 - npm run codecov
