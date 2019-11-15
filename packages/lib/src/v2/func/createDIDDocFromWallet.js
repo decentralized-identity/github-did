@@ -1,5 +1,3 @@
-const OpenPgpSignature2019 = require("@transmute/openpgpsignature2019");
-const openpgp = require("openpgp");
 const _ = require("lodash");
 
 const createPublicKeyIDFromDIDAndKey = require("./createPublicKeyIDFromDIDAndKey");
@@ -11,6 +9,10 @@ const findPublicKeyTypeKey = key => {
 
   if (key.tags.includes("Secp256k1VerificationKey2018")) {
     return "Secp256k1VerificationKey2018";
+  }
+
+  if (key.tags.includes("Ed25519VerificationKey2018")) {
+    return "Ed25519VerificationKey2018";
   }
 
   if (key.tags.includes("RsaSignature2017")) {
@@ -45,7 +47,7 @@ module.exports = async (wallet, options) => {
     const onlyWebKeys = wallet.extractByTags(options.includeKeysWithTags);
     const didPublicKeys = onlyWebKeys.map(k => {
       return {
-        encoding: k.encoding,
+        // encoding: k.encoding,
         type: findPublicKeyTypeKey(k),
         id: createPublicKeyIDFromDIDAndKey(options.id, k),
         controller: options.id,

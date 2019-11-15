@@ -1,4 +1,5 @@
 const createKeypair = require("./createKeypair");
+const createDIDKeyKeypair = require("./createDIDKeyKeypair");
 const createWallet = require("./createWallet");
 const addKeyToWallet = require("./addKeyToWallet");
 const createDIDDocFromWallet = require("./createDIDDocFromWallet");
@@ -10,6 +11,7 @@ const decryptForWithWalletAndResolver = require("./decryptForWithWalletAndResolv
 
 module.exports = {
   createKeypair,
+  createDIDKeyKeypair,
   createWallet,
   addKeyToWallet,
   createDIDDocFromWallet,
