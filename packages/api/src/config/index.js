@@ -32,5 +32,5 @@ module.exports = {
   getBaseConfig,
   getBaseHost,
   getBasePath,
-  getAPIBaseUrl,
+  getAPIBaseUrl
 };

@@ -1,17 +1,11 @@
 language: node_js
 node_js:
-- '8'
-env:
-  global:
-    secure: E34WxsR+l+jKCU31/fAzgmQnJCbBMhExk4nL8gLpqA1lb2hT+cY1vmhObTtj6G/1FszFWHCtZiTEac4+yLAPCe684+5SvT/DI6MmfXiplDXka0l4qiqkBvG/5T0ftKiyHV/vPthaI3KqDewbi9qLHqD9tle0A7bp2BatSclGmpzA15tPZEst++YnsqggG06+9Ll5IEIHeP8dlDbpqF7+LiBXFPtMQMVzCHSvbkWNXMtpwnfoy25SQrR/I3sgHiBnYT44uaAa9jf54H0KI/imfUTbeYpQDuFtUPiy9gcy/yXZdV0ANxCUfXXykk66Jom5GroTgr9ysIBZ9bNKtch4I2YnK2qRdPOxBfChiOTbcrAV6lZ2aKYh9X1XvPSPwrc+N6Fiq9QZnR6Nvk3YUvP71rWqtdPllhQfbAyQ3vxnmNFjfLtg0q9vLQoMvRbk9yg1AK0CLFKQBs6GBO/H7WaVWS27OShmDKnLyxaMZhPY6UgdMPxZhGEFyJm8Cfse7vh6s7ZDP7jTjmnI7iYTOc6SKgB6RYEztWcgMGE7lOThs/CDLph5O/wqE2iVQaJeq9URIamkktrZFqp2s1HofL/d/FPXAb8ZJygDICbMmKchLnEb8sUJVPFe79Nfx9KywazFfpUtyUhZX/rylgna4Rgf9AMy/jCLkkJJVr9M/hVtEuQ=
+  - '8'
 cache: npm
-before_install:
-- openssl enc -d -aes-256-cbc -in ./packages/api/.runtimeconfig.json.enc -out ./packages/api/.runtimeconfig.json
-  -pass file:<( echo -n "$RUNTIME_CONFIG_PASSWORD" )
+
 install:
-- npm i
-- npm run bootstrap
+  - npm i
+  - npm run bootstrap
 script:
-- npm run lint
-- npm run test
-- npm run codecov
+  - npm run test
+  - npm run codecov
