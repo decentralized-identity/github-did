@@ -1,20 +1,23 @@
-const fs = require('fs');
-const path = require('path');
-const firebase = require('firebase');
-const firebaseAdmin = require('firebase-admin');
-const firebaseFunctions = require('firebase-functions');
+const fs = require("fs");
+const path = require("path");
+const firebase = require("firebase");
+const firebaseAdmin = require("firebase-admin");
+const firebaseFunctions = require("firebase-functions");
 
 const config = {
-  apiKey: 'AIzaSyAVl632H0LLkt7nezpWwMlxkynL26JH5eY',
-  authDomain: 'github-did.firebaseapp.com',
-  databaseURL: 'https://github-did.firebaseio.com',
-  projectId: 'github-did',
-  storageBucket: 'github-did.appspot.com',
-  messagingSenderId: '798179370760',
+  apiKey: "AIzaSyAVl632H0LLkt7nezpWwMlxkynL26JH5eY",
+  authDomain: "github-did.firebaseapp.com",
+  databaseURL: "https://github-did.firebaseio.com",
+  projectId: "github-did",
+  storageBucket: "github-did.appspot.com",
+  messagingSenderId: "798179370760"
 };
 
 let serviceAccountKey = false;
-const serviceAccountPath = path.resolve(__dirname, '../../firebase-adminsdk.json');
+const serviceAccountPath = path.resolve(
+  __dirname,
+  "../../firebase-adminsdk.json"
+);
 // eslint-disable-next-line security/detect-non-literal-fs-filename
 if (fs.existsSync(serviceAccountPath)) {
   /* eslint-disable max-len */
@@ -29,17 +32,17 @@ if (!firebase.apps.length) {
     credential: serviceAccountKey
       ? firebaseAdmin.credential.cert(serviceAccountKey)
       : firebaseAdmin.credential.applicationDefault(),
-    databaseURL: config.databaseURL,
+    databaseURL: config.databaseURL
   });
 }
 
 const auth = firebase.auth();
 const authAdmin = firebaseAdmin.auth();
-const db = firebaseAdmin.database();
+// const db = firebaseAdmin.database();
 
 module.exports = {
   auth,
   authAdmin,
-  db,
-  functions: firebaseFunctions,
+  // db,
+  functions: firebaseFunctions
 };
