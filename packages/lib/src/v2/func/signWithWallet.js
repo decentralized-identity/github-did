@@ -9,30 +9,19 @@ const createPublicKeyIDFromDIDAndKey = require("./createPublicKeyIDFromDIDAndKey
 
 const wrappedDocumentLoader = require("./wrappedDocumentLoader");
 
+const createDIDDoc = require("./createDIDDoc");
+
 const signWithWallet = async (data, did, kid, wallet) => {
   // console.log(wallet.keys[kid]);
   if (wallet.keys[kid].encoding === "base58") {
     // console.log(wallet.keys[kid].publicKey);
 
-    // console.log(data);
-
     const publicKeyId = createPublicKeyIDFromDIDAndKey(did, wallet.keys[kid]);
-    const publicKey = {
-      "@context": jsigs.SECURITY_CONTEXT_URL,
-      type: "Ed25519VerificationKey2018",
-      id: publicKeyId,
-      controller: did,
-      publicKeyBase58: wallet.keys[kid].publicKey
-    };
 
-    // DID does not exist yet
-    const controller = {
-      "@context": jsigs.SECURITY_CONTEXT_URL,
-      id: did,
-      publicKey: [publicKey],
-      // this authorizes this key to be used for making assertions
-      assertionMethod: [publicKey.id]
-    };
+    const didDoc = createDIDDoc(wallet, {
+      includeKeysWithTags: [did],
+      id: did
+    });
 
     const signed = await jsigs.sign(data, {
       documentLoader: wrappedDocumentLoader({
@@ -45,7 +34,7 @@ const signWithWallet = async (data, did, kid, wallet) => {
           publicKeyBase58: wallet.keys[kid].publicKey
         })
       }),
-      purpose: new AssertionProofPurpose({ controller }),
+      purpose: new AssertionProofPurpose({ controller: didDoc }),
       compactProof: false
     });
 

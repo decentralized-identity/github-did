@@ -16,7 +16,7 @@ describe("signWithWallet", () => {
     const signed = await signWithWallet(data, "did:example:456", kid, wallet);
 
     expect(signed.proof.creator).toBe(
-      "did:example:456#kid=" + fixtures.testWalletKeys[0].kid
+      "did:example:456#" + fixtures.testWalletKeys[0].kid
     );
   });
 
@@ -33,7 +33,7 @@ describe("signWithWallet", () => {
     const signed = await signWithWallet(data, "did:example:456", kid, wallet);
 
     expect(signed.proof.verificationMethod).toBe(
-      "did:example:456#kid=" + fixtures.testWalletKeys[1].kid
+      "did:example:456#" + fixtures.testWalletKeys[1].kid
     );
   });
 });

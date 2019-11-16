@@ -18,17 +18,17 @@ describe("encryptForWithWalletAndResolver", () => {
 
     const payload = await encryptForWithWalletAndResolver({
       data,
-      fromPublicKeyId: "did:example:456#kid=" + fixtures.testWalletKeys[0].kid,
-      toPublicKeyId: "did:example:456#kid=" + fixtures.testWalletKeys[0].kid,
+      fromPublicKeyId: "did:example:456#" + fixtures.testWalletKeys[0].kid,
+      toPublicKeyId: "did:example:456#" + fixtures.testWalletKeys[0].kid,
       wallet,
       resolver: walletResolver
     });
 
     expect(payload.fromPublicKeyId).toBe(
-      "did:example:456#kid=" + fixtures.testWalletKeys[0].kid
+      "did:example:456#" + fixtures.testWalletKeys[0].kid
     );
     expect(payload.toPublicKeyId).toBe(
-      "did:example:456#kid=" + fixtures.testWalletKeys[0].kid
+      "did:example:456#" + fixtures.testWalletKeys[0].kid
     );
 
     // console.log(JSON.stringify(payload, null, 2));

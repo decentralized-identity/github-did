@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const didAuthNistPulse = require("./nistPulse");
 
-describe("DID Auth with Nist Beacon", () => {
+describe.skip("DID Auth with Nist Beacon", () => {
   let jwt_nist_pulse;
   let jsonld_nist_pulse;
 

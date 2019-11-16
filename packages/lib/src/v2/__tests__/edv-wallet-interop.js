@@ -27,6 +27,7 @@ describe("edv-wallet-interop", () => {
       service: [],
       authentication: []
     });
+    // console.log(firstDIDDoc);
     expect(firstDIDDoc.id).toBe("did:github:example123");
     expect(firstDIDDoc.publicKey.length).toBe(1);
     updatedWallet.lock("password");

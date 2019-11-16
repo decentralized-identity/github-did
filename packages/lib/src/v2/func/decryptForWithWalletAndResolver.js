@@ -11,10 +11,10 @@ const decryptForWithWalletAndResolver = async ({
 }) => {
   const fromDidDoc = await resolver.resolve(fromPublicKeyId);
   const publicKey = getPublicKeyFromDIDDoc(fromDidDoc, fromPublicKeyId);
-  const toKid = toPublicKeyId.split("#kid=").pop();
-  const privateKey = (await openpgp.key.readArmored(
-    wallet.keys[toKid].privateKey
-  )).keys[0];
+  const toKid = toPublicKeyId.split("#").pop();
+  const privateKey = (
+    await openpgp.key.readArmored(wallet.keys[toKid].privateKey)
+  ).keys[0];
 
   const options = {
     message: await openpgp.message.readArmored(data), // parse armored message

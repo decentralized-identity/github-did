@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const didAuthChallengeResponse = require("./didChallengeResponse");
 
 // private_key, public_key would be pulled from wallet and resolver in a real setting.
-describe("DID Auth Challenge Response", () => {
+describe.skip("DID Auth Challenge Response", () => {
   let jwt_challenge;
   let jsonld_challenge;
 

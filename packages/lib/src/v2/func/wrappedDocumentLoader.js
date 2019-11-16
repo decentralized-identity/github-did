@@ -27,6 +27,8 @@ const wrappedDocumentLoader = args => {
         "https://web-payments.org/contexts/identity-v1.jsonld"
       );
     }
+
+    return documentLoader(url);
   };
 };
 

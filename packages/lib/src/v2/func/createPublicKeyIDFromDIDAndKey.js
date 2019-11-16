@@ -1,5 +1,5 @@
 const createPublicKeyIDFromDIDAndKey = (did, key) => {
-  return `${did}#kid=${key.kid}`;
+  return `${did}#${key.kid}`;
 };
 
 module.exports = createPublicKeyIDFromDIDAndKey;
