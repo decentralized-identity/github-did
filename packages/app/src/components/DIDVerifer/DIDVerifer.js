@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
-
-// eslint-disable-next-line
-import brace from 'brace';
-import AceEditor from 'react-ace';
+import PropTypes from "prop-types";
 
 // eslint-disable-next-line
-import 'brace/mode/json';
-// eslint-disable-next-line
-import 'brace/theme/github';
+import brace from "brace";
+import AceEditor from "react-ace";
 
-import FormControl from '@material-ui/core/FormControl';
+// eslint-disable-next-line
+import "brace/mode/json";
+// eslint-disable-next-line
+import "brace/theme/github";
+
+import FormControl from "@material-ui/core/FormControl";
 
 import {
   // Paper,
@@ -23,19 +23,19 @@ import {
   // FormGroup,
   // FormControlLabel,
   // Switch,
-  TextField,
+  TextField
   // Chip,
-} from '@material-ui/core';
-import { namedWhitelist } from '../../constants';
+} from "@material-ui/core";
+import { namedWhitelist } from "../../constants";
 
-const base64url = require('base64url');
+const base64url = require("base64url");
 
 class DIDVerifer extends Component {
   state = {
-    jsonEditorValue: '',
+    jsonEditorValue: "",
     labelWidth: 0,
-    kid: '',
-    creator: namedWhitelist[0].did,
+    kid: "",
+    creator: namedWhitelist[0].did
   };
 
   componentWillMount() {
@@ -43,10 +43,14 @@ class DIDVerifer extends Component {
 
     const jsonPayload = JSON.parse(base64url.decode(payload));
 
+    const verificationMethod = jsonPayload.proof.verificationMethod
+      ? jsonPayload.proof.verificationMethod
+      : jsonPayload.proof.creator;
+
     this.setState({
       jsonEditorValue: JSON.stringify(jsonPayload, null, 2),
-      creator: jsonPayload.proof.creator.split('#kid=')[0],
-      kid: jsonPayload.proof.creator.split('#kid=')[1],
+      creator: verificationMethod.split("#")[0],
+      kid: verificationMethod.split("#")[1]
     });
 
     setTimeout(() => {
@@ -73,11 +77,11 @@ class DIDVerifer extends Component {
             <AceEditor
               mode="json"
               theme="github"
-              style={{ width: '100%' }}
-              onChange={(newValue) => {
+              style={{ width: "100%" }}
+              onChange={newValue => {
                 // console.log('change', newValue);
                 this.setState({
-                  jsonEditorValue: newValue,
+                  jsonEditorValue: newValue
                 });
               }}
               name="signatureEditor"
@@ -88,7 +92,11 @@ class DIDVerifer extends Component {
           <Grid item xs={4}>
             <form noValidate autoComplete="off">
               <FormControl fullWidth>
-                <Button variant="contained" color={'primary'} onClick={this.handleVerify}>
+                <Button
+                  variant="contained"
+                  color={"primary"}
+                  onClick={this.handleVerify}
+                >
                   Verify
                 </Button>
               </FormControl>
@@ -98,9 +106,9 @@ class DIDVerifer extends Component {
                   disabled
                   label="DID"
                   value={creator}
-                  onChange={(event) => {
+                  onChange={event => {
                     this.setState({
-                      creator: event.target.value,
+                      creator: event.target.value
                     });
                   }}
                   fullWidth
@@ -132,7 +140,7 @@ DIDVerifer.propTypes = {
   wallet: PropTypes.object.isRequired,
   payload: PropTypes.string.isRequired,
   verify: PropTypes.func.isRequired,
-  snackbarMessage: PropTypes.func.isRequired,
+  snackbarMessage: PropTypes.func.isRequired
 };
 
 export default DIDVerifer;

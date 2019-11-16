@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 // eslint-disable-next-line
-import brace from 'brace';
-import AceEditor from 'react-ace';
+import brace from "brace";
+import AceEditor from "react-ace";
 
 // eslint-disable-next-line
-import 'brace/mode/json';
+import "brace/mode/json";
 // eslint-disable-next-line
-import 'brace/theme/github';
+import "brace/theme/github";
 
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 import {
   // Paper,
@@ -27,19 +27,19 @@ import {
   // FormGroup,
   // FormControlLabel,
   // Switch,
-  TextField,
+  TextField
   // Chip,
-} from '@material-ui/core';
+} from "@material-ui/core";
 // import { namedWhitelist } from '../../constants';
 
-const base64url = require('base64url');
+const base64url = require("base64url");
 
 class DIDSigner extends Component {
   state = {
-    jsonEditorValue: '',
+    jsonEditorValue: "",
     labelWidth: 0,
-    kid: '',
-    did: '',
+    kid: "",
+    did: ""
   };
 
   componentWillMount() {
@@ -47,24 +47,34 @@ class DIDSigner extends Component {
 
     if (wallet.data.keys) {
       this.setState({
-        kid: Object.keys(wallet.data.keys)[0],
+        kid: Object.keys(wallet.data.keys)[0]
       });
     }
 
-    if (payload === 'new') {
+    if (payload === "new") {
       this.setState({
         jsonEditorValue: JSON.stringify(
           {
-            '@context': 'https://w3id.org/identity/v1',
-            givenName: 'Alice',
+            "@context": [
+              "https://w3id.org/did/v1",
+              {
+                schema: "http://schema.org/",
+                action: "schema:action"
+              }
+            ],
+            action: "AuthenticateMe"
           },
           null,
-          2,
-        ),
+          2
+        )
       });
     } else {
       this.setState({
-        jsonEditorValue: JSON.stringify(JSON.parse(base64url.decode(payload)), null, 2),
+        jsonEditorValue: JSON.stringify(
+          JSON.parse(base64url.decode(payload)),
+          null,
+          2
+        )
       });
     }
   }
@@ -77,17 +87,18 @@ class DIDSigner extends Component {
 
   handleSign = () => {
     const { jsonEditorValue, did, kid } = this.state;
+    // console.log({ jsonEditorValue, did, kid });
     this.props.sign({
       payload: JSON.parse(jsonEditorValue),
       did,
-      kid,
+      kid
     });
   };
 
   componentDidMount() {
     this.setState({
       // eslint-disable-next-line
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth
     });
   }
 
@@ -98,7 +109,11 @@ class DIDSigner extends Component {
 
     const Header = () => {
       if (data.keys === undefined) {
-        return <Typography variant="h5">You must unlock a wallet to sign.</Typography>;
+        return (
+          <Typography variant="h5">
+            You must unlock a wallet to sign.
+          </Typography>
+        );
       }
       return <Typography variant="h5">Sign Payload</Typography>;
     };
@@ -113,11 +128,11 @@ class DIDSigner extends Component {
             <AceEditor
               mode="json"
               theme="github"
-              style={{ width: '100%' }}
-              onChange={(newValue) => {
+              style={{ width: "100%" }}
+              onChange={newValue => {
                 // console.log('change', newValue);
                 this.setState({
-                  jsonEditorValue: newValue,
+                  jsonEditorValue: newValue
                 });
               }}
               name="signatureEditor"
@@ -130,7 +145,7 @@ class DIDSigner extends Component {
               <FormControl fullWidth>
                 <Button
                   variant="contained"
-                  color={'primary'}
+                  color={"primary"}
                   onClick={this.handleSign}
                   disabled={!this.state.did}
                 >
@@ -142,10 +157,10 @@ class DIDSigner extends Component {
                 <TextField
                   label="DID"
                   value={did}
-                  placeholder={'Enter your DID here.'}
-                  onChange={(event) => {
+                  placeholder={"Enter your DID here."}
+                  onChange={event => {
                     this.setState({
-                      did: event.target.value,
+                      did: event.target.value
                     });
                   }}
                   fullWidth
@@ -156,7 +171,7 @@ class DIDSigner extends Component {
 
               <FormControl variant="outlined" fullWidth>
                 <InputLabel
-                  ref={(ref) => {
+                  ref={ref => {
                     this.InputLabelRef = ref;
                   }}
                   htmlFor="outlined-age-simple"
@@ -165,7 +180,11 @@ class DIDSigner extends Component {
                 </InputLabel>
                 <Select
                   value={this.state.kid}
-                  onChange={this.handleChange}
+                  onChange={event => {
+                    this.setState({
+                      kid: event.target.value
+                    });
+                  }}
                   input={
                     <OutlinedInput
                       labelWidth={this.state.labelWidth}
@@ -197,7 +216,7 @@ DIDSigner.propTypes = {
   payload: PropTypes.string.isRequired,
   sign: PropTypes.func.isRequired,
   snackbarMessage: PropTypes.func.isRequired,
-  history: PropTypes.any.isRequired,
+  history: PropTypes.any.isRequired
 };
 
 export default DIDSigner;
