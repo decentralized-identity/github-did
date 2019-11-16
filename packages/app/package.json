@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' react-scripts build",
     "test": "react-scripts test --coverage",
     "deploy": "firebase deploy --only hosting",
     "eject": "react-scripts eject"
@@ -51,5 +51,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "firebase-tools": "^7.7.0"
+  }
 }
