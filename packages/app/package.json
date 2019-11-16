@@ -42,8 +42,8 @@
     "test": "react-scripts test --coverage",
     "deploy": "firebase deploy --only hosting",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js src",
-    "lint-fix": "eslint -ext js --fix src"
+    "lint": "eslint src",
+    "lint-fix": "eslint --fix src"
   },
   "eslintConfig": {
     "extends": "react-app"

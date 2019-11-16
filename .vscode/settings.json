@@ -1,0 +1,15 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "prettier-tslint.tslintIntegration": true,
+  "editor.formatOnSave": true,
+  "typescript.format.enable": true,
+  "javascript.format.enable": false,
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "javascript.referencesCodeLens.enabled": true,
+  "editor.rulers": [80, 100],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.associations": {
+    "tslint*.json": "jsonc"
+  }
+}

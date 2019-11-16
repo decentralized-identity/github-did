@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 // eslint-disable-next-line
-import brace from "brace";
-import AceEditor from "react-ace";
+import brace from 'brace';
+import AceEditor from 'react-ace';
 
 // eslint-disable-next-line
-import "brace/mode/json";
+import 'brace/mode/json';
 // eslint-disable-next-line
-import "brace/theme/github";
+import 'brace/theme/github';
 
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import {
   // Paper,
@@ -29,17 +29,17 @@ import {
   // Switch,
   TextField
   // Chip,
-} from "@material-ui/core";
+} from '@material-ui/core';
 // import { namedWhitelist } from '../../constants';
 
-const base64url = require("base64url");
+const base64url = require('base64url');
 
 class DIDSigner extends Component {
   state = {
-    jsonEditorValue: "",
+    jsonEditorValue: '',
     labelWidth: 0,
-    kid: "",
-    did: ""
+    kid: '',
+    did: ''
   };
 
   componentWillMount() {
@@ -51,18 +51,18 @@ class DIDSigner extends Component {
       });
     }
 
-    if (payload === "new") {
+    if (payload === 'new') {
       this.setState({
         jsonEditorValue: JSON.stringify(
           {
-            "@context": [
-              "https://w3id.org/did/v1",
+            '@context': [
+              'https://w3id.org/did/v1',
               {
-                schema: "http://schema.org/",
-                action: "schema:action"
+                schema: 'http://schema.org/',
+                action: 'schema:action'
               }
             ],
-            action: "AuthenticateMe"
+            action: 'AuthenticateMe'
           },
           null,
           2
@@ -128,9 +128,8 @@ class DIDSigner extends Component {
             <AceEditor
               mode="json"
               theme="github"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               onChange={newValue => {
-                // console.log('change', newValue);
                 this.setState({
                   jsonEditorValue: newValue
                 });
@@ -145,7 +144,7 @@ class DIDSigner extends Component {
               <FormControl fullWidth>
                 <Button
                   variant="contained"
-                  color={"primary"}
+                  color={'primary'}
                   onClick={this.handleSign}
                   disabled={!this.state.did}
                 >
@@ -157,7 +156,7 @@ class DIDSigner extends Component {
                 <TextField
                   label="DID"
                   value={did}
-                  placeholder={"Enter your DID here."}
+                  placeholder={'Enter your DID here.'}
                   onChange={event => {
                     this.setState({
                       did: event.target.value
