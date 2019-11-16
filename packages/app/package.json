@@ -41,9 +41,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",
     "deploy": "firebase deploy --only hosting",
-    "eject": "react-scripts eject",
-    "lint": "eslint src",
-    "lint-fix": "eslint --fix src"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,12 +51,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "babel-eslint": "^9.0.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.1.2",
-    "eslint-plugin-react": "^7.11.1"
-  }
+  ]
 }

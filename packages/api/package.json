@@ -5,7 +5,6 @@
   "author": "Orie Steele",
   "license": "Apache-2.0",
   "scripts": {
-    "lint": "eslint ./src",
     "test": "jest --coverage",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
