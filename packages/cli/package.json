@@ -1,6 +1,6 @@
 {
   "name": "@github-did/cli",
-  "version": "0.0.2-2",
+  "version": "0.0.3",
   "description": "GitHub DID",
   "author": "Orie Steele",
   "license": "Apache-2.0",
@@ -11,8 +11,7 @@
   "scripts": {
     "start": "npm run ghdid",
     "ghdid": "node ./src/index.js",
-    "test": "jest --coverage",
-    "lint": "eslint src"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,7 @@
   },
   "homepage": "https://github.com/decentralized-identity/github-did#readme",
   "dependencies": {
-    "@github-did/lib": "^0.0.2",
+    "@github-did/lib": "^0.0.3",
     "@transmute/openpgpsignature2019": "^0.1.1",
     "fs-extra": "^7.0.1",
     "node-fetch": "^2.3.0",
@@ -34,10 +33,6 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.15.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^22.1.2",
     "jest": "^24.8.0"
   },
   "jest": {

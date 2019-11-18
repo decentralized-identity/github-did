@@ -17,6 +17,21 @@ const testWalletKeys = [
     tags: ["Secp256k1VerificationKey2018", "did:example:456", "OpenPGP"],
     notes: "Created with OpenPGP.js",
     kid: "nUN4nXQS5MwaLtSGPiWv0Cx7_WbZ6-BcXow6g6g_LEs"
+  },
+  {
+    type: "assymetric",
+    encoding: "base58",
+    didPublicKeyEncoding: "publicKeyBase58",
+    publicKey: "J5QHWFQNREPBnmwCDXZgzy5FjvDGFkLEgWVoEociTfXz",
+    privateKey:
+      "2zFSMA9EHEuEfFNydcMehd8a11PjFwKdTTkHaXKEvoajSAKAMi1zny5Bob4eCgWYUNa7RTkkYydz6CBAS6eqGmLg",
+    tags: [
+      "Ed25519VerificationKey2018",
+      "did:example:456",
+      "did:key:z6MkwXfL6VeokmseuGmtu6XXr4dFZVV7fdabNXQj55ajNtKN"
+    ],
+    notes: "Created with did:key",
+    kid: "Wer8LMAAQgUAmj78VhIVwVs3pmn7fPNLf_09_jPgQHk"
   }
 ];
 

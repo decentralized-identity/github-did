@@ -1,6 +1,4 @@
 // eslint-disable-next-line
-process.env.FIREBASE_CONFIG = 'none';
-// eslint-disable-next-line
 const request = require('supertest');
 
 const app = require('../../app');

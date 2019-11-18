@@ -30,7 +30,7 @@ router.get('/', async (req, res, next) => {
   try {
     const result = {
       version: packageJson.version,
-      commit,
+      commit
     };
     res.status(200).json(result);
   } catch (e) {
