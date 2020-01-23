@@ -1,4 +1,4 @@
-# Element DID method specification
+# Github DID method specification
 
 The `github` method is meant to make working with DIDs very simple at the cost of trusting Github.com for assisting in resolving DID Documents.
 
