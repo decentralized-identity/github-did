@@ -179,6 +179,14 @@ npm run lint
 npm run test
 ```
 
+If you encounter the error `fatal error: 'vips/vips8' file not found` while installing the `/docs` package, you may need to install vips globally.
+
+On MacOS:
+
+```
+brew install vips
+```
+
 ##### [Local API Docs](http://localhost:5000/github-did/us-central1/main/docs)
 
 ##### [API Docs](http://github-did.com/api/docs)
