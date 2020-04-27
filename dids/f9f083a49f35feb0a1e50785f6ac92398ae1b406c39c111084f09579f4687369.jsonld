@@ -1,0 +1,26 @@
+{
+  "@context": "https://w3id.org/did/v1",
+  "id": "did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369",
+  "publicKey": [
+    {
+      "id": "did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369#kid=f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369",
+      "type": "OpenPgpSignature2019",
+      "owner": "did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369",
+      "publicKeyPem": "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nxk8EXIrXCBMFK4EEAAoCAwSWZlUAbp60SfCZkuzRIOI1RsO2em3GJN/J0AOv\r\nLhNMmQChyE9qTHnoDQ0OvtfaDztWjOLV0QQKgoNaKtMzSFBIzQDCdwQQEwgA\r\nHwUCXIrXCAYLCQcIAwIEFQgKAgMWAgECGQECGwMCHgEACgkQ0H4UNPV1YMR3\r\n5QEArh6K+mvaJ7FkU06x9UvrqjkLK5Wfod6yh/Bw4tc9CjsBAIhr5UUxxDaf\r\nXUemf2yvDOEtBBqPk3hhkRPumudmItaVzlMEXIrXCBIFK4EEAAoCAwS6rp/L\r\nw9kWh5XwfOxSCas019bR9LysUEBuFz3w2CoqEuKUDgACyib7MpmGQthEB8/E\r\nkoHFWKYnwijOMuBbn1RUAwEIB8JhBBgTCAAJBQJcitcIAhsMAAoJENB+FDT1\r\ndWDEO1UBALrJp7/CgrODgcRoxIEy2D2BRf/QCAZujLh+FViQGE/aAQDHkmlP\r\nbRasmYRKeL7bG6Tpk6aNYP6IVfKLBRUefcfL1w==\r\n=gsE1\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n"
+    }
+  ],
+  "authentication": [
+    {
+      "publicKey": "did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369#kid=f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369",
+      "type": "OpenPgpSignature2019"
+    }
+  ],
+  "proof": {
+    "type": "OpenPgpSignature2019",
+    "creator": "did:ghdid:gjgd~github-did~f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369#kid=f9f083a49f35feb0a1e50785f6ac92398ae1b406c39c111084f09579f4687369",
+    "domain": "github-did",
+    "nonce": "7034bc2b224b11f81eb3b938dbab0273",
+    "created": "2019-03-14T22:34:49.461Z",
+    "signatureValue": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.4.7\r\nComment: https://openpgpjs.org\r\n\r\nwl4EARMIAAYFAlyK1woACgkQ0H4UNPV1YMTgGAEAkoNlszIkeSwG7pPHCZBA\r\nc456b34OE3EcVSqIQh9S0OYBAKhW5H7jA+KuP/mgNCFMBslGxtsOVumwwIGs\r\ndGePGIq4\r\n=9EHq\r\n-----END PGP SIGNATURE-----\r\n"
+  }
+}
