@@ -18,4 +18,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: make install
+        run: |
+          npm i
+          npm run bootstrap
