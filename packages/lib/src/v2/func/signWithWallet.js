@@ -18,7 +18,7 @@ const signWithWallet = async (data, did, kid, wallet) => {
 
     const publicKeyId = createPublicKeyIDFromDIDAndKey(did, wallet.keys[kid]);
 
-    const didDoc = createDIDDoc(wallet, {
+    const didDoc = await createDIDDoc(wallet, {
       includeKeysWithTags: [did],
       id: did
     });
