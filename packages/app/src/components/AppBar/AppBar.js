@@ -74,8 +74,16 @@ class ResponsiveDrawer extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Github DID
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                window.location.href = '/';
+              }}
+            >
+              GitHub DID
             </Typography>
           </Toolbar>
         </AppBar>

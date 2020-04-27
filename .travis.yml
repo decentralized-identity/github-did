@@ -1,14 +1,12 @@
 language: node_js
-node_js:
-  - "8"
 
-cache: npm
+node_js:
+  - '10'
 
 install:
   - npm i
   - npm run bootstrap
 
 script:
-  - npm run lint
   - npm run test
   - npm run codecov

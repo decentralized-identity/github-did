@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+
+import PropTypes from "prop-types";
 
 // eslint-disable-next-line
-import brace from 'brace';
-import AceEditor from 'react-ace';
+import brace from "brace";
+import AceEditor from "react-ace";
 
 // eslint-disable-next-line
-import 'brace/mode/json';
+import "brace/mode/json";
 // eslint-disable-next-line
-import 'brace/theme/github';
+import "brace/theme/github";
 
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import FormControl from "@material-ui/core/FormControl";
 
 import {
   // Paper,
@@ -27,19 +23,19 @@ import {
   // FormGroup,
   // FormControlLabel,
   // Switch,
-  TextField,
+  TextField
   // Chip,
-} from '@material-ui/core';
-import { namedWhitelist } from '../../constants';
+} from "@material-ui/core";
+import { namedWhitelist } from "../../constants";
 
-const base64url = require('base64url');
+const base64url = require("base64url");
 
 class DIDVerifer extends Component {
   state = {
-    jsonEditorValue: '',
+    jsonEditorValue: "",
     labelWidth: 0,
-    kid: '',
-    creator: namedWhitelist[0].did,
+    kid: "",
+    creator: namedWhitelist[0].did
   };
 
   componentWillMount() {
@@ -47,10 +43,14 @@ class DIDVerifer extends Component {
 
     const jsonPayload = JSON.parse(base64url.decode(payload));
 
+    const verificationMethod = jsonPayload.proof.verificationMethod
+      ? jsonPayload.proof.verificationMethod
+      : jsonPayload.proof.creator;
+
     this.setState({
       jsonEditorValue: JSON.stringify(jsonPayload, null, 2),
-      creator: jsonPayload.proof.creator.split('#kid=')[0],
-      kid: jsonPayload.proof.creator.split('#kid=')[1],
+      creator: verificationMethod.split("#")[0],
+      kid: verificationMethod.split("#")[1]
     });
 
     setTimeout(() => {
@@ -58,21 +58,12 @@ class DIDVerifer extends Component {
     }, 500);
   }
 
-  componentDidMount() {
-    this.setState({
-      // eslint-disable-next-line
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-  }
-
   handleVerify = () => {
     this.props.verify({ signedData: JSON.parse(this.state.jsonEditorValue) });
   };
 
   render() {
-    const { wallet } = this.props;
-    const { data } = wallet;
-    const { jsonEditorValue, creator } = this.state;
+    const { jsonEditorValue, creator, kid } = this.state;
 
     const Header = () => <Typography variant="h5">Verify Payload</Typography>;
 
@@ -86,11 +77,11 @@ class DIDVerifer extends Component {
             <AceEditor
               mode="json"
               theme="github"
-              style={{ width: '100%' }}
-              onChange={(newValue) => {
+              style={{ width: "100%" }}
+              onChange={newValue => {
                 // console.log('change', newValue);
                 this.setState({
-                  jsonEditorValue: newValue,
+                  jsonEditorValue: newValue
                 });
               }}
               name="signatureEditor"
@@ -101,7 +92,11 @@ class DIDVerifer extends Component {
           <Grid item xs={4}>
             <form noValidate autoComplete="off">
               <FormControl fullWidth>
-                <Button variant="contained" color={'primary'} onClick={this.handleVerify}>
+                <Button
+                  variant="contained"
+                  color={"primary"}
+                  onClick={this.handleVerify}
+                >
                   Verify
                 </Button>
               </FormControl>
@@ -111,9 +106,9 @@ class DIDVerifer extends Component {
                   disabled
                   label="DID"
                   value={creator}
-                  onChange={(event) => {
+                  onChange={event => {
                     this.setState({
-                      creator: event.target.value,
+                      creator: event.target.value
                     });
                   }}
                   fullWidth
@@ -121,37 +116,17 @@ class DIDVerifer extends Component {
                   variant="outlined"
                 />
               </FormControl>
+
               <br />
-              <br />
-              <FormControl variant="outlined" fullWidth disabled>
-                <InputLabel
-                  ref={(ref) => {
-                    this.InputLabelRef = ref;
-                  }}
-                  htmlFor="outlined-age-simple"
-                >
-                  Key ID
-                </InputLabel>
-                <Select
-                  value={this.state.kid}
-                  onChange={this.handleChange}
-                  input={
-                    <OutlinedInput
-                      labelWidth={this.state.labelWidth}
-                      name="kid"
-                      id="outlined-kid-simple"
-                    />
-                  }
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {Object.keys(data.keystore).map(kid => (
-                    <MenuItem key={kid} value={kid}>
-                      {`${kid.substring(0, 8)}...`}
-                    </MenuItem>
-                  ))}
-                </Select>
+              <FormControl variant="outlined" fullWidth>
+                <TextField
+                  disabled
+                  label="Key ID"
+                  value={kid}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                />
               </FormControl>
             </form>
           </Grid>
@@ -165,7 +140,7 @@ DIDVerifer.propTypes = {
   wallet: PropTypes.object.isRequired,
   payload: PropTypes.string.isRequired,
   verify: PropTypes.func.isRequired,
-  snackbarMessage: PropTypes.func.isRequired,
+  snackbarMessage: PropTypes.func.isRequired
 };
 
 export default DIDVerifer;

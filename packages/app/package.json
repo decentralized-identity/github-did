@@ -1,11 +1,11 @@
 {
   "name": "@github-did/app",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "private": true,
   "homepage": "https://github-did.com",
   "license": "Apache-2.0",
   "dependencies": {
-    "@github-did/lib": "0.0.1",
+    "@github-did/lib": "^0.0.3",
     "@material-ui/core": "^3.8.3",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
@@ -22,6 +22,7 @@
     "react-ace": "^6.3.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "~16.5.0",
+    "react-ga": "^2.5.7",
     "react-particles-js": "^2.4.2",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
@@ -37,11 +38,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' react-scripts build",
     "test": "react-scripts test --coverage",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext js src",
-    "lint-fix": "eslint -ext js --fix src"
+    "deploy": "firebase deploy --only hosting",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,10 +53,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "babel-eslint": "^9.0.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.1.2",
-    "eslint-plugin-react": "^7.11.1"
+    "firebase-tools": "^7.7.0"
   }
 }

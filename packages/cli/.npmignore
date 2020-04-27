@@ -1,0 +1,4 @@
+scripts
+__attic
+setupJest.js
+**/*.spec.js

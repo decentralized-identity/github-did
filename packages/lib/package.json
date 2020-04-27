@@ -1,24 +1,30 @@
 {
   "name": "@github-did/lib",
-  "version": "0.0.1",
-  "description": "Github DID Library",
+  "version": "0.0.3",
+  "description": "GitHub DID Library",
   "main": "./src/index.js",
   "scripts": {
     "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/transmute-industries/github-did.git"
+    "url": "git+https://github.com/decentralized-identity/github-did.git"
   },
   "author": "Orie Steele",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/transmute-industries/github-did/issues"
+    "url": "https://github.com/decentralized-identity/github-did/issues"
   },
-  "homepage": "https://github.com/transmute-industries/github-did#readme",
+  "homepage": "https://github.com/decentralized-identity/github-did#readme",
   "dependencies": {
+    "@transmute/did-wallet": "0.0.0-5",
     "@transmute/openpgpsignature2019": "^0.1.1",
-    "@transmute/transmute-did": "1.1.8",
+    "@transmute/rsasignature2017": "^0.1.0",
+    "crypto-ld": "^3.7.0",
+    "did-method-key": "^0.2.0",
+    "jsonld-signatures": "^4.4.0",
+    "jsonwebtoken": "^8.5.0",
+    "moment": "^2.24.0",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",
     "uuid": "^3.3.2"

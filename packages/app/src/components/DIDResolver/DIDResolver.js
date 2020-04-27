@@ -7,8 +7,6 @@ import {
 
 import { GithubDIDDocument } from '../index';
 
-import { namedWhitelist } from '../../constants';
-
 const styles = theme => ({
   progress: {
     margin: `${theme.spacing.unit * 2}px auto`,
@@ -17,7 +15,7 @@ const styles = theme => ({
 
 class DIDResolver extends Component {
   state = {
-    currentDID: namedWhitelist[0].did,
+    currentDID: 'did:github:OR13',
   };
 
   safeResolve = () => {
@@ -33,9 +31,9 @@ class DIDResolver extends Component {
 
     return (
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={11}>
+        <Grid item xs={12} sm={10}>
           <TextField
-            label="Github DID Resolver"
+            label="GitHub DID Resolver"
             value={currentDID}
             fullWidth
             onChange={(event) => {
@@ -46,7 +44,7 @@ class DIDResolver extends Component {
             margin="normal"
           />
         </Grid>
-        <Grid item xs={12} sm={1}>
+        <Grid item xs={12} sm={2}>
           <Button
             style={{ marginTop: '28px' }}
             fullWidth

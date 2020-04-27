@@ -76,7 +76,7 @@ class Landing extends Component {
     const { mobile, isCarouselOpen } = this.state;
     return (
       <Pages.WithNavigation>
-        <Typography variant="h2">Welcome to Github DID</Typography>
+        <Typography variant="h2">Welcome to GitHub DID</Typography>
         <br />
         <Typography variant="body1">
           {`Decentralized Identifiers (DIDs) are a new type of identifier for verifiable,
@@ -91,11 +91,12 @@ class Landing extends Component {
           trusted interactions with the DID subject.`}
         </Typography>
         <br />
+        <br />
         <div>
           <Button
             variant="contained"
             onClick={() => {
-              window.open('https://github.com/transmute-industries/github-did');
+              window.open('https://github.com/decentralized-identity/github-did');
             }}
           >
             Read More on Github.com
@@ -104,6 +105,59 @@ class Landing extends Component {
             Start Tour
           </Button>
         </div>
+        <br />
+        <br />
+
+        <Typography variant="h4">{'Getting Started'}</Typography>
+        <br />
+
+        <Typography variant="body1">
+          First, go to{' '}
+          <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">
+            github.com
+          </a>{' '}
+          and create a new public repository called `ghdid`.
+        </Typography>
+        <Typography variant="body1">
+          When complete you should end on a page like: https://github.com/USERNAME/ghdid
+        </Typography>
+
+        <br />
+
+        <Typography variant="h4">{'Create your DID'}</Typography>
+        <br />
+
+        <pre>
+          {`
+npm i -g @github-did/cli
+ghdid init "my-password" https://github.com/USERNAME/ghdid
+# if you need to revoke all / reset your DID
+ghdid init "my-password" https://github.com/USERNAME/ghdid --force
+          `}
+        </pre>
+
+        <br />
+
+        <Typography variant="body1">
+          You should now have a DID visible at:
+          https://raw.githubusercontent.com/USERNAME/ghdid/master/index.jsonld
+        </Typography>
+
+        <br />
+
+        <Typography variant="body1">
+          Head over to the wallet page to import your web wallet and continue the demo.
+        </Typography>
+        <br />
+        <Button
+          variant="contained"
+          color={'primary'}
+          onClick={() => {
+            window.location.href = '/wallet';
+          }}
+        >
+          Open Wallet
+        </Button>
 
         <AutoRotatingCarousel
           label="Get started"
@@ -181,7 +235,7 @@ class Landing extends Component {
             mediaBackgroundStyle={{ backgroundColor: grey[700], padding: '32px' }}
             style={{ backgroundColor: grey[800] }}
             title="Under Construction!"
-            subtitle="Github DID is experimental, be careful and have fun!"
+            subtitle="GitHub DID is experimental, be careful and have fun!"
           />
         </AutoRotatingCarousel>
       </Pages.WithNavigation>

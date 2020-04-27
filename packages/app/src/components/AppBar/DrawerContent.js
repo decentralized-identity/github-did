@@ -46,14 +46,27 @@ const DrawerContent = ({ classes }) => (
     <MenuSection
       items={[
         {
-          label: 'Source',
+          label: 'App Docs',
           icon: <Code />,
-          link: 'https://github.com/transmute-industries/github-did',
+          link: 'https://docs.github-did.com',
+        },
+        {
+          label: 'API Docs',
+          icon: <Code />,
+          link:
+            window.location.hostname === 'localhost'
+              ? 'http://localhost:5000/github-did/us-central1/main/docs'
+              : 'https://github-did.com/api/docs',
         },
         {
           label: 'Credits',
           icon: <Star />,
           link: '/credits',
+        },
+        {
+          label: 'Source',
+          icon: <Code />,
+          link: 'https://github.com/decentralized-identity/github-did',
         },
       ]}
     />

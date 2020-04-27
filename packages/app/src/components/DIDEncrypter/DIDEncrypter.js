@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line
@@ -11,11 +11,7 @@ import 'brace/mode/json';
 // eslint-disable-next-line
 import 'brace/theme/github';
 
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import {
   // Paper,
@@ -30,35 +26,30 @@ import {
   TextField,
   // Chip,
 } from '@material-ui/core';
-import { namedWhitelist } from '../../constants';
 
 const base64url = require('base64url');
 
 class DIDEncrypter extends Component {
   state = {
     jsonEditorValue: '',
-    labelWidth: 0,
-    fromKeyId: '',
-    password: 'password',
-    fromDID: namedWhitelist[0].did,
+    fromPublicKeyId: '',
+    toPublicKeyId: '',
   };
 
   componentWillMount() {
-    const { wallet, payload } = this.props;
+    const { payload } = this.props;
 
-    if (wallet.data.keystore.nonce === undefined) {
-      const kid = `${namedWhitelist[0].did}#kid=${Object.keys(wallet.data.keystore)[0]}`;
-      this.setState({
-        fromKeyId: kid,
-        toKeyId: kid,
-      });
-    }
+    this.setState({
+      fromPublicKeyId: '',
+      toPublicKeyId: '',
+    });
 
     if (payload === 'new') {
       this.setState({
         jsonEditorValue: JSON.stringify(
           {
-            hello: 'world',
+            '@context': 'https://w3id.org/identity/v1',
+            givenName: 'Alice',
           },
           null,
           2,
@@ -77,37 +68,33 @@ class DIDEncrypter extends Component {
     }
   }
 
-  componentDidMount() {
-    this.setState({
-      // eslint-disable-next-line
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-  }
-
   handleEncrypt = () => {
-    const {
-      jsonEditorValue, fromKeyId, toKeyId, password,
-    } = this.state;
+    const { jsonEditorValue, fromPublicKeyId, toPublicKeyId } = this.state;
     this.props.encrypt({
-      fromKeyId,
-      toKeyId,
+      fromPublicKeyId,
+      toPublicKeyId,
       data: JSON.parse(jsonEditorValue),
-      password,
     });
   };
 
   render() {
     const { wallet } = this.props;
     const { data } = wallet;
-    const {
-      jsonEditorValue, fromDID, fromKeyId, toKeyId, password,
-    } = this.state;
+    const { jsonEditorValue, fromPublicKeyId, toPublicKeyId } = this.state;
 
     const Header = () => {
-      if (data.keystore.nonce !== undefined) {
+      if (data.keys === undefined) {
         return <Typography variant="h5">You must unlock a wallet to encrypt.</Typography>;
       }
-      return <Typography variant="h5">Encrypt Payload</Typography>;
+      return (
+        <div>
+          <Typography variant="h5">Encrypt Payload</Typography>
+          <Typography variant="body1">
+            Use the Resolver, copy your second public key id and past it into from. Do the same for
+            to. You can use your own public key id for both as well.
+          </Typography>
+        </div>
+      );
     };
 
     return (
@@ -142,43 +129,12 @@ class DIDEncrypter extends Component {
               <br />
               <br />
               <FormControl variant="outlined" fullWidth>
-                <InputLabel
-                  ref={(ref) => {
-                    this.InputLabelRef = ref;
-                  }}
-                  htmlFor="outlined-age-simple"
-                >
-                  From Key ID
-                </InputLabel>
-                <Select
-                  value={fromKeyId}
-                  onChange={this.handleChange}
-                  input={
-                    <OutlinedInput
-                      labelWidth={this.state.labelWidth}
-                      name="fromKeyId"
-                      id="outlined-fromKeyId-simple"
-                    />
-                  }
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {Object.keys(data.keystore).map(kid => (
-                    <MenuItem key={kid} value={`${fromDID}#kid=${kid}`}>
-                      {`${kid.substring(0, 8)}...`}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <FormControl variant="outlined" fullWidth>
                 <TextField
-                  label="To Key Id"
-                  value={toKeyId}
+                  label="From Public Key ID"
+                  value={fromPublicKeyId}
                   onChange={(event) => {
                     this.setState({
-                      toKeyId: event.target.value,
+                      fromPublicKeyId: event.target.value,
                     });
                   }}
                   fullWidth
@@ -189,12 +145,11 @@ class DIDEncrypter extends Component {
 
               <FormControl variant="outlined" fullWidth>
                 <TextField
-                  label="PGP Key Password"
-                  type="password"
-                  value={password}
+                  label="To Public Key ID"
+                  value={toPublicKeyId}
                   onChange={(event) => {
                     this.setState({
-                      password: event.target.value,
+                      toPublicKeyId: event.target.value,
                     });
                   }}
                   fullWidth
