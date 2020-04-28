@@ -36,15 +36,8 @@ module.exports = vorpal => {
         const cwd = process.cwd();
         const repoPath = path.resolve(os.homedir(), ".github-did", repo);
         // Check for existing ghdid repo
-        let cmd = `cd ${repoPath}; git pull`;
+        let cmd = `cd ${repoPath} && git pull`;
         const existingResult = shell.exec(cmd, { silent: true });
-
-        if (existingResult.code !== 0) {
-          await vorpal.logger.log({
-            level: "error",
-            message: `Command failed: ${cmd}:\n${existingResult.stderr}`
-          });
-        }
 
         let error = false;
         if (existingResult.code !== 0) {
