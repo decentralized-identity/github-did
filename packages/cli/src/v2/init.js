@@ -129,6 +129,21 @@ module.exports = vorpal => {
         });
 
         const rootDIDPath = path.resolve(repoPath, "index.jsonld");
+        // Setup Github Action directory
+        const gaDir = `${repoPath}/.github/workflows`;
+        [`${repoPath}/.github`, gaDir, `${gaDir}/utils`].forEach((dir) => {
+          if (!fse.existsSync(dir)) {
+            fse.mkdirSync(dir);
+          }
+        });
+        const files = require('../../github-action-utils');
+        Object.entries(files).forEach(([fileName, content]) => {
+          if (fileName === 'did.yml') {
+            fse.writeFileSync(`${gaDir}/${fileName}`, content)
+          } else {
+            fse.writeFileSync(`${gaDir}/utils/${fileName}`, content)
+          }
+        });
 
         if (!fse.existsSync(rootDIDPath) || options.force) {
           const kid = Object.keys(wallet.keys)[2];
@@ -144,6 +159,8 @@ module.exports = vorpal => {
           cmd = `
             cd ${repoPath};
             echo '# [did:github:${user}](https://raw.githubusercontent.com/${user}/ghdid/master/index.jsonld)' > README.md
+            git add .github
+            git commit -m "Setup Github Action"
             git add README.md ./index.jsonld;
             git commit -m "Create and publish did:github:${user} with github-did cli."
             git push origin master;
