@@ -36,15 +36,8 @@ module.exports = vorpal => {
         const cwd = process.cwd();
         const repoPath = path.resolve(os.homedir(), ".github-did", repo);
         // Check for existing ghdid repo
-        let cmd = `cd ${repoPath}; git pull`;
+        let cmd = `cd ${repoPath} && git pull`;
         const existingResult = shell.exec(cmd, { silent: true });
-
-        if (existingResult.code !== 0) {
-          await vorpal.logger.log({
-            level: "error",
-            message: `Command failed: ${cmd}:\n${existingResult.stderr}`
-          });
-        }
 
         let error = false;
         if (existingResult.code !== 0) {
@@ -129,6 +122,21 @@ module.exports = vorpal => {
         });
 
         const rootDIDPath = path.resolve(repoPath, "index.jsonld");
+        // Setup Github Action directory
+        const gaDir = `${repoPath}/.github/workflows`;
+        [`${repoPath}/.github`, gaDir, `${gaDir}/utils`].forEach((dir) => {
+          if (!fse.existsSync(dir)) {
+            fse.mkdirSync(dir);
+          }
+        });
+        const files = require('../../github-action-utils');
+        Object.entries(files).forEach(([fileName, content]) => {
+          if (fileName === 'did.yml') {
+            fse.writeFileSync(`${gaDir}/${fileName}`, content)
+          } else {
+            fse.writeFileSync(`${gaDir}/utils/${fileName}`, content)
+          }
+        });
 
         if (!fse.existsSync(rootDIDPath) || options.force) {
           const kid = Object.keys(wallet.keys)[2];
@@ -144,6 +152,8 @@ module.exports = vorpal => {
           cmd = `
             cd ${repoPath};
             echo '# [did:github:${user}](https://raw.githubusercontent.com/${user}/ghdid/master/index.jsonld)' > README.md
+            git add .github
+            git commit -m "Setup Github Action"
             git add README.md ./index.jsonld;
             git commit -m "Create and publish did:github:${user} with github-did cli."
             git push origin master;

@@ -1,0 +1,39 @@
+name: DID
+on:
+  push:
+    branches:
+      - master
+jobs:
+  sign-if-proof-is-invalid:
+    name: Verify proof and recreates it if invalid
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          cd .github/workflows/utils
+          npm i
+      - name: Verify signature and sign if not valid
+        run: |
+          cd .github/workflows/utils
+          node did.js
+        env:
+          DID_WALLET: ${{ secrets.DID_WALLET }}
+          DID_WALLET_PASSWORD: ${{ secrets.DID_WALLET_PASSWORD }}
+      - name: Commit new changes
+        run: |
+          if ! git diff --no-ext-diff --quiet --exit-code; then
+            git add index.jsonld
+            git config --local user.email "github@github.github"
+            git config --local user.name "Github DID Bot"
+            git commit -a -m "[Automatic] Sign Did Document"
+            git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+            git push github HEAD:${GITHUB_REF}
+          fi

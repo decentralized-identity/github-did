@@ -68,6 +68,17 @@ Your DID Document will be:
 
 It will be commited and push automatically by `init`.
 
+
+## Using the auto signer Github Action
+
+The auto signer Github action will check the `proof` property of the did document for every commit on `master`, verify the validity of the signature, and automatically commit a valid `proof` property if necessary.
+
+In order to use it, you need to set your wallet and password in the Github secrets of your repo: Settings -> Secrets Add a new secret and add two secrets:
+- DID_WALLET: `cat ~/.github-did/web.wallet.enc | pbcopy` in order to copy the valud
+- DID_WALLET_PASSWORD: the password you passed in the init command
+
+## Resolve
+
 Now that your `DID Document` is on Github in the correct repo, you can use the `github` did method resolver, and linked data signature verification libraries.
 
 ```
