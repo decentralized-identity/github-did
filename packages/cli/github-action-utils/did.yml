@@ -30,7 +30,7 @@ jobs:
       - name: Commit new changes
         run: |
           if ! git diff --no-ext-diff --quiet --exit-code; then
-            git add .
+            git add index.jsonld
             git config --local user.email "github@github.github"
             git config --local user.name "Github DID Bot"
             git commit -a -m "[Automatic] Sign Did Document"
