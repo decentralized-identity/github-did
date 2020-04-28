@@ -1,6 +1,6 @@
 {
   "name": "@github-did/api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Cloud Functions for GitHub DID",
   "author": "Orie Steele",
   "license": "Apache-2.0",
@@ -13,7 +13,7 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "@github-did/lib": "^0.0.4",
+    "@github-did/lib": "^0.0.5",
     "@google-cloud/logging-winston": "^0.10.2",
     "cors": "^2.8.5",
     "express": "^4.16.4",
