@@ -2,7 +2,7 @@ name: Run CI
 on:
   push:
     branches:
-      - use-github-action-for-ci
+      - master
 
 jobs:
   run-tests:
