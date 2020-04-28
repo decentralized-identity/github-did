@@ -18,7 +18,7 @@ const wrappedDocumentLoader = args => {
 
     if (url.startsWith("https://w3id.org/did/v1")) {
       return documentLoader(
-        "https://raw.githubusercontent.com/w3c/did-core/master/contexts/did-v0.11.jsonld"
+        "https://raw.githubusercontent.com/w3c-ccg/did-spec/gh-pages/contexts/did-v0.11.jsonld"
       );
     }
 
