@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/decentralized-identity/github-did.svg?branch=master)](https://travis-ci.org/decentralized-identity/github-did) [![codecov](https://codecov.io/gh/decentralized-identity/github-did/branch/master/graph/badge.svg)](https://codecov.io/gh/decentralized-identity/github-did) [![Docs](https://assets.readthedocs.org/static/projects/badges/passing-flat.svg)](https://docs.github-did.com) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/decentralized-identity/github-did/blob/master/LICENSE) [![GitHub forks](https://img.shields.io/github/forks/decentralized-identity/github-did.svg?style=social&label=Fork&maxAge=2592000?style=flat-square)](https://github.com/decentralized-identity/github-did#fork-destination-box) [![GitHub stars](https://img.shields.io/github/stars/decentralized-identity/github-did.svg?style=social&label=Star&maxAge=2592000?style=flat-square)](https://github.com/decentralized-identity/github-did/stargazers)
 
-### [DID method specification](./packages/docs/did-method-spec/spec.md)
+### [DID method specification](./docs/did-method-spec/index.md)
 
 ### [Website](https://github-did.com)
 
