@@ -1,7 +1,5 @@
-# Github DID Docs
+### [Did Method Specification](./did-method-spec)
 
-## [Did Method Specification](./did-method-spec)
+### [Posts](./posts)
 
-## [Posts](./posts)
-
-## [Tutorials](./tutorials)
+### [Tutorials](./tutorials)
