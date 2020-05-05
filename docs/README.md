@@ -1,3 +1,7 @@
-# Test
+# Github DID Docs
 
-Hello
+## [Did Method Specification](./did-method-spec)
+
+## [Posts](./posts)
+
+## [Tutorials](./tutorials)
