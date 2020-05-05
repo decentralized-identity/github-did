@@ -1,3 +1,3 @@
 ### [Getting started](./getting-started)
 
-### [Using the CLI](./using-the-cli)
+### [Using the ghdid cli](./using-the-cli)

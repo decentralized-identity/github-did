@@ -2,4 +2,4 @@
 
 ### [Moving to DIF](./moving-to-dif)
 
-### [V2](./v2)
+### [V2... Even More Centralized](./v2)
