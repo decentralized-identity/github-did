@@ -17,3 +17,9 @@ GitHub DID is an experimental tool for developing and testing the Decentralized 
 - [DID spec](https://w3c-ccg.github.io/did-spec/)
 - [LD Proofs](https://w3c-ccg.github.io/ld-proofs/)
 - [Credentials](https://w3c.github.io/vc-data-model/)
+
+## Contact Transmute
+
+- [Medium](https://medium.com/@Transmute)
+- [Twitter](https://twitter.com/TransmuteNews)
+- [Corporate Website](https://transmute.industries)
