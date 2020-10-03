@@ -89,7 +89,7 @@ module.exports = async (wallet, options) => {
       publicKeyBase58: walletKey.publicKey,
       privateKeyBase58: walletKey.privateKey
     });
-    const didDoc = keyToDidDoc(edKey);
+    const didDoc = await keyToDidDoc(edKey);
 
     doc.keyAgreement = didDoc.keyAgreement;
     doc.keyAgreement[0].controller = doc.id;
