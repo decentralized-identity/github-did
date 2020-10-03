@@ -21,7 +21,7 @@
     "@transmute/openpgpsignature2019": "^0.1.1",
     "@transmute/rsasignature2017": "^0.1.0",
     "crypto-ld": "^3.7.0",
-    "did-method-key": "^0.2.0",
+    "did-method-key": "^0.7.0",
     "jsonld-signatures": "^4.4.0",
     "jsonwebtoken": "^8.5.0",
     "moment": "^2.24.0",
