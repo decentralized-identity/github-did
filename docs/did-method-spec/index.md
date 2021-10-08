@@ -38,11 +38,11 @@ https://raw.githubusercontent.com/USERNAME/ghdid/master/index.jsonld
 
 ### Update
 
-In order to update a did document, a Github MUST update the `index.jsonld` file on the `master` branch of their `ghdid` repo
+In order to update a did document, a Github user MUST update the `index.jsonld` file on the `master` branch of their `ghdid` repo
 
 ### Delete
 
-In order to delete a did document, a Github MUST delete the `index.jsonld` file on the `master` branch of their `ghdid` repo
+In order to delete a did document, a Github user MUST delete the `index.jsonld` file on the `master` branch of their `ghdid` repo
 
 ## Security and privacy considerations
 
