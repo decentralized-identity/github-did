@@ -15,7 +15,7 @@
     "history": "^4.7.2",
     "lodash": "^4.17.4",
     "material-auto-rotating-carousel": "^3.0.1",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "prop-types": "^15.5.4",
     "qrcode.react": "^0.8.0",
     "react": "^16.5.2",
