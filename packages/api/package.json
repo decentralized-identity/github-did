@@ -16,7 +16,7 @@
     "@github-did/lib": "^0.0.5",
     "@google-cloud/logging-winston": "^0.10.2",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "firebase": "^5.7.3",
     "firebase-admin": "^8.7.0",
     "morgan": "^1.9.1",
