@@ -23,7 +23,7 @@
     "crypto-ld": "^3.7.0",
     "did-method-key": "^0.2.0",
     "jsonld-signatures": "^4.4.0",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.24.0",
     "node-fetch": "^2.3.0",
     "openpgp": "^4.4.3",
