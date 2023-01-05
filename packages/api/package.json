@@ -37,7 +37,7 @@
     "eslint-plugin-security": "^1.4.0",
     "firebase-functions": "^3.3.0",
     "firebase-tools": "^7.7.0",
-    "jest": "^23.6.0",
+    "jest": "^29.3.1",
     "supertest": "^4.0.2"
   },
   "jest": {
